@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Course Search</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
+        <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    </head>
+
+    <body style="margin-bottom:35px;">
+
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container" style="height:80px;">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"><img src="Logo.png" style="width:325px;"></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html" style="color:#004684;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+            <div class="container-fluid" style="background:#004684;">
+                <div class="container">
+                    <div class="navbar-header welcome-message">
+                        Welcome, Student!
+                    </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="profile.html">Student Profile</a></li>
+                    <li class="active"><a href="search.html">Course Search</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li><a href="financial.html">Financial Aid</a></li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <h1>Course Search</h1>
+            <p style="margin-bottom:35px;">Search for courses by entering your criteria below.</p>
+
+            <form action="results.html">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Semester</label>
+                            <select class="form-control">
+                              <option disabled selected value></option>
+                              <option>Spring 2019</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select class="form-control">
+                              <option disabled selected value></option>
+                              <option>Computer Systems Technology</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Course Number</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label>Course Title</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Course Environment</label>
+                            <select class="form-control">
+                              <option disabled selected value></option>
+                              <option>On-Campus</option>
+                              <option>Online</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Credit Hours</label>
+                            <select class="form-control">
+                              <option disabled selected value></option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Instructor</label>
+                            <select class="form-control">
+                              <option disabled selected value></option>
+                              <option>Angela Lemons</option>
+                              <option>Anthony Joyner</option>
+                              <option>Dewayne Brown</option>
+                              <option>Evelyn Sowells</option>
+                              <option>Gina Bullock</option>
+                              <option>Karreem Hogan</option>
+                              <option>Kathryn Moland</option>
+                              <option>Li-Shiang Tsay</option>
+                              <option>Mariama Oumarou-Sidibe</option>
+                              <option>Peter Udo</option>
+                              <option>Radhika Radhakrishnan</option>
+                              <option>Rahmira Rufus</option>
+                              <option>Qingan Zeng</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Course Level</label>
+                            <select class="form-control">
+                              <option disabled selected value></option>
+                              <option>Undergraduate</option>
+                              <option>Graduate</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Meeting Days</label><br>
+                            <input type="checkbox"> Monday
+                            <input type="checkbox" style="margin-left:25px;"> Tuesday
+                            <input type="checkbox" style="margin-left:25px;"> Wednesday
+                            <input type="checkbox" style="margin-left:25px;"> Thursday
+                            <input type="checkbox" style="margin-left:25px;"> Friday
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Meeting Times</label>
+                            <select class="form-control">
+                              <option disabled selected value></option>
+                              <option>8:00am</option>
+                              <option>9:00am</option>
+                              <option>10:00am</option>
+                              <option>11:00am</option>
+                              <option>12:00pm</option>
+                              <option>1:00pm</option>
+                              <option>2:00pm</option>
+                              <option>3:00pm</option>
+                              <option>4:00pm</option>
+                              <option>5:00pm</option>
+                              <option>6:00pm</option>
+                              <option>7:00pm</option>
+                              <option>8:00pm</option>
+                              <option>9:00pm</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-default">Submit</button>
+
+            </form>
+
+        </div>
+
+    </body>
+
+</html>
