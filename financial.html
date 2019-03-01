@@ -1,21 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
+    
     <head>
         <title>Financial Aid</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="favicon.ico" type="image/png" sizes="16x16">
         <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
+		<script type="text/javascript">
+			function getText() {
+			    var x = document.getElementById("choice").value;
+                document.getElementById("option").innerHTML = "For the Award Year " +x+ ": You have no Holds"
+			}
+		</script>
+
     </head>
-
+    
     <body>
-
+        
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container" style="height:80px;">
                 <div class="navbar-header">
@@ -40,7 +48,80 @@
                 </div>
             </div>
         </nav>
-
+        <div class="container">
+            <h1>Financial Aid Award</h1>
+            <form action="FinAidResults.html">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group"  name="award">
+                            <label>Semester</label>
+                            <select id="choice" class="form-control" onchange="getText()">
+                              <option disabled selected value>Choose Award Year</option>
+                              <option value="2018 - 2019">2018 - 2019 Award Year</option>
+                              <option value="2019 - 2020">2019 - 2020 Award Year</option>
+                            </select>
+                        </div>
+						<div id="option">
+						</div>
+                    </div>
+                </div>
+            </form>
+            <h1>You are: Passing Satisfactory Progess Standards</h1>
+            <p>Your eligibility will be assessed after each Spring, based on you academic performance for each term, so check back after each semester to determine your current standing</p>          
+            <h1>Student Eligibility Progress</h1>
+            <p>There are several factors that are involved in calculating your federally required Satisfactory Academic Progress Standards</p>
+            
+            <table style="width:100%">
+                <th>
+                    <tr>
+                        <th>Cumulative GPA</th>
+                    </tr>
+                </th>
+                 <tbody>
+                    <tr>
+                        <td>To remain eligible, your GPA must remain at least 2.0 if you are an undergraduate and a 3.0, if you are a graduate.</td>
+                    </tr>
+                     <tr>
+                         <td>Congratulations your current UnderGraduate Cumulative GPA is <b>3.33</b>.</td>
+                     </tr>
+                 </tbody>
+                </table>
+                 <br />
+            <table style="width:100%">
+                <th>
+                    <tr>
+                        <th>Completion Rate Percentage</th>
+                    </tr>
+                </th>
+                 <tbody>
+                    <tr>
+                        <td>You must progress toward completion of your degree at a satisfactory rate by passing at least 67% of all attempted hours</td>
+                    </tr>
+                     <tr>
+                         <td>Congratulations your current Completion Rate Percentage is <b>97.52%</b>.</td>
+                     </tr>
+                  </tbody>
+            </table>
+            <br />
+             <table style="width:100%">
+                <th>
+                    <tr>
+                        <th>Attempted Hours Completed</th>
+                    </tr>
+                </th>
+                 <tbody>
+                    <tr>
+                        <td>Your total attempted hours must not exceed 150% of your degree. Most undergraduates complete their programs within 186 hours attempted</td>
+                    </tr>
+                     <tr>
+                         <td>You have attempted <b>121</b> hours in your current degree program, and you have earned <b>118</b>.</td>
+                     </tr>
+                  </tbody>
+            </table>
+            <br />
+        </div>
+           
     </body>
+</html>    
 
-</html>
+
