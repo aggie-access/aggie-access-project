@@ -12,6 +12,11 @@
   src: local('Proxima Nova Bold'), local('ProximaNova-Bold'), url(ProximaNova-Bold.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   font-family:Proxima Nova, sans-serif;
   font-weight:400;
@@ -21,6 +26,28 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight:700;
+}
+#outer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:url(university.jpg);
+  background-size:cover;
+}
+#container {
+  background-color: #fff;
+  padding: 25px;
+  width: 100%;
+  max-width: 550px;
+  position: absolute;
+  transform: translate(-50%, -37%);
+  left: 50%;top: 50%;
+  border-radius:5px;
+  box-shadow:0px 0px 5px #000;
+}
+#container h2 {
+  text-align:center;
+  margin-top:0;
 }
 label {
   font-size:18px;
@@ -62,18 +89,6 @@ label {
 }
 .navbar-right {
   margin-top:19px;
-}
-.login-form-container {
-  background:#fff;
-  position:relative;
-  width:35%;
-  border-radius:10px;
-  padding:0 25px 25px 25px;
-  box-shadow:0px 0px 5px #000;
-  margin-top:15%;
-}
-.login-form-container h2 {
-  text-align:center;
 }
 .row a {
   color:#004684;
