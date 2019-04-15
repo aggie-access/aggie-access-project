@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <title>Student Profile</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
+        <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#schedule').on('change', function() {
+                    if ( this.value == '1')
+                    {
+                        $("#schedule-1").show();
+                        $("#schedule-2").hide();
+                    }
+                    else
+                    {
+                        $("#schedule-1").hide();
+                        $("#schedule-2").show();
+                    }
+                });
+            });
+		</script>
+    </head>
+    
+    <body>
+        
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container" style="height:80px;">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"><img src="Logo.png" style="width:325px;"></a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.html" style="color:#004684;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+            </div>
+            <div class="container-fluid" style="background:#004684;">
+                <div class="container">
+                    <div class="navbar-header welcome-message">
+                        Welcome, Student!
+                    </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li class="active"><a href="profile.html">Student Profile</a></li>
+                    <li><a href="search.html">Course Search</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li><a href="financial.html">Financial Aid</a></li>
+                </ul>
+                </div>	
+            </div>
+        </nav>
+        
+        <div class="container">
+            
+            <h1>Student Profile</h1>
+            <p style="margin-bottom:35px;">Your student profile is where you can view all of your personal records, including your current academic status, your class schedule, and your academic transcript.</p>
+            
+            <h3>Personal Information</h3>
+            <p style="margin-bottom:20px;">This is you personal profile information that is included in the university's directory.</p>
+            
+            <table class="table table-striped" style="margin-bottom:35px;">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Aggie T. Bulldog</td>
+                        <td>1601 East Market Street, Greensboro, NC 27401</td>
+                        <td>(336) 334-7500</td>
+                        <td>email@ncat.edu</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Student Information</h3>
+            <p style="margin-bottom:20px;">This is your student profile information that is included in the university's directory.</p>
+            
+            <table class="table table-striped" style="margin-bottom:35px;">
+                <thead>
+                    <tr>
+                        <th>Level</th>
+                        <th>Classification</th>
+                        <th>College Affiliation</th>
+                        <th>Degree Type</th>
+                        <th>Major</th>
+                        <th>Graduation Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Undergraduate</td>
+                        <td>Freshman</td>
+                        <td>College of Science and Technology</td>
+                        <td>Bachelor of Science</td>
+                        <td>Information Technology</td>
+                        <td>2022</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Class Schedule</h3>
+            <p style="margin-bottom:20px;">Select a semester below to view your class schedule.</p>
+            
+            <form>
+                <div class="row" style="margin-bottom:10px;">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <select id="schedule" class="form-control">
+                              <option disabled selected value>Select Semester</option>
+                              <option value="1">Spring 2019</option>
+                              <option value="2">Fall 2018</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div id="schedule-1" style="display:none; margin-bottom:35px;">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>CRN</th>
+                            <th>Course</th>
+                            <th>Section</th>
+                            <th>Title</th>
+                            <th>Credits</th>
+                            <th>Instructor</th>
+                            <th>Type</th>
+                            <th>Days</th>
+                            <th>Times</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>21409</td>
+                            <td>CST 112</td>
+                            <td>002</td>
+                            <td>Electric Circuits I</td>
+                            <td>3.0</td>
+                            <td>William Bowen</td>
+                            <td>Campus</td>
+                            <td>TR</td>
+                            <td>9:00am - 10:15am</td>
+                            <td>Smith 4001</td>
+                        </tr>
+                        <tr>
+                            <td>22466</td>
+                            <td>CST 122</td>
+                            <td>003</td>
+                            <td>Electric Circuits I Lab</td>
+                            <td>1.0</td>
+                            <td>William Bowen</td>
+                            <td>Campus</td>
+                            <td>R</td>
+                            <td>1:00pm - 3:50pm</td>
+                            <td>Smith 4008</td>
+                        </tr>
+                        <tr>
+                            <td>21903</td>
+                            <td>CST 140</td>
+                            <td>05A</td>
+                            <td>Introduction to Computer Programming</td>
+                            <td>3.0</td>
+                            <td>Anthony Joyner</td>
+                            <td>Online</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>Blackboard</td>
+                        </tr>
+                        <tr>
+                            <td>21939</td>
+                            <td>CST 150</td>
+                            <td>001</td>
+                            <td>Introduction to Computer Programming Lab</td>
+                            <td>1.0</td>
+                            <td>Angela Lemons</td>
+                            <td>Campus</td>
+                            <td>M</td>
+                            <td>2:00pm - 4:50pm</td>
+                            <td>Smith 4009</td>
+                        </tr>
+                        <tr>
+                            <td>20111</td>
+                            <td>ENGL 101</td>
+                            <td>007</td>
+                            <td>Ideas and Their Expressions II</td>
+                            <td>3.0</td>
+                            <td>Moussa Issifou</td>
+                            <td>Campus</td>
+                            <td>TR</td>
+                            <td>4:00pm - 5:15pm</td>
+                            <td>GCB A202</td>
+                        </tr>
+                        <tr>
+                            <td>22915</td>
+                            <td>MATH 131</td>
+                            <td>05A</td>
+                            <td>Calculus I</td>
+                            <td>4.0</td>
+                            <td>Zachary Denton</td>
+                            <td>Online</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>Blackboard</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="schedule-2" style="display:none; margin-bottom:35px;">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>CRN</th>
+                            <th>Course</th>
+                            <th>Section</th>
+                            <th>Title</th>
+                            <th>Credits</th>
+                            <th>Instructor</th>
+                            <th>Type</th>
+                            <th>Days</th>
+                            <th>Times</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>13345</td>
+                            <td>CST 120</td>
+                            <td>004</td>
+                            <td>Fundamentals of Technology</td>
+                            <td>3.0</td>
+                            <td>Dewayne Brown</td>
+                            <td>Campus</td>
+                            <td>MWF</td>
+                            <td>10:00am - 10:50am</td>
+                            <td>Price 201-B</td>
+                        </tr>
+                        <tr>
+                            <td>11902</td>
+                            <td>CST 130</td>
+                            <td>05A</td>
+                            <td>Introduction to Unix/Linux</td>
+                            <td>3.0</td>
+                            <td>Catina Lynch</td>
+                            <td>Online</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>Blackboard</td>
+                        </tr>
+                        <tr>
+                            <td>10615</td>
+                            <td>ENGL 100</td>
+                            <td>001</td>
+                            <td>Ideas and Their Expressions I</td>
+                            <td>3.0</td>
+                            <td>Prince Canty</td>
+                            <td>Campus</td>
+                            <td>MWF</td>
+                            <td>5:00pm - 5:50pm</td>
+                            <td>ACB 108</td>
+                        </tr>
+                        <tr>
+                            <td>11567</td>
+                            <td>FRST 101</td>
+                            <td>007</td>
+                            <td>University Experience I</td>
+                            <td>1.0</td>
+                            <td>Anjan Basu</td>
+                            <td>Campus</td>
+                            <td>M</td>
+                            <td>9:00am - 9:50am</td>
+                            <td>ACB 310</td>
+                        </tr>
+                        <tr>
+                            <td>11754</td>
+                            <td>HIST 106</td>
+                            <td>05A</td>
+                            <td>African-American History to 1877</td>
+                            <td>3.0</td>
+                            <td>Cecily McDaniel</td>
+                            <td>Online</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>Blackboard</td>
+                        </tr>
+                        <tr>
+                            <td>10220</td>
+                            <td>MATH 110</td>
+                            <td>004</td>
+                            <td>Precalculus for English/Science I</td>
+                            <td>4.0</td>
+                            <td>Weixiao Li</td>
+                            <td>Campus</td>
+                            <td>MTWF</td>
+                            <td>2:00pm - 2:50pm</td>
+                            <td>Marteena 120</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>Academic Transcript</h3>
+            <p style="margin-bottom:20px;">Below is an unofficial copy of your current academic transcript separated by semester.</p>
+            
+            <h4 style="margin-bottom:15px;">Spring 2019</h4>
+            <table class="table table-striped" style="margin-bottom:35px;">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Title</th>
+                        <th>Credits</th>
+                        <th>Level</th>
+                        <th>Grade</th>
+                        <th>Quality Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CST 112</td>
+                        <td>Electric Circuits I</td>
+                        <td>3.0</td>
+                        <td>Undergraduate</td>
+                        <td colspan="2"><em>Course in progress</em></td>
+                    </tr>
+                    <tr>
+                        <td>CST 122</td>
+                        <td>Electric Circuits I Lab</td>
+                        <td>1.0</td>
+                        <td>Undergraduate</td>
+                        <td colspan="2"><em>Course in progress</em></td>
+                    </tr>
+                    <tr>
+                        <td>CST 140</td>
+                        <td>Introduction to Computer Programming</td>
+                        <td>3.0</td>
+                        <td>Undergraduate</td>
+                        <td colspan="2"><em>Course in progress</em></td>
+                    </tr>
+                    <tr>
+                        <td>CST 150</td>
+                        <td>Introduction to Computer Programming Lab</td>
+                        <td>1.0</td>
+                        <td>Undergraduate</td>
+                        <td colspan="2"><em>Course in progress</em></td>
+                    </tr>
+                    <tr>
+                        <td>ENGL 101</td>
+                        <td>Ideas and Their Expressions II</td>
+                        <td>3.0</td>
+                        <td>Undergraduate</td>
+                        <td colspan="2"><em>Course in progress</em></td>
+                    </tr>
+                    <tr>
+                        <td>MATH 131</td>
+                        <td>Calculus I</td>
+                        <td>4.0</td>
+                        <td>Undergraduate</td>
+                        <td colspan="2"><em>Course in progress</em></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h4 style="margin-bottom:15px;">Fall 2018</h4>
+            <table class="table table-striped" style="margin-bottom:35px;">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Title</th>
+                        <th>Credits</th>
+                        <th>Level</th>
+                        <th>Grade</th>
+                        <th>Quality Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CST 120</td>
+                        <td>Fundamentals of Technology</td>
+                        <td>3.0</td>
+                        <td>Undergraduate</td>
+                        <td>A</td>
+                        <td>12.00</td>
+                    </tr>
+                    <tr>
+                        <td>CST 130</td>
+                        <td>Introduction to Unix/Linux</td>
+                        <td>3.0</td>
+                        <td>Undergraduate</td>
+                        <td>B</td>
+                        <td>9.00</td>
+                    </tr>
+                    <tr>
+                        <td>ENGL 100</td>
+                        <td>Ideas and Their Expressions I</td>
+                        <td>3.0</td>
+                        <td>Undergraduate</td>
+                        <td>A</td>
+                        <td>12.00</td>
+                    </tr>
+                    <tr>
+                        <td>FRST 101</td>
+                        <td>University Experience I</td>
+                        <td>1.0</td>
+                        <td>Undergraduate</td>
+                        <td>A</td>
+                        <td>12.00</td>
+                    </tr>
+                    <tr>
+                        <td>HIST 106</td>
+                        <td>African-American History to 1877</td>
+                        <td>3.0</td>
+                        <td>Undergraduate</td>
+                        <td>A</td>
+                        <td>12.00</td>
+                    </tr>
+                    <tr>
+                        <td>MATH 110</td>
+                        <td>Precalculus for English/Science I</td>
+                        <td>4.0</td>
+                        <td>Undergraduate</td>
+                        <td>C</td>
+                        <td>8.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h4 style="margin-bottom:15px;">Transcript Summary</h4>
+            <table class="table table-striped" style="margin-bottom:35px;">
+                <thead>
+                    <tr>
+                        <th>Attempted Credit Hours</th>
+                        <th>Earned Credit Hours</th>
+                        <th>Quality Points</th>
+                        <th>Overall Grade Point Average</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>17.0</td>
+                        <td>17.0</td>
+                        <td>65.0</td>
+                        <td>3.823</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </body>
+</html>
