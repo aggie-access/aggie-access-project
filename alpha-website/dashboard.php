@@ -46,32 +46,38 @@ if (!isset($_SESSION['loggedin'])) {
             <div class="row">
                 <a href="/profile.php">
                     <div class="col-sm-6 dashboard-odd">
-                        <i class="fas fa-user-graduate" style="font-size:50px;"></i>
-                        <h2>Student Profile</h2>
-                        <p>Review your student profile.</p>
+                        <div class="dashboard-link">
+                            <i class="fas fa-user-graduate" style="font-size:50px;"></i>
+                            <h2>Student Profile</h2>
+                            <p>Review your student profile.</p>
+                        </div>
                     </div>
                 </a>
                 <a href="/search.php">
                     <div class="col-sm-6 dashboard-even">
-                        <i class="fas fa-search" style="font-size:50px;"></i>
-                        <h2>Course Search</h2>
-                        <p>Search for courses for the upcoming semester.</p>
+                        <div class="dashboard-link">
+                            <i class="fas fa-search" style="font-size:50px;"></i>
+                            <h2>Course Search</h2>
+                            <p>Search for courses for the upcoming semester.</p>
+                        </div>
                     </div>
                 </a>
-            </div>
-            <div class="row">
                 <a href="/registration.php">
                     <div class="col-sm-6 dashboard-even">
-                        <i class="fas fa-university" style="font-size:50px;"></i>
-                        <h2>Registration</h2>
-                        <p>Register for courses for the upcoming semester.</p>
+                        <div class="dashboard-link">
+                            <i class="fas fa-university" style="font-size:50px;"></i>
+                            <h2>Registration</h2>
+                            <p>Register for courses for the upcoming semester.</p>
+                        </div>
                     </div>
                 </a>
                 <a href="/financial.php">
                     <div class="col-sm-6 dashboard-odd">
-                        <i class="fas fa-dollar-sign" style="font-size:50px;"></i>
-                        <h2>Financial Aid</h2>
-                        <p>Review your current financial aid status.</p>
+                        <div class="dashboard-link">
+                            <i class="fas fa-dollar-sign" style="font-size:50px;"></i>
+                            <h2>Financial Aid</h2>
+                            <p>Review your current financial aid status.</p>
+                        </div>
                     </div>
                 </a>
             </div>
