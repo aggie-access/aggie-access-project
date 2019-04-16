@@ -100,14 +100,21 @@ label {
 }
 .dashboard-even, .dashboard-odd {
   text-align:center;
-  padding-top: calc((100vh - 120px)/10);
-  padding-bottom: calc((100vh - 120px)/10);
+  display:table;
+  height:50%;
 }
 .dashboard-even {
   background:#e5e5e5;
 }
 .dashboard-odd {
   background:#f1f1f1;
+}
+.dashboard-link {
+  display:table-cell;
+  vertical-align:middle;
+}
+.container-fluid .row {
+  height:calc(100vh - 120px);
 }
 .purchase-textbook {
   background: #004684;
