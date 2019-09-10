@@ -35,13 +35,13 @@ $result_search = $conn->query($sql_search);
         <title>Course Results</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
         <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
     </head>
 
     <body>
@@ -49,10 +49,10 @@ $result_search = $conn->query($sql_search);
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container" style="height:80px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/dashboard.php"><img src="/images/Logo.png" style="width:325px;"></a>
+                    <a class="navbar-brand" href="dashboard.php"><img src="images/Logo.png" style="width:325px;"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
             <div class="container-fluid" style="background:#004684;">
@@ -94,17 +94,17 @@ $result_search = $conn->query($sql_search);
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
-                
+
                 while($row_search = $result_search->fetch_assoc()) {
                     echo "<tr>" .
-                    "<td><a href='/information.php?id=" . $row_search["crn"] . "'</a>" . $row_search["crn"] . "</td>" .
+                    "<td><a href='information.php?id=" . $row_search["crn"] . "'</a>" . $row_search["crn"] . "</td>" .
                     "<td>" . $row_search["subject_abbreviation"] . " " . $row_search["course_number"] . "</td>" .
                     "<td>" . $row_search["section_number"] . "</td>" .
                     "<td>" . $row_search["course_title"] . "</td>" .
                     "<td>" . $row_search["credit_hours"] . "</td>" .
                     "<td>" . $row_search["first_name"] . " " . $row_search["last_name"] .  "</td>" .
                     "<td>" . $row_search["type_name"]. "</td>" ;
-                    
+
                     if ($row_search["meeting_days"] === "")
                     {
                         echo "<td>N/A</td>";
@@ -113,11 +113,11 @@ $result_search = $conn->query($sql_search);
                         echo "<td>" . $row_search["meeting_days"] . "</td>" .
                         "<td>" . date('g:i A', strtotime($row_search["start_time"])) . " - " . date('g:i A', strtotime($row_search["end_time"])) .  "</td>";
                     }
-                    
-                    echo "<td>" . $row_search["meeting_location"]. "</td>" . 
+
+                    echo "<td>" . $row_search["meeting_location"]. "</td>" .
                     "</tr>";
                 }
-                
+
                 echo "</tbody>";
                 echo "</table>";
             }

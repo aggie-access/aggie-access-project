@@ -22,13 +22,13 @@ $result_semester = $conn->query($sql_semester);
         <title>Registration</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
         <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
     </head>
 
     <body>
@@ -36,7 +36,7 @@ $result_semester = $conn->query($sql_semester);
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container" style="height:80px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/dashboard.php"><img src="/images/Logo.png" style="width:325px;"></a>
+                    <a class="navbar-brand" href="dashboard.php"><img src="images/Logo.png" style="width:325px;"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

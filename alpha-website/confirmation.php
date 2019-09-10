@@ -87,13 +87,13 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
         <title>Registration Confirmation</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
         <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
     </head>
 
     <body style="margin-bottom:35px;">
@@ -101,10 +101,10 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container" style="height:80px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/dashboard.php"><img src="/images/Logo.png" style="width:325px;"></a>
+                    <a class="navbar-brand" href="dashboard.php"><img src="images/Logo.png" style="width:325px;"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
             <div class="container-fluid" style="background:#004684;">
@@ -131,7 +131,7 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
                         if ($registration_pin===$input_pin) {
                             if ($result_class_1->num_rows > 0) {
                                 $register_class_1 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_1')");
-                                
+
                                 echo "<p style='margin-bottom:20px;'>You have been successfully registered for the upcoming semester.</p>";
                                 echo "<div class='row' style='margin-bottom:15px;'>";
                                 echo "<div class='col-sm-3'>";
@@ -165,7 +165,7 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
                                 echo "</thead>";
                                 echo "<tbody>";
                                 echo "<tr>";
-                                echo "<td><a href='/information.php?id=" . $row_class_1["crn"] . "'>" . $row_class_1["crn"] . "</a></td>";
+                                echo "<td><a href='information.php?id=" . $row_class_1["crn"] . "'>" . $row_class_1["crn"] . "</a></td>";
                                 echo "<td>" . $row_class_1["subject_abbreviation"] . " " . $row_class_1["course_number"] . "</td>";
                                 echo "<td>" . $row_class_1["section_number"] . "</td>";
                                 echo "<td>" . $row_class_1["course_title"] . "</td>";
@@ -183,9 +183,9 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
                                 echo "</tr>";
                                 if ($result_class_2->num_rows > 0) {
                                     $register_class_2 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_2')");
-                                    
+
                                     echo "<tr>";
-                                    echo "<td><a href='/information.php?id=" . $row_class_2["crn"] . "'>" . $row_class_2["crn"] . "</a></td>";
+                                    echo "<td><a href='information.php?id=" . $row_class_2["crn"] . "'>" . $row_class_2["crn"] . "</a></td>";
                                     echo "<td>" . $row_class_2["subject_abbreviation"] . " " . $row_class_2["course_number"] . "</td>";
                                     echo "<td>" . $row_class_2["section_number"] . "</td>";
                                     echo "<td>" . $row_class_2["course_title"] . "</td>";
@@ -204,9 +204,9 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
                                 }
                                 if ($result_class_3->num_rows > 0) {
                                     $register_class_3 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_3')");
-                                    
+
                                     echo "<tr>";
-                                    echo "<td><a href='/information.php?id=" . $row_class_3["crn"] . "'>" . $row_class_3["crn"] . "</a></td>";
+                                    echo "<td><a href='information.php?id=" . $row_class_3["crn"] . "'>" . $row_class_3["crn"] . "</a></td>";
                                     echo "<td>" . $row_class_3["subject_abbreviation"] . " " . $row_class_3["course_number"] . "</td>";
                                     echo "<td>" . $row_class_3["section_number"] . "</td>";
                                     echo "<td>" . $row_class_3["course_title"] . "</td>";
@@ -225,9 +225,9 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
                                 }
                                 if ($result_class_4->num_rows > 0) {
                                     $register_class_4 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_4')");
-                                    
+
                                     echo "<tr>";
-                                    echo "<td><a href='/information.php?id=" . $row_class_4["crn"] . "'>" . $row_class_4["crn"] . "</a></td>";
+                                    echo "<td><a href='information.php?id=" . $row_class_4["crn"] . "'>" . $row_class_4["crn"] . "</a></td>";
                                     echo "<td>" . $row_class_4["subject_abbreviation"] . " " . $row_class_4["course_number"] . "</td>";
                                     echo "<td>" . $row_class_4["section_number"] . "</td>";
                                     echo "<td>" . $row_class_4["course_title"] . "</td>";
@@ -246,9 +246,9 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
                                 }
                                 if ($result_class_5->num_rows > 0) {
                                     $register_class_5 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_5')");
-                                    
+
                                     echo "<tr>";
-                                    echo "<td><a href='/information.php?id=" . $row_class_5["crn"] . "'>" . $row_class_5["crn"] . "</a></td>";
+                                    echo "<td><a href='information.php?id=" . $row_class_5["crn"] . "'>" . $row_class_5["crn"] . "</a></td>";
                                     echo "<td>" . $row_class_5["subject_abbreviation"] . " " . $row_class_5["course_number"] . "</td>";
                                     echo "<td>" . $row_class_5["section_number"] . "</td>";
                                     echo "<td>" . $row_class_5["course_title"] . "</td>";
@@ -267,9 +267,9 @@ $total_credits=$row_class_1["credit_hours"]+$row_class_2["credit_hours"]+$row_cl
                                 }
                                 if ($result_class_6->num_rows > 0) {
                                     $register_class_6 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_6')");
-                                    
+
                                     echo "<tr>";
-                                    echo "<td><a href='/information.php?id=" . $row_class_6["crn"] . "'>" . $row_class_6["crn"] . "</a></td>";
+                                    echo "<td><a href='information.php?id=" . $row_class_6["crn"] . "'>" . $row_class_6["crn"] . "</a></td>";
                                     echo "<td>" . $row_class_6["subject_abbreviation"] . " " . $row_class_6["course_number"] . "</td>";
                                     echo "<td>" . $row_class_6["section_number"] . "</td>";
                                     echo "<td>" . $row_class_6["course_title"] . "</td>";

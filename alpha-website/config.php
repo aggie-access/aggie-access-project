@@ -1,7 +1,7 @@
 <?php
-$servername = "localhost";
-$server_username = "fud3zeefngbk";
-$server_password = "7s3DuH@m";
+$servername = "localhost:3306";
+$server_username = "root";
+$server_password = "password";
 $dbname = "aggie_access";
 
 $conn = new mysqli($servername, $server_username, $server_password, $dbname);

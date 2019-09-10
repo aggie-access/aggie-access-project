@@ -84,29 +84,29 @@ $gpa=$quality_points/$earned_hours;
 
 <!DOCTYPE html>
 <html lang="en">
-    
+
     <head>
         <title>Student Profile</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
         <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
     </head>
-    
+
     <body>
-        
+
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container" style="height:80px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/dashboard.php"><img src="/images/Logo.png" style="width:325px;"></a>
+                    <a class="navbar-brand" href="dashboard.php"><img src="images/Logo.png" style="width:325px;"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
             <div class="container-fluid" style="background:#004684;">
@@ -121,18 +121,18 @@ $gpa=$quality_points/$earned_hours;
                     <li><a href="registration.php">Registration</a></li>
                     <li><a href="financial.php">Financial Aid</a></li>
                 </ul>
-                </div>	
+                </div>
             </div>
         </nav>
-        
+
         <div class="container">
-            
+
             <h1>Student Profile</h1>
             <p style="margin-bottom:35px;">Your student profile is where you can view all of your personal records, including your current academic status, your class schedule, and your academic transcript.</p>
-            
+
             <h3>Personal Information</h3>
             <p style="margin-bottom:20px;">This is you personal profile information that is included in the university's directory.</p>
-            
+
             <table class="table table-striped" style="margin-bottom:35px;">
                 <thead>
                     <tr>
@@ -160,10 +160,10 @@ $gpa=$quality_points/$earned_hours;
                     </tr>
                 </tbody>
             </table>
-            
+
             <h3>Student Information</h3>
             <p style="margin-bottom:20px;">This is your student profile information that is included in the university's directory.</p>
-            
+
             <table class="table table-striped" style="margin-bottom:35px;">
                 <thead>
                     <tr>
@@ -186,10 +186,10 @@ $gpa=$quality_points/$earned_hours;
                     </tr>
                 </tbody>
             </table>
-            
+
             <h3>Class Schedule</h3>
             <p style="margin-bottom:20px;">Select a semester below to view your class schedule.</p>
-            
+
             <form method="post">
                 <div class="row" style="margin-bottom:10px;">
                     <div class="col-sm-6">
@@ -210,7 +210,7 @@ $gpa=$quality_points/$earned_hours;
                     </div>
                 </div>
             </form>
-            
+
             <?php
             if ($result_schedule->num_rows > 0) {
                 echo "<div style='margin-bottom:35px;'>";
@@ -228,7 +228,7 @@ $gpa=$quality_points/$earned_hours;
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
-                
+
                 while($row_schedule = $result_schedule->fetch_assoc()) {
                     echo "<tr>" .
                     "<td>" . $row_schedule["subject_abbreviation"] . " " . $row_schedule["course_number"] . " | " . $row_schedule["section_number"] .  "</td>" .
@@ -236,7 +236,7 @@ $gpa=$quality_points/$earned_hours;
                     "<td>" . $row_schedule["credit_hours"] . "</td>" .
                     "<td>" . $row_schedule["first_name"] . " " . $row_schedule["last_name"] .  "</td>" .
                     "<td>" . $row_schedule["type_name"]. "</td>" ;
-                    
+
                     if ($row_schedule["meeting_days"] === "")
                     {
                         echo "<td>N/A</td>";
@@ -245,20 +245,20 @@ $gpa=$quality_points/$earned_hours;
                         echo "<td>" . $row_schedule["meeting_days"] . "</td>" .
                         "<td>" . date('g:i A', strtotime($row_schedule["start_time"])) . " - " . date('g:i A', strtotime($row_schedule["end_time"])) .  "</td>";
                     }
-                    
-                    echo "<td>" . $row_schedule["meeting_location"]. "</td>" . 
+
+                    echo "<td>" . $row_schedule["meeting_location"]. "</td>" .
                     "</tr>";
                 }
-                
+
                 echo "</tbody>";
                 echo "</table>";
                 echo "</div>";
             }
             ?>
-            
+
             <h3>Academic Transcript</h3>
             <p style="margin-bottom:20px;">Below is an unofficial copy of your current academic transcript.</p>
-            
+
             <table class="table table-striped" style="margin-bottom:35px;">
                 <thead>
                     <tr>
@@ -271,7 +271,7 @@ $gpa=$quality_points/$earned_hours;
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     <?php
                     while($row_transcript = $result_transcript->fetch_assoc()) {
                         echo "<tr>" .
@@ -280,14 +280,14 @@ $gpa=$quality_points/$earned_hours;
                         "<td>" . $row_transcript["credit_hours"] . "</td>" .
                         "<td>" . $row_transcript["level_name"]. "</td>" .
                         "<td>" . $row_transcript["letter_grade"]. "</td>" .
-                        "<td>" . $row_transcript["quality_points"]. "</td>" . 
+                        "<td>" . $row_transcript["quality_points"]. "</td>" .
                         "</tr>";
                     }
                     ?>
-                    
+
                 </tbody>
             </table>
-            
+
             <h4 style="margin-bottom:15px;">Transcript Summary</h4>
             <table class="table table-striped" style="margin-bottom:35px;">
                 <thead>
@@ -307,7 +307,7 @@ $gpa=$quality_points/$earned_hours;
                     </tr>
                 </tbody>
             </table>
-            
+
         </div>
     </body>
 </html>

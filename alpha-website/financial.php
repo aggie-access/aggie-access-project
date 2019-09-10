@@ -12,18 +12,18 @@ if (!isset($_SESSION['loggedin'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-    
+
     <head>
         <title>Financial Aid</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="/images/favicon.png" type="image/png" sizes="16x16">
+        <link rel="icon" href="images/favicon.png" type="image/png" sizes="16x16">
         <link href='https://fonts.googleapis.com/css?family=Proxima+Nova:400,700' rel='stylesheet'>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/stylesheets/stylesheet.css">
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
 		<script type="text/javascript">
             $(document).ready(function(){
                 $('#choice').on('change', function() {
@@ -42,16 +42,16 @@ if (!isset($_SESSION['loggedin'])) {
 		</script>
 
     </head>
-    
+
     <body>
-        
+
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container" style="height:80px;">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/dashboard.php"><img src="/images/Logo.png" style="width:325px;"></a>
+                    <a class="navbar-brand" href="dashboard.php"><img src="images/Logo.png" style="width:325px;"></a>
                 </div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li><a href="logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 </ul>
             </div>
             <div class="container-fluid" style="background:#004684;">
@@ -70,10 +70,10 @@ if (!isset($_SESSION['loggedin'])) {
             </div>
         </nav>
         <div class="container">
-                        
+
             <h1>Financial Aid</h1>
             <p style="margin-bottom:35px;">Select an award year below to view your financial aid information. This will include any grants, loans, and scholarships that you may have received. Additionally, you can also view your eligibility status for financial aid, which is based on your academic progress.</p>
-            
+
             <form>
                 <div class="row">
                     <div class="col-sm-6">
@@ -88,12 +88,12 @@ if (!isset($_SESSION['loggedin'])) {
                     </div>
                 </div>
             </form>
-                        
+
             <div id="financial-aid-results-1" style="display:none;">
-                
+
                 <h2>Award</h2>
                 <p style="margin-bottom:35px;">Your financial aid award for the selected school year is displayed below. This information includes the types of awards you received, the status of those awards, the amount each award will apply towards the fall semester, the amount each award will apply towards the spring semester, and the total award package you received for the school year from each fund.</p>
-                
+
                 <table class="table table-striped" style="margin-bottom:35px;">
                     <thead>
                         <tr>
@@ -152,14 +152,14 @@ if (!isset($_SESSION['loggedin'])) {
                 <h4>Total Attempted Credit Hours</h4>
                 <p>Your total attempted hours must not exceed 150% of your degree program's length. Undergraduates must complete their programs within 186 hours attempted and graduate students must complete their program within 54 attempted hours.</p>
                 <p style="margin-bottom:35px;">You have attempted <strong>121</strong> hours in your current degree program, and you have earned <strong>118</strong>.</p>
-            
+
             </div>
-            
+
             <div id="financial-aid-results-2" style="display:none;">
-                
+
                 <h2>Award</h2>
                 <p style="margin-bottom:35px;">Your financial aid award for the selected school year is displayed below. This information includes the types of awards you received, the status of those awards, the amount each award will apply towards the fall semester, the amount each award will apply towards the spring semester, and the total award package you received for the school year from each fund.</p>
-                
+
                 <table class="table table-striped" style="margin-bottom:35px;">
                     <thead>
                         <tr>
@@ -225,11 +225,11 @@ if (!isset($_SESSION['loggedin'])) {
                 <h4>Total Attempted Credit Hours</h4>
                 <p>Your total attempted hours must not exceed 150% of your degree program's length. Undergraduates must complete their programs within 186 hours attempted and graduate students must complete their program within 54 attempted hours.</p>
                 <p style="margin-bottom:35px;">You have attempted <strong>133</strong> hours in your current degree program, and you have earned <strong>130</strong>.</p>
-            
+
             </div>
-            
+
         </div>
-           
+
     </body>
-    
+
 </html>
