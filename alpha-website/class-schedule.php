@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 
 <head>
-  <title>Student Profile</title>
+  <title>Class Schedule</title>
   <?php include 'assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
