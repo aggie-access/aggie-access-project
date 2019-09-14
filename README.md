@@ -1,6 +1,6 @@
 # Aggie Access Website Redesign Project
 **Contributers**: Travon Bland, Carson Calcutt, Tonya McClendon\
-**Class**: CST 498 05A | Spring 2019
+**Class**: CST 498/CST 499
 
 ## Problem Statement/Rationale
 The project team, being North Carolina A&T students, have realized throughout our time here at the university, that our course scheduling system, known as Aggie Access, is very outdated and difficult to use. Students, faculty, and staff would benefit greatly from a redesigned course scheduling system at the university as they are very busy people who should not have to waste their time maneuvering around an outdated website. The purpose of this project was to create a new and improved course scheduling website system for the university that organizes content logically and allows users to retrieve the information they need in an efficient manner. This redesigned website will still allow students, faculty, and staff to do all of the same tasks that they are able to do in Aggie Access, but in an easier, more organized way. The deliverables for this project include a web interface where users utilize the system, along with an accompanying database that makes the web interface functional. The overall outcome of this project was to have an updated course scheduling system completed and implemented within the university, so students, faculty, and staff are able to complete their tasks both easily and efficiently.
