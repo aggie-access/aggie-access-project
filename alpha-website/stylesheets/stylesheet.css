@@ -97,6 +97,11 @@ label {
 .row a {
   color:#004684;
 }
+@media screen and (max-width: 600px) {
+  .dashboard-even, .dashboard-odd {
+    width:100%;
+  }
+}
 .dashboard-even, .dashboard-odd {
   text-align:center;
   display:table;
