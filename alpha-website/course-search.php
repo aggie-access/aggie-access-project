@@ -10,9 +10,6 @@ $result_department = $conn->query($sql_department);
 $sql_type = "SELECT type_id, type_name FROM course_type ORDER BY type_id ASC";
 $result_type = $conn->query($sql_type);
 
-$sql_credits = "SELECT DISTINCT credit_hours FROM course ORDER BY credit_hours ASC";
-$result_credits = $conn->query($sql_credits);
-
 $sql_instructor = "SELECT instructor_id, first_name, last_name FROM instructor ORDER BY last_name ASC";
 $result_instructor = $conn->query($sql_instructor);
 
@@ -106,11 +103,10 @@ $result_level = $conn->query($sql_level);
                             <label>Credit Hours</label>
                             <select class="form-control" name="credits">
                               <option disabled selected value>Select Credit Hours</option>
-                              <?php
-                              while($row_credits = $result_credits->fetch_assoc()) {
-                                  echo "<option value='" . $row_credits[credit_hours] . "'>" . $row_credits[credit_hours] . "</option>";
-                              }
-                              ?>
+                              <option value='1.0'>1.0</option>
+                              <option value='2.0'>2.0</option>
+                              <option value='3.0'>3.0</option>
+                              <option value='4.0'>4.0</option>
                             </select>
                         </div>
                     </div>
@@ -159,20 +155,19 @@ $result_level = $conn->query($sql_level);
                             <label>Meeting Times</label>
                             <select class="form-control" name="times">
                               <option disabled selected value>Select Meeting Time</option>
-                              <option value="8">8:00am</option>
-                              <option value="9">9:00am</option>
-                              <option value="10">10:00am</option>
-                              <option value="11">11:00am</option>
-                              <option value="12">12:00pm</option>
-                              <option value="13">1:00pm</option>
-                              <option value="14">2:00pm</option>
-                              <option value="15">3:00pm</option>
-                              <option value="16">4:00pm</option>
-                              <option value="17">5:00pm</option>
-                              <option value="18">6:00pm</option>
-                              <option value="19">7:00pm</option>
-                              <option value="20">8:00pm</option>
-                              <option value="21">9:00pm</option>
+                              <option value='8'>8:00 AM</option>
+                              <option value='9'>9:00 AM</option>
+                              <option value='10'>10:00 AM</option>
+                              <option value='11'>11:00 AM</option>
+                              <option value='12'>12:00 PM</option>
+                              <option value='13'>1:00 PM</option>
+                              <option value='14'>2:00 PM</option>
+                              <option value='15'>3:00 PM</option>
+                              <option value='16'>4:00 PM</option>
+                              <option value='17'>5:00 PM</option>
+                              <option value='18'>6:00 PM</option>
+                              <option value='19'>7:00 PM</option>
+                              <option value='20'>8:00 PM</option>
                             </select>
                         </div>
                     </div>

@@ -11,9 +11,38 @@ $instructor_id=$_GET["instructor"];
 $level_id=$_GET["level"];
 $meeting_days=$_GET["days"];
 $meeting_times=$_GET["times"];
-$sql_search = "SELECT crn, subject_abbreviation, course_number, section_number, course_title, credit_hours, first_name, last_name, type_name, meeting_days, start_time, end_time, meeting_location
+
+if (!empty($department_id)) {
+  $department_cond="AND department.department_id='$department_id'";
+}
+if (!empty($course_number)) {
+  $course_number_cond="AND course_number='$course_number'";
+}
+if (!empty($course_title)) {
+  $course_title_cond="AND course_title LIKE '%$course_title%'";
+}
+if (!empty($course_type)) {
+  $course_type_cond="AND section.type_id='$course_type'";
+}
+if (!empty($credit_hours)) {
+  $credit_hours_cond="AND credit_hours='$credit_hours'";
+}
+if (!empty($instructor_id)) {
+  $instructor_cond="AND instructor.instructor_id='$instructor_id'";
+}
+if (!empty($level_id)) {
+  $level_cond="AND course_level.level_id='$level_id'";
+}
+if (!empty($meeting_days)) {
+  $meeting_days_cond="AND meeting_days LIKE '%$meeting_days%'";
+}
+if (!empty($meeting_times)) {
+  $meeting_times_cond="AND HOUR(start_time)='$meeting_times'";
+}
+
+$sql_search = "SELECT crn, subject_abbreviation, course_number, section_number, course_title, credit_hours, first_name, last_name, type_name, meeting_days, start_time, end_time, meeting_location, section.type_id, HOUR(start_time)
 FROM course, section, subject, instructor, course_type, semester, department, course_level
-WHERE section.semester_id=semester.semester_id AND section.instructor_id=instructor.instructor_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND course.course_id=section.course_id AND course.department_id=department.department_id AND course.level_id=course_level.level_id AND semester.semester_id='$semester_id' AND department.department_id='$department_id' AND course_number='$course_number' AND course_title LIKE '%$course_title%' AND credit_hours='$credit_hours' AND instructor.instructor_id='$instructor_id' AND course_level.level_id='$level_id' AND meeting_days LIKE '%$meeting_days%'
+WHERE section.semester_id=semester.semester_id AND section.instructor_id=instructor.instructor_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND course.course_id=section.course_id AND course.department_id=department.department_id AND course.level_id=course_level.level_id AND semester.semester_id='$semester_id' $department_cond $course_number_cond $course_title_cond $course_type_cond $credit_hours_cond $instructor_cond $level_cond $meeting_days_cond $meeting_times_cond
 ORDER BY subject_abbreviation ASC, course_number ASC, section_number ASC";
 $result_search = $conn->query($sql_search);
 ?>
