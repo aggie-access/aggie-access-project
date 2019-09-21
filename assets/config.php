@@ -1,5 +1,5 @@
 <?php
-$servername = "aggieaccessproject.co";
+$servername = "localhost";
 $server_username = "fg31igihj6wh";
 $server_password = "fjN*70v5s";
 $dbname = "aggie_access";
