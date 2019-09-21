@@ -51,7 +51,7 @@ $major_title=$row_student["major_title"];
             <p style="margin-bottom:35px;">Your student profile is where you can view all of your personal records, including your current academic status, your class schedule, and your academic transcript.</p>
 
             <h3>Personal Information</h3>
-            <p style="margin-bottom:20px;">This is you personal profile information that is included in the university's directory.</p>
+            <p style="margin-bottom:20px;">This is your personal profile information that is included in the university's directory.</p>
 
             <table class="table table-striped" style="margin-bottom:35px;">
                 <thead>
