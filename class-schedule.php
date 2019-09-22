@@ -56,22 +56,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="row" style="margin-bottom:10px;">
         <div class="col-sm-6">
           <div class="form-group">
-              <?php
-              if ($result_semester->num_rows > 0) {
-                echo "<select id='semester-id' class='form-control' name='semester-id' onchange='this.form.submit();''>";
-                echo "<option disabled selected value>Select Semester</option>";
-                while($row_semester = $result_semester->fetch_assoc()) {
-                  echo "<option ";
-                  if ($semester_id == $row_semester['semester_id'] ) {
-                    echo 'selected ';
-                  }
-                  echo "value='" . $row_semester['semester_id'] . "'>" . $row_semester['semester_title'] . "</option>";
+            <?php
+            if ($result_semester->num_rows > 0) {
+              echo "<select id='semester-id' class='form-control' name='semester-id' onchange='this.form.submit();''>";
+              echo "<option disabled selected value>Select Semester</option>";
+              while($row_semester = $result_semester->fetch_assoc()) {
+                echo "<option ";
+                if ($semester_id == $row_semester['semester_id'] ) {
+                  echo 'selected ';
                 }
-                echo "</select>";
-              } else {
-                echo "You are not registered for any classes.";
+                echo "value='" . $row_semester['semester_id'] . "'>" . $row_semester['semester_title'] . "</option>";
               }
-              ?>
+              echo "</select>";
+            } else {
+              echo "You are not registered for any classes.";
+            }
+            ?>
           </div>
         </div>
       </div>
@@ -122,6 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     ?>
 
-</div>
+  </div>
 </body>
 </html>

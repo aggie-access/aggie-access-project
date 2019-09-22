@@ -31,82 +31,82 @@ $major_title=$row_student['major_title'];
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <title>Student Profile</title>
-				<?php include 'assets/header.php'; ?>
-				<script type="text/javascript">
-				$(document).ready(function(){
-					$("#student-profile").addClass("active");
-				});
-				</script>
-    </head>
+<head>
+  <title>Student Profile</title>
+  <?php include 'assets/header.php'; ?>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $("#student-profile").addClass("active");
+  });
+  </script>
+</head>
 
-    <body>
+<body>
 
-        <?php include 'assets/navbar.php'; ?>
+  <?php include 'assets/navbar.php'; ?>
 
-        <div class="container">
+  <div class="container">
 
-            <h1>Student Profile</h1>
-            <p style="margin-bottom:35px;">Your student profile is where you can view all of your personal records, including your current academic status, your class schedule, and your academic transcript.</p>
+    <h1>Student Profile</h1>
+    <p style="margin-bottom:35px;">Your student profile is where you can view all of your personal records, including your current academic status, your class schedule, and your academic transcript.</p>
 
-            <h3>Personal Information</h3>
-            <p style="margin-bottom:20px;">This is your personal profile information that is included in the university's directory.</p>
+    <h3>Personal Information</h3>
+    <p style="margin-bottom:20px;">This is your personal profile information that is included in the university's directory.</p>
 
-            <table class="table table-striped" style="margin-bottom:35px;">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Birth Date</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo $first_name . " " . $middle_initial . ". " . $last_name; ?></td>
-                        <td><?php echo $address; ?></td>
-                        <td><?php echo $birth_date; ?></td>
-                        <td>
-                            <?php
-                            $phone_1 = substr($phone_number, 0, 3);
-                            $phone_2 = substr($phone_number, 3, 3);
-                            $phone_3 = substr($phone_number, 6, 4);
-                            echo $phone_1 . "-" . $phone_2 . "-" . $phone_3;
-                        ?>
-                        </td>
-                        <td><?php echo $student_email; ?></td>
-                    </tr>
-                </tbody>
-            </table>
+    <table class="table table-striped" style="margin-bottom:35px;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Birth Date</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?php echo $first_name . " " . $middle_initial . ". " . $last_name; ?></td>
+          <td><?php echo $address; ?></td>
+          <td><?php echo $birth_date; ?></td>
+          <td>
+            <?php
+            $phone_1 = substr($phone_number, 0, 3);
+            $phone_2 = substr($phone_number, 3, 3);
+            $phone_3 = substr($phone_number, 6, 4);
+            echo $phone_1 . "-" . $phone_2 . "-" . $phone_3;
+            ?>
+          </td>
+          <td><?php echo $student_email; ?></td>
+        </tr>
+      </tbody>
+    </table>
 
-            <h3>Student Information</h3>
-            <p style="margin-bottom:20px;">This is your student profile information that is included in the university's directory.</p>
+    <h3>Student Information</h3>
+    <p style="margin-bottom:20px;">This is your student profile information that is included in the university's directory.</p>
 
-            <table class="table table-striped" style="margin-bottom:35px;">
-                <thead>
-                    <tr>
-                        <th>Level</th>
-                        <th>Classification</th>
-                        <th>College Affiliation</th>
-                        <th>Degree Type</th>
-                        <th>Major</th>
-                        <th>Graduation Year</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo $level_name; ?></td>
-                        <td><?php echo $classification_title; ?></td>
-                        <td><?php echo $college_name; ?></td>
-                        <td><?php echo $degree_title; ?></td>
-                        <td><?php echo $major_title; ?></td>
-                        <td><?php echo $graduation_year; ?></td>
-                    </tr>
-                </tbody>
-            </table>
+    <table class="table table-striped" style="margin-bottom:35px;">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Classification</th>
+          <th>College Affiliation</th>
+          <th>Degree Type</th>
+          <th>Major</th>
+          <th>Graduation Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?php echo $level_name; ?></td>
+          <td><?php echo $classification_title; ?></td>
+          <td><?php echo $college_name; ?></td>
+          <td><?php echo $degree_title; ?></td>
+          <td><?php echo $major_title; ?></td>
+          <td><?php echo $graduation_year; ?></td>
+        </tr>
+      </tbody>
+    </table>
 
-        </div>
-    </body>
+  </div>
+</body>
 </html>

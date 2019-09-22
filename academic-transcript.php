@@ -39,74 +39,74 @@ $gpa=$quality_points/$earned_hours;
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <title>Academic Transcript</title>
-				<?php include 'assets/header.php'; ?>
-				<script type="text/javascript">
-				$(document).ready(function(){
-					$("#academic-transcript").addClass("active");
-				});
-				</script>
-    </head>
+<head>
+  <title>Academic Transcript</title>
+  <?php include 'assets/header.php'; ?>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $("#academic-transcript").addClass("active");
+  });
+  </script>
+</head>
 
-    <body>
+<body>
 
-        <?php include 'assets/navbar.php'; ?>
+  <?php include 'assets/navbar.php'; ?>
 
-        <div class="container">
+  <div class="container">
 
-            <h1>Academic Transcript</h1>
-            <p style="margin-bottom:35px;">Below is an unofficial copy of your current academic transcript.</p>
+    <h1>Academic Transcript</h1>
+    <p style="margin-bottom:35px;">Below is an unofficial copy of your current academic transcript.</p>
 
-            <table class="table table-striped" style="margin-bottom:35px;">
-                <thead>
-                    <tr>
-                        <th>Course</th>
-                        <th>Title</th>
-                        <th>Credits</th>
-                        <th>Level</th>
-                        <th>Grade</th>
-                        <th>Quality Points</th>
-                    </tr>
-                </thead>
-                <tbody>
+    <table class="table table-striped" style="margin-bottom:35px;">
+      <thead>
+        <tr>
+          <th>Course</th>
+          <th>Title</th>
+          <th>Credits</th>
+          <th>Level</th>
+          <th>Grade</th>
+          <th>Quality Points</th>
+        </tr>
+      </thead>
+      <tbody>
 
-                    <?php
-                    while($row_transcript = $result_transcript->fetch_assoc()) {
-                        echo "<tr>" .
-                        "<td>" . $row_transcript['subject_abbreviation'] . " " . $row_transcript['course_number'] . "</td>" .
-                        "<td>" . $row_transcript['course_title'] . "</td>" .
-                        "<td>" . $row_transcript['credit_hours'] . "</td>" .
-                        "<td>" . $row_transcript['level_name']. "</td>" .
-                        "<td>" . $row_transcript['letter_grade']. "</td>" .
-                        "<td>" . $row_transcript['quality_points']. "</td>" .
-                        "</tr>";
-                    }
-                    ?>
+        <?php
+        while($row_transcript = $result_transcript->fetch_assoc()) {
+          echo "<tr>" .
+          "<td>" . $row_transcript['subject_abbreviation'] . " " . $row_transcript['course_number'] . "</td>" .
+          "<td>" . $row_transcript['course_title'] . "</td>" .
+          "<td>" . $row_transcript['credit_hours'] . "</td>" .
+          "<td>" . $row_transcript['level_name']. "</td>" .
+          "<td>" . $row_transcript['letter_grade']. "</td>" .
+          "<td>" . $row_transcript['quality_points']. "</td>" .
+          "</tr>";
+        }
+        ?>
 
-                </tbody>
-            </table>
+      </tbody>
+    </table>
 
-            <h4 style="margin-bottom:15px;">Transcript Summary</h4>
-            <table class="table table-striped" style="margin-bottom:35px;">
-                <thead>
-                    <tr>
-                        <th>Attempted Credit Hours</th>
-                        <th>Earned Credit Hours</th>
-                        <th>Quality Points</th>
-                        <th>Overall Grade Point Average</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?php echo $attempted_hours; ?></td>
-                        <td><?php echo $earned_hours; ?></td>
-                        <td><?php echo $quality_points; ?></td>
-                        <td><?php echo $gpa; ?></td>
-                    </tr>
-                </tbody>
-            </table>
+    <h4 style="margin-bottom:15px;">Transcript Summary</h4>
+    <table class="table table-striped" style="margin-bottom:35px;">
+      <thead>
+        <tr>
+          <th>Attempted Credit Hours</th>
+          <th>Earned Credit Hours</th>
+          <th>Quality Points</th>
+          <th>Overall Grade Point Average</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?php echo $attempted_hours; ?></td>
+          <td><?php echo $earned_hours; ?></td>
+          <td><?php echo $quality_points; ?></td>
+          <td><?php echo $gpa; ?></td>
+        </tr>
+      </tbody>
+    </table>
 
-        </div>
-    </body>
+  </div>
+</body>
 </html>
