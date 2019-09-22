@@ -32,6 +32,16 @@ if (!empty($_GET['times'])) {
 	$meeting_times=$_GET['times'];
 }
 
+$department_cond='';
+$course_number_cond='';
+$course_title_cond='';
+$course_type_cond='';
+$credit_hours_cond='';
+$instructor_cond='';
+$level_cond='';
+$meeting_days_cond='';
+$meeting_times_cond='';
+
 if (!empty($department_id)) {
   $department_cond="AND department.department_id='$department_id'";
 }
