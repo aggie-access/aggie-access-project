@@ -1,16 +1,36 @@
 <?php
 include 'assets/connect.php';
 
-$semester_id=$_GET["semester"];
-$department_id=$_GET["department"];
-$course_number=$_GET["course-number"];
-$course_title=$_GET["course-title"];
-$course_type=$_GET["type"];
-$credit_hours=$_GET["credits"];
-$instructor_id=$_GET["instructor"];
-$level_id=$_GET["level"];
-$meeting_days=$_GET["days"];
-$meeting_times=$_GET["times"];
+if (!empty($_GET['semester'])) {
+	$semester_id=$_GET['semester'];
+}
+if (!empty($_GET['department'])) {
+	$department_id=$_GET['department'];
+}
+if (!empty($_GET['course-number'])) {
+	$course_number=$_GET['course-number'];
+}
+if (!empty($_GET['course-title'])) {
+	$course_title=$_GET['course-title'];
+}
+if (!empty($_GET['type'])) {
+	$course_type=$_GET['type'];
+}
+if (!empty($_GET['credits'])) {
+	$credit_hours=$_GET['credits'];
+}
+if (!empty($_GET['instructor'])) {
+	$instructor_id=$_GET['instructor'];
+}
+if (!empty($_GET['level'])) {
+	$level_id=$_GET['level'];
+}
+if (!empty($_GET['days'])) {
+	$meeting_days=$_GET['days'];
+}
+if (!empty($_GET['times'])) {
+	$meeting_times=$_GET['times'];
+}
 
 if (!empty($department_id)) {
   $department_cond="AND department.department_id='$department_id'";
@@ -90,24 +110,24 @@ $result_search = $conn->query($sql_search);
 
                 while($row_search = $result_search->fetch_assoc()) {
                     echo "<tr>" .
-                    "<td><a href='course-information.php?id=" . $row_search["crn"] . "'</a>" . $row_search["crn"] . "</td>" .
-                    "<td>" . $row_search["subject_abbreviation"] . " " . $row_search["course_number"] . "</td>" .
-                    "<td>" . $row_search["section_number"] . "</td>" .
-                    "<td>" . $row_search["course_title"] . "</td>" .
-                    "<td>" . $row_search["credit_hours"] . "</td>" .
-                    "<td>" . $row_search["first_name"] . " " . $row_search["last_name"] .  "</td>" .
-                    "<td>" . $row_search["type_name"]. "</td>" ;
+                    "<td><a href='course-information.php?id=" . $row_search['crn'] . "'</a>" . $row_search['crn'] . "</td>" .
+                    "<td>" . $row_search['subject_abbreviation'] . " " . $row_search['course_number'] . "</td>" .
+                    "<td>" . $row_search['section_number'] . "</td>" .
+                    "<td>" . $row_search['course_title'] . "</td>" .
+                    "<td>" . $row_search['credit_hours'] . "</td>" .
+                    "<td>" . $row_search['first_name'] . " " . $row_search['last_name'] .  "</td>" .
+                    "<td>" . $row_search['type_name']. "</td>" ;
 
-                    if ($row_search["meeting_days"] === "")
+                    if ($row_search['meeting_days'] === "")
                     {
                         echo "<td>N/A</td>";
                         echo "<td>N/A</td>";
                     } else {
-                        echo "<td>" . $row_search["meeting_days"] . "</td>" .
-                        "<td>" . date('g:i A', strtotime($row_search["start_time"])) . " - " . date('g:i A', strtotime($row_search["end_time"])) .  "</td>";
+                        echo "<td>" . $row_search['meeting_days'] . "</td>" .
+                        "<td>" . date('g:i A', strtotime($row_search['start_time'])) . " - " . date('g:i A', strtotime($row_search['end_time'])) .  "</td>";
                     }
 
-                    echo "<td>" . $row_search["meeting_location"]. "</td>" .
+                    echo "<td>" . $row_search['meeting_location']. "</td>" .
                     "</tr>";
                 }
 
