@@ -18,6 +18,7 @@ $sql_semester = "SELECT DISTINCT semester.semester_id, semester_title FROM semes
 $result_semester = $conn->query($sql_semester);
 
 $semester_id='';
+$result_schedule='';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $semester_id=$_POST['semester-id'];
