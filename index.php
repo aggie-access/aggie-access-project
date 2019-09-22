@@ -1,5 +1,5 @@
 <?php
-$error=$_GET["error"];
+$error=$_GET['error'];
 if (!empty($error)) {
     $login_error="The username or password you have entered is incorrect.";
 }
@@ -41,7 +41,13 @@ if (!empty($error)) {
                     </div>
                     <button type="submit" class="btn btn-default">Login</button>
                 </form>
-                <div class="login-error"><?php echo $login_error; ?></div>
+                <div class="login-error">
+                    <?php
+                    if(isset($login_error)) {
+                        echo $login_error;
+                    }
+                    ?>
+                </div>
             </div>
         </div>
 
