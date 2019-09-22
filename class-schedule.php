@@ -17,6 +17,8 @@ $major_title=$row_student['major_title'];
 $sql_semester = "SELECT DISTINCT semester.semester_id, semester_title FROM semester, registration WHERE banner_id='$banner_id' AND semester.semester_id=registration.semester_id ORDER BY start_date DESC";
 $result_semester = $conn->query($sql_semester);
 
+$semester_id='';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $semester_id=$_POST['semester-id'];
   $sql_schedule = "SELECT subject_abbreviation, course_number, section_number, course_title, credit_hours, first_name, last_name, type_name, meeting_days, start_time, end_time, meeting_location
