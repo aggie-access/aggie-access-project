@@ -8,11 +8,11 @@ FROM student, course_level, classification, college, degree, major
 WHERE banner_id='$banner_id' AND student.level_id=course_level.level_id AND student.classification_id=classification.classification_id AND student.college_id=college.college_id AND student.degree_id=degree.degree_id AND student.major_id=major.major_id";
 $result_student = $conn->query($sql_student);
 $row_student = $result_student->fetch_assoc();
-$level_name=$row_student["level_name"];
-$classification_title=$row_student["classification_title"];
-$college_name=$row_student["college_name"];
-$degree_title=$row_student["degree_title"];
-$major_title=$row_student["major_title"];
+$level_name=$row_student['level_name'];
+$classification_title=$row_student['classification_title'];
+$college_name=$row_student['college_name'];
+$degree_title=$row_student['degree_title'];
+$major_title=$row_student['major_title'];
 
 $sql_semester = "SELECT DISTINCT semester.semester_id, semester_title FROM semester, registration WHERE banner_id='$banner_id' AND semester.semester_id=registration.semester_id ORDER BY start_date DESC";
 $result_semester = $conn->query($sql_semester);
@@ -59,10 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<option disabled selected value>Select Semester</option>";
                 while($row_semester = $result_semester->fetch_assoc()) {
                   echo "<option ";
-                  if ($semester_id == $row_semester[semester_id] ) {
+                  if ($semester_id == $row_semester['semester_id'] ) {
                     echo 'selected ';
                   }
-                  echo "value='" . $row_semester[semester_id] . "'>" . $row_semester[semester_title] . "</option>";
+                  echo "value='" . $row_semester['semester_id'] . "'>" . $row_semester['semester_title'] . "</option>";
                 }
                 echo "</select>";
               } else {
@@ -94,22 +94,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       while($row_schedule = $result_schedule->fetch_assoc()) {
         echo "<tr>" .
-        "<td>" . $row_schedule["subject_abbreviation"] . " " . $row_schedule["course_number"] . " | " . $row_schedule["section_number"] .  "</td>" .
-        "<td>" . $row_schedule["course_title"] . "</td>" .
-        "<td>" . $row_schedule["credit_hours"] . "</td>" .
-        "<td>" . $row_schedule["first_name"] . " " . $row_schedule["last_name"] .  "</td>" .
-        "<td>" . $row_schedule["type_name"]. "</td>" ;
+        "<td>" . $row_schedule['subject_abbreviation'] . " " . $row_schedule['course_number'] . " | " . $row_schedule['section_number'] .  "</td>" .
+        "<td>" . $row_schedule['course_title'] . "</td>" .
+        "<td>" . $row_schedule['credit_hours'] . "</td>" .
+        "<td>" . $row_schedule['first_name'] . " " . $row_schedule['last_name'] .  "</td>" .
+        "<td>" . $row_schedule['type_name']. "</td>" ;
 
-        if ($row_schedule["meeting_days"] === "")
+        if ($row_schedule['meeting_days'] === "")
         {
           echo "<td>N/A</td>";
           echo "<td>N/A</td>";
         } else {
-          echo "<td>" . $row_schedule["meeting_days"] . "</td>" .
-          "<td>" . date('g:i A', strtotime($row_schedule["start_time"])) . " - " . date('g:i A', strtotime($row_schedule["end_time"])) .  "</td>";
+          echo "<td>" . $row_schedule['meeting_days'] . "</td>" .
+          "<td>" . date('g:i A', strtotime($row_schedule['start_time'])) . " - " . date('g:i A', strtotime($row_schedule['end_time'])) .  "</td>";
         }
 
-        echo "<td>" . $row_schedule["meeting_location"]. "</td>" .
+        echo "<td>" . $row_schedule['meeting_location']. "</td>" .
         "</tr>";
       }
 
