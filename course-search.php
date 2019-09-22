@@ -48,7 +48,7 @@ $result_level = $conn->query($sql_level);
                               <option disabled selected value>Select Semester</option>
                               <?php
                               while($row_semester = $result_semester->fetch_assoc()) {
-                                  echo "<option value='" . $row_semester[semester_id] . "'>" . $row_semester[semester_title] . "</option>";
+                                  echo "<option value='" . $row_semester['semester_id'] . "'>" . $row_semester['semester_title'] . "</option>";
                               }
                               ?>
                             </select>
@@ -61,7 +61,7 @@ $result_level = $conn->query($sql_level);
                               <option disabled selected value>Select Department</option>
                               <?php
                               while($row_department = $result_department->fetch_assoc()) {
-                                  echo "<option value='" . $row_department[department_id] . "'>" . $row_department[department_name] . "</option>";
+                                  echo "<option value='" . $row_department['department_id'] . "'>" . $row_department['department_name'] . "</option>";
                               }
                               ?>
                             </select>
@@ -89,7 +89,7 @@ $result_level = $conn->query($sql_level);
                               <option disabled selected value>Select Course Environment</option>
                               <?php
                               while($row_type = $result_type->fetch_assoc()) {
-                                  echo "<option value='" . $row_type[type_id] . "'>" . $row_type[type_name] . "</option>";
+                                  echo "<option value='" . $row_type['type_id'] . "'>" . $row_type['type_name'] . "</option>";
                               }
                               ?>
                             </select>
@@ -117,7 +117,7 @@ $result_level = $conn->query($sql_level);
                               <option disabled selected value>Select Instructor</option>
                               <?php
                               while($row_instructor = $result_instructor->fetch_assoc()) {
-                                  echo "<option value='" . $row_instructor[instructor_id] . "'>" . $row_instructor[first_name] . " " . $row_instructor[last_name] . "</option>";
+                                  echo "<option value='" . $row_instructor['instructor_id'] . "'>" . $row_instructor['first_name'] . " " . $row_instructor['last_name'] . "</option>";
                               }
                               ?>
                             </select>
@@ -131,7 +131,7 @@ $result_level = $conn->query($sql_level);
                               <option disabled selected value>Select Course Level</option>
                               <?php
                               while($row_level = $result_level->fetch_assoc()) {
-                                  echo "<option value='" . $row_level[level_id] . "'>" . $row_level[level_name] . "</option>";
+                                  echo "<option value='" . $row_level['level_id'] . "'>" . $row_level['level_name'] . "</option>";
                               }
                               ?>
                             </select>
