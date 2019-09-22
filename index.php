@@ -25,7 +25,7 @@ if (!empty($_GET['error'])) {
         </ul>
       </div>
     </nav>
-
+    
     <div id="outer">
       <div id="container">
         <h2>Welcome!</h2>
