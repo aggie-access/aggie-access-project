@@ -3,18 +3,7 @@ include 'assets/connect.php';
 
 $banner_id=$_SESSION['username'];
 
-$sql_student="SELECT level_name, classification_title, college_name, degree_title, major_title
-FROM student, course_level, classification, college, degree, major
-WHERE banner_id='$banner_id' AND student.level_id=course_level.level_id AND student.classification_id=classification.classification_id AND student.college_id=college.college_id AND student.degree_id=degree.degree_id AND student.major_id=major.major_id";
-$result_student = $conn->query($sql_student);
-$row_student = $result_student->fetch_assoc();
-$level_name=$row_student['level_name'];
-$classification_title=$row_student['classification_title'];
-$college_name=$row_student['college_name'];
-$degree_title=$row_student['degree_title'];
-$major_title=$row_student['major_title'];
-
-$sql_semester = "SELECT DISTINCT semester.semester_id, semester_title FROM semester, registration WHERE banner_id='$banner_id' AND semester.semester_id=registration.semester_id ORDER BY start_date DESC";
+$sql_semester = "SELECT DISTINCT semester.semester_id, semester_title, start_date FROM semester JOIN registration ON (semester.semester_id=registration.semester_id) WHERE banner_id='$banner_id' ORDER BY start_date DESC";
 $result_semester = $conn->query($sql_semester);
 
 $semester_id='';
@@ -58,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="form-group">
             <?php
             if ($result_semester->num_rows > 0) {
-              echo "<select id='semester-id' class='form-control' name='semester-id' onchange='this.form.submit();''>";
+              echo "<select id='semester-id' class='form-control' name='semester-id' onchange='this.form.submit();'>";
               echo "<option disabled selected value>Select Semester</option>";
               while($row_semester = $result_semester->fetch_assoc()) {
                 echo "<option ";
