@@ -1,6 +1,5 @@
 <?php
-$error=$_GET['error'];
-if (!empty($error)) {
+if (!empty($_GET['error'])) {
     $login_error="The username or password you have entered is incorrect.";
 }
 ?>
