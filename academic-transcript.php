@@ -15,7 +15,7 @@ WHERE banner_id='$banner_id' AND registration.registration_id=grades.registratio
 $result_attempted = $conn->query($sql_attempted);
 $row_attempted = $result_attempted->fetch_assoc();
 
-$attempted_hours=$row_attempted["attempted_hours"];
+$attempted_hours=$row_attempted['attempted_hours'];
 
 $sql_earned="SELECT SUM(credit_hours) AS earned_hours
 FROM grades, registration, section, course, grading_scale
@@ -23,7 +23,7 @@ WHERE banner_id='$banner_id' AND registration.registration_id=grades.registratio
 $result_earned = $conn->query($sql_earned);
 $row_earned = $result_earned->fetch_assoc();
 
-$earned_hours=$row_earned["earned_hours"];
+$earned_hours=$row_earned['earned_hours'];
 
 $sql_points="SELECT SUM(quality_points*credit_hours) AS quality_points
 FROM grades, registration, section, course, grading_scale
@@ -31,7 +31,7 @@ WHERE banner_id='$banner_id' AND registration.registration_id=grades.registratio
 $result_points = $conn->query($sql_points);
 $row_points = $result_points->fetch_assoc();
 
-$quality_points=$row_points["quality_points"];
+$quality_points=$row_points['quality_points'];
 
 $gpa=$quality_points/$earned_hours;
 ?>
@@ -74,12 +74,12 @@ $gpa=$quality_points/$earned_hours;
                     <?php
                     while($row_transcript = $result_transcript->fetch_assoc()) {
                         echo "<tr>" .
-                        "<td>" . $row_transcript["subject_abbreviation"] . " " . $row_transcript["course_number"] . "</td>" .
-                        "<td>" . $row_transcript["course_title"] . "</td>" .
-                        "<td>" . $row_transcript["credit_hours"] . "</td>" .
-                        "<td>" . $row_transcript["level_name"]. "</td>" .
-                        "<td>" . $row_transcript["letter_grade"]. "</td>" .
-                        "<td>" . $row_transcript["quality_points"]. "</td>" .
+                        "<td>" . $row_transcript['subject_abbreviation'] . " " . $row_transcript['course_number'] . "</td>" .
+                        "<td>" . $row_transcript['course_title'] . "</td>" .
+                        "<td>" . $row_transcript['credit_hours'] . "</td>" .
+                        "<td>" . $row_transcript['level_name']. "</td>" .
+                        "<td>" . $row_transcript['letter_grade']. "</td>" .
+                        "<td>" . $row_transcript['quality_points']. "</td>" .
                         "</tr>";
                     }
                     ?>
