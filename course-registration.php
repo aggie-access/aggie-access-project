@@ -36,7 +36,7 @@ $result_semester = $conn->query($sql_semester);
                               <option disabled selected value>Select Semester</option>
                               <?php
                               while($row_semester = $result_semester->fetch_assoc()) {
-                                  echo "<option value='" . $row_semester[semester_id] . "'>" . $row_semester[semester_title] . "</option>";
+                                  echo "<option value='" . $row_semester['semester_id'] . "'>" . $row_semester['semester_title'] . "</option>";
                               }
                               ?>
                             </select>
