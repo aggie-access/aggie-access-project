@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$server_username = "root";
+$server_username = "fg31igihj6wh";
 $server_password = "fjN*70v5s";
 $dbname = "aggie_access";
 
