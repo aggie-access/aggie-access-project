@@ -97,10 +97,13 @@ label {
 .row a {
   color:#004684;
 }
-@media screen and (max-width: 600px) {
-  .dashboard-even, .dashboard-odd {
-    width:100%;
-  }
+.mobile_device_600px{
+	display: none;
+}
+@media only screen and (max-width: 600px) {
+  .dashboard-even, .dashboard-odd { width:100%;}
+  .mobile_device_600px{display: block;}
+	
 }
 .dashboard-even, .dashboard-odd {
   text-align:center;
