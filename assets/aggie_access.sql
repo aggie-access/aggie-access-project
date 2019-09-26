@@ -291,9 +291,11 @@ INSERT INTO `textbook` (`isbn`, `textbook_title`, `author_id`, `textbook_edition
 CREATE TABLE `users` (
   `banner_id` int(9) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `role` varchar(100) NOT NULL DEFAULT 'student',
+  `status` enum('y','n') NOT NULL DEFAULT 'y'
   PRIMARY KEY (`banner_id`)
 );
 
-INSERT INTO `users` (`banner_id`, `password`) VALUES (123456789,'aggie'),(987654321,'ncat');
+INSERT INTO `users` (`banner_id`, `password`, `role`, `status`) VALUES (123456789, 'aggie', 'administrator', 'y'),(987654321, 'ncat', 'student', 'y');
 
 SET FOREIGN_KEY_CHECKS=1;
