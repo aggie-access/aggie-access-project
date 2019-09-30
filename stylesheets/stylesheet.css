@@ -196,6 +196,9 @@ label {
     display:block;
   }
 }
+.mobile-hide {
+  display:none;
+}
 .dashboard-even, .dashboard-odd {
   text-align:center;
   display:table;
