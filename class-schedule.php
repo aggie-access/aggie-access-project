@@ -122,7 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class='col-sm-9'>N/A</div>
           </div>";
         } else {
-          echo $row_schedule['meeting_days'] ."</div>
+          $days_initial = ["M", "T", "W", "R", "F"];
+          $days = ["Monday,", " Tuesday,", " Wednesday,", " Thursday,", " Friday,"];
+          echo rtrim(str_replace($days_initial,$days,$meeting_days=$row_schedule['meeting_days']), ',') . "</div>
           </div>
           <div class='row row-no-gutters class-schedule-row'>
           <div class='col-sm-3'>
@@ -143,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       echo "</div>";
     }
     ?>
-    
+
   </div>
 </body>
 </html>
