@@ -565,7 +565,10 @@ CREATE TABLE student (
   major_id INT(5) NOT NULL,
   graduation_year YEAR(4) NOT NULL,
   holds TINYINT(1) NOT NULL DEFAULT '0',
-  address VARCHAR(255) NOT NULL,
+  street VARCHAR(255) NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  state CHAR(2) NOT NULL,
+  zip INT(5) NOT NULL,
   phone_number CHAR(10) NOT NULL,
   PRIMARY KEY (banner_id,last_name),
   FOREIGN KEY (level_id) REFERENCES course_level(level_id),
@@ -576,10 +579,10 @@ CREATE TABLE student (
 );
 
 INSERT INTO student
-  (banner_id, first_name, middle_initial, last_name, birth_date, student_email, level_id, classification_id, college_id, degree_id, major_id, graduation_year, holds, address, phone_number)
+  (banner_id, first_name, middle_initial, last_name, birth_date, student_email, level_id, classification_id, college_id, degree_id, major_id, graduation_year, holds, street, city, state, zip, phone_number)
 VALUES
-  (123456789,'Aggie','T','Bulldog','2019-03-09','aggie@aggies.ncat.edu',1,4,7,2,50,2020,0,'1601 East Market Street, Greensboro, NC 27401','3363347500'),
-  (987654321,'John','J','Doe','2018-08-01','john@aggies.ncat.edu',1,3,5,2,28,2019,0,'345 Main Street, Greensboro, NC 27401','3363453455');
+  (123456789,'Aggie','T','Bulldog','2019-03-09','aggie@aggies.ncat.edu',1,4,7,2,50,2020,0,'1601 East Market Street', 'Greensboro', 'NC', '27401','3363347500'),
+  (987654321,'John','J','Doe','2018-08-01','john@aggies.ncat.edu',1,3,5,2,28,2019,0,'345 Main Street', 'Greensboro', 'NC', '27401','3363453455');
 
 CREATE TABLE subject (
   subject_id INT(5) NOT NULL,

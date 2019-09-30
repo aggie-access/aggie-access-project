@@ -3,14 +3,17 @@ include 'assets/connect.php';
 
 $banner_id=$_SESSION['username'];
 
-$sql_personal="SELECT first_name, middle_initial, last_name, address, birth_date, phone_number, student_email, graduation_year FROM student WHERE banner_id='$banner_id'";
+$sql_personal="SELECT first_name, middle_initial, last_name, street, city, state, zip, birth_date, phone_number, student_email, graduation_year FROM student WHERE banner_id='$banner_id'";
 $result_personal = $conn->query($sql_personal);
 $row_personal = $result_personal->fetch_assoc();
 
 $first_name=$row_personal['first_name'];
 $middle_initial=$row_personal['middle_initial'];
 $last_name=$row_personal['last_name'];
-$address=$row_personal['address'];
+$street=$row_personal['street'];
+$city=$row_personal['city'];
+$state=$row_personal['state'];
+$zip=$row_personal['zip'];
 $birth_date=date('M j, Y', strtotime($row_personal['birth_date']));
 $phone_number=$row_personal['phone_number'];
 $student_email=$row_personal['student_email'];
@@ -67,7 +70,10 @@ $major_title=$row_student['major_title'];
         <strong>Address</strong>
       </div>
       <div class="col-sm-9">
-        <?php echo $address; ?>
+        <?php
+        echo $street . "<br>";
+        echo $city . ", " . $state . " " . $zip;
+        ?>
       </div>
     </div>
 
