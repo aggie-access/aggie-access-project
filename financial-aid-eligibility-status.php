@@ -46,7 +46,7 @@ $gpa=$quality_points/$earned_hours;
 <html lang="en">
 
 <head>
-  <title>Financial Aid</title>
+  <title>Financial Aid Eligibility Status</title>
   <?php include 'assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){

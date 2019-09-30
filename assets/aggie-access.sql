@@ -34,6 +34,8 @@ CREATE TABLE award (
   fund_id INT(5) NOT NULL,
   fall_amount DECIMAL(7,2) NOT NULL,
   spring_amount DECIMAL(7,2) NOT NULL,
+  fall_amount_accepted DECIMAL(7,2),
+  spring_amount_accepted DECIMAL(7,2),
   PRIMARY KEY (award_id),
   FOREIGN KEY (banner_id) REFERENCES users(banner_id),
   FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id),
