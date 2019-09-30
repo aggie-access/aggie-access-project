@@ -70,7 +70,7 @@
           </div>
         </div>
       </a>
-      <a href="financial-aid.php">
+      <a href="financial-aid-award.php">
         <div class="col-sm-4 dashboard-even">
           <div class="dashboard-link">
             <i class="fas fa-dollar-sign" style="font-size:50px;"></i>

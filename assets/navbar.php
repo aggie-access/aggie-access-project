@@ -18,7 +18,7 @@
 				<li id="class-schedule"><a href="class-schedule.php">Class Schedule</a></li>
 				<li id="course-search"><a href="course-search.php">Course Search</a></li>
 				<li id="course-registration"><a href="course-registration.php">Registration</a></li>
-				<li id="financial-aid"><a href="financial-aid.php">Financial Aid</a></li>
+				<li id="financial-aid"><a href="financial-aid-award.php">Financial Aid</a></li>
 			</ul>
 		</div>
 	</div>
