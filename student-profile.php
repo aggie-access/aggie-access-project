@@ -56,7 +56,7 @@ $major_title=$row_student['major_title'];
     <h3>Personal Information</h3>
     <p style="margin-bottom:30px;">This is your personal profile information that is included in the university's directory.</p>
 
-    <div class="row row-no-gutters row-grid first-row">
+    <div class="row row-no-gutters profile-grid first-row">
       <div class="col-sm-3">
         <strong>Name</strong>
       </div>
@@ -65,7 +65,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid">
+    <div class="row row-no-gutters profile-grid">
       <div class="col-sm-3">
         <strong>Address</strong>
       </div>
@@ -77,7 +77,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid">
+    <div class="row row-no-gutters profile-grid">
       <div class="col-sm-3">
         <strong>Birth Date</strong>
       </div>
@@ -86,7 +86,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid">
+    <div class="row row-no-gutters profile-grid">
       <div class="col-sm-3">
         <strong>Phone</strong>
       </div>
@@ -100,7 +100,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid last-row">
+    <div class="row row-no-gutters profile-grid last-row">
       <div class="col-sm-3">
         <strong>Email</strong>
       </div>
@@ -112,7 +112,7 @@ $major_title=$row_student['major_title'];
     <h3>Student Information</h3>
     <p style="margin-bottom:30px;">This is your student profile information that is included in the university's directory.</p>
 
-    <div class="row row-no-gutters row-grid first-row">
+    <div class="row row-no-gutters profile-grid first-row">
       <div class="col-sm-3">
         <strong>Level</strong>
       </div>
@@ -121,7 +121,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid">
+    <div class="row row-no-gutters profile-grid">
       <div class="col-sm-3">
         <strong>Classification</strong>
       </div>
@@ -130,7 +130,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid">
+    <div class="row row-no-gutters profile-grid">
       <div class="col-sm-3">
         <strong>College Affiliation</strong>
       </div>
@@ -139,7 +139,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid">
+    <div class="row row-no-gutters profile-grid">
       <div class="col-sm-3">
         <strong>Degree Type</strong>
       </div>
@@ -148,7 +148,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid">
+    <div class="row row-no-gutters profile-grid">
       <div class="col-sm-3">
         <strong>Major</strong>
       </div>
@@ -157,7 +157,7 @@ $major_title=$row_student['major_title'];
       </div>
     </div>
 
-    <div class="row row-no-gutters row-grid last-row">
+    <div class="row row-no-gutters profile-grid last-row">
       <div class="col-sm-3">
         <strong>Graduation Year</strong>
       </div>

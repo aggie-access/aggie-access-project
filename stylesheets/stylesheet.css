@@ -143,13 +143,26 @@ select {
   color:#F44336;
   margin-top:10px;
 }
-.row-grid {
-  padding:20px 0;
+.profile-grid, .transcript-grid, .transcript-totals-grid, .class-schedule-grid {
   border-bottom:1px solid #aaa;
 }
-.first-row {
+.profile-grid, .transcript-totals-grid {
+  padding:20px 0;
+}
+.transcript-grid, .class-schedule-grid {
+  padding:15px 0;
+}
+.class-schedule-row {
+  padding:5px 0;
+}
+.class-schedule-container {
+  border-top:1px solid #aaa;
+  margin-bottom:30px;
+  margin-top:20px;
+}
+.profile-grid.first-row, .transcript-grid.first-row, .transcript-totals-grid.first-row {
   border-top:1px solid #aaa;
 }
-.last-row {
+.profile-grid.last-row, .transcript-totals-grid.last-row {
   margin-bottom:50px;
 }
