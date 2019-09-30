@@ -1,4 +1,6 @@
-<?php include 'assets/connect.php'; ?>
+<?php include 'assets/connect.php'; 
+$user = $_GET['user'];
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,7 @@
 </style>
 
 <body style="margin-top:120px;">
-
+  <p>Welcome back <?php $user; ?> </p>
   <?php include 'assets/navbar.php'; ?>
 
   <div class="container-fluid">
