@@ -17,6 +17,9 @@
 .nav-page-links {
   display:none;
 }
+.navbar-toggle {
+  display:none;
+}
 </style>
 
 <body style="margin-top:120px;">
