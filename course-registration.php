@@ -27,7 +27,7 @@ $result_semester = $conn->query($sql_semester);
     <h1>Registration</h1>
     <p style="margin-bottom:35px;">Enter the course reference number (CRN) for each of your selections below. You must provide your registration PIN that was given to you by your advisor in order to register for the upcoming semester.</p>
 
-    <form action="registration-confirmation.php" method="post">
+    <form action="registration-confirmation.php" method="post" style="margin-bottom:30px;">
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">

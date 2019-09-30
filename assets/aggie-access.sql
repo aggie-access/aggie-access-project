@@ -466,8 +466,8 @@ CREATE TABLE registration_pin (
 INSERT INTO registration_pin
   (registration_pin, banner_id, semester_id)
 VALUES
-  (123456,123456789,5),
-  (654321,987654321,5);
+  (123456,123456789,6),
+  (654321,987654321,6);
 
 CREATE TABLE school_year (
   school_year_id INT(5) NOT NULL,
@@ -532,6 +532,8 @@ VALUES
   (21944,10,'002',8,2,1,'W','08:30:00','10:50:00','Smith 4016',30),
   (21906,12,'05A',8,2,2,'',NULL,NULL,'Blackboard',35),
   (21054,13,'001',6,2,1,'TR','18:00:00','19:15:00','GCB A211',50);
+  (12345,13,'001',6,6,1,'TR','18:00:00','19:15:00','GCB A211',50);
+  (54321,5,'001',6,6,1,'TR','18:00:00','19:15:00','GCB A211',50);
 
 CREATE TABLE semester (
   semester_id INT(5) NOT NULL,

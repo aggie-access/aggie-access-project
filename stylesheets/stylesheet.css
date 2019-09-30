@@ -235,19 +235,19 @@ select {
   color:#F44336;
   margin-top:10px;
 }
-.profile-grid, .transcript-grid, .transcript-totals-grid, .class-schedule-grid, .financial-aid-grid {
+.profile-grid, .transcript-grid, .transcript-totals-grid, .class-schedule-grid, .financial-aid-grid, .course-registration-grid {
   border-bottom:1px solid #aaa;
 }
 .profile-grid, .transcript-totals-grid {
   padding:20px 0;
 }
-.transcript-grid, .class-schedule-grid, .financial-aid-grid {
+.transcript-grid, .class-schedule-grid, .financial-aid-grid, .course-registration-grid {
   padding:15px 0;
 }
-.class-schedule-row, .financial-aid-row {
+.class-schedule-row, .financial-aid-row, .course-registration-row {
   padding:5px 0;
 }
-.class-schedule-container, .financial-aid-container {
+.class-schedule-container, .financial-aid-container, .course-registration-container {
   border-top:1px solid #aaa;
   margin-bottom:30px;
   margin-top:20px;
