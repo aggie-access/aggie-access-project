@@ -98,12 +98,11 @@ label {
   color:#004684;
 }
 .mobile_device_600px{
-	display: none;
+  display: none;
 }
 @media only screen and (max-width: 600px) {
   .dashboard-even, .dashboard-odd { width:100%;}
   .mobile_device_600px{display: block;}
-	
 }
 .dashboard-even, .dashboard-odd {
   text-align:center;
@@ -143,4 +142,14 @@ select {
 .login-error {
   color:#F44336;
   margin-top:10px;
+}
+.row-grid {
+  padding:20px 0;
+  border-bottom:1px solid #aaa;
+}
+.first-row {
+  border-top:1px solid #aaa;
+}
+.last-row {
+  margin-bottom:50px;
 }
