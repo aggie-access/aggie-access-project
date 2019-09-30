@@ -73,7 +73,7 @@ $row_aid = $result_aid->fetch_assoc();
 
     <p style='margin-bottom:35px;'>You may choose to accept the full amount of this financial aid offer, or you may choose to accept a partial amount. Please enter the amount of the financial aid offer that you have chosen to accept for the fall and spring semester in the text boxes below:</p>
 
-    <form action="accept-award-offer-confirmation.php" method="post">
+    <form action="accept-award-offer-confirmation.php" method="post" style="margin-bottom:30px;">
       <input type="hidden" name="id" value="<?php echo $award_id; ?>">
       <div class="row">
         <div class="col-sm-4">
