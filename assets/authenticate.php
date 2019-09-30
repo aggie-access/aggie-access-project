@@ -6,6 +6,7 @@ include 'config.php';
 session_start();
 
 if ( !isset($_POST['username'], $_POST['password']) ) {
+	$user = $_POST['username'];
 	die ('You are not logged in. Please log in to access this page.');
 }
 
@@ -30,7 +31,7 @@ if ($stmt = $conn->prepare('SELECT banner_id, password FROM users WHERE banner_i
 
 			$_SESSION['name'] = $row['first_name'];
 
-			header('Location: ../student-dashboard.php');
+			header('Location: ../student-dashboard.php?user=$user');
 		} else {
 			header('Location: ../index.php?error=1');
 		}
