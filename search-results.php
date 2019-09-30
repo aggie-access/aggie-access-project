@@ -108,7 +108,7 @@ $result_search = $conn->query($sql_search);
 			echo "<th>Course</th>";
 			echo "<th class='mobile-hide'>Section</th>";
 			echo "<th style='width:200px;'>Title</th>";
-			echo "<th>Credits</th>";
+			echo "<th class='mobile-hide'>Credits</th>";
 			echo "<th class='mobile-hide'>Instructor</th>";
 			echo "<th class='mobile-hide'>Type</th>";
 			echo "<th class='mobile-hide'>Days</th>";
@@ -124,7 +124,7 @@ $result_search = $conn->query($sql_search);
 				"<td>" . $row_search['subject_abbreviation'] . " " . $row_search['course_number'] . "</td>" .
 				"<td class='mobile-hide'>" . $row_search['section_number'] . "</td>" .
 				"<td>" . $row_search['course_title'] . "</td>" .
-				"<td>" . $row_search['credit_hours'] . "</td>" .
+				"<td class='mobile-hide'>" . $row_search['credit_hours'] . "</td>" .
 				"<td class='mobile-hide'>" . $row_search['first_name'] . " " . $row_search['last_name'] .  "</td>" .
 				"<td class='mobile-hide'>" . $row_search['type_name']. "</td>" ;
 
