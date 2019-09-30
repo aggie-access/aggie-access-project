@@ -59,22 +59,22 @@ $gpa=$quality_points/$earned_hours;
     <p style="margin-bottom:35px;">Below is an unofficial copy of your current academic transcript.</p>
 
     <div class="row row-no-gutters transcript-grid first-row">
-      <div class="col-sm-2">
+      <div class="col-xs-2">
         <strong>Course</strong>
       </div>
-      <div class="col-sm-4">
+      <div class="col-xs-4">
         <strong>Title</strong>
       </div>
-      <div class="col-sm-1">
+      <div class="col-xs-1">
         <strong>Credits</strong>
       </div>
-      <div class="col-sm-2">
+      <div class="col-xs-2 mobile-hide">
         <strong>Level</strong>
       </div>
-      <div class="col-sm-1">
+      <div class="col-xs-1">
         <strong>Grade</strong>
       </div>
-      <div class="col-sm-2">
+      <div class="col-xs-2 mobile-hide">
         <strong>Quality Points</strong>
       </div>
     </div>
@@ -82,12 +82,12 @@ $gpa=$quality_points/$earned_hours;
     <?php
     while($row_transcript = $result_transcript->fetch_assoc()) {
       echo "<div class='row row-no-gutters transcript-grid'>
-        <div class='col-sm-2'>" . $row_transcript['subject_abbreviation'] . " " . $row_transcript['course_number'] . "</div>
-        <div class='col-sm-4'>" . $row_transcript['course_title'] . "</div>
-        <div class='col-sm-1'>" . $row_transcript['credit_hours'] . "</div>
-        <div class='col-sm-2'>" . $row_transcript['level_name'] . "</div>
-        <div class='col-sm-1'>" . $row_transcript['letter_grade'] . "</div>
-        <div class='col-sm-2'>" . $row_transcript['quality_points'] . "</div>
+        <div class='col-xs-2'>" . $row_transcript['subject_abbreviation'] . " " . $row_transcript['course_number'] . "</div>
+        <div class='col-xs-4'>" . $row_transcript['course_title'] . "</div>
+        <div class='col-xs-1'>" . $row_transcript['credit_hours'] . "</div>
+        <div class='col-xs-2 mobile-hide'>" . $row_transcript['level_name'] . "</div>
+        <div class='col-xs-1'>" . $row_transcript['letter_grade'] . "</div>
+        <div class='col-xs-2 mobile-hide'>" . $row_transcript['quality_points'] . "</div>
       </div>";
     }
     ?>
