@@ -106,14 +106,14 @@ $result_search = $conn->query($sql_search);
 			echo "<tr>";
 			echo "<th>CRN</th>";
 			echo "<th>Course</th>";
-			echo "<th>Section</th>";
+			echo "<th class='mobile-hide'>Section</th>";
 			echo "<th style='width:200px;'>Title</th>";
 			echo "<th>Credits</th>";
-			echo "<th>Instructor</th>";
-			echo "<th>Type</th>";
-			echo "<th>Days</th>";
-			echo "<th>Times</th>";
-			echo "<th>Location</th>";
+			echo "<th class='mobile-hide'>Instructor</th>";
+			echo "<th class='mobile-hide'>Type</th>";
+			echo "<th class='mobile-hide'>Days</th>";
+			echo "<th class='mobile-hide'>Times</th>";
+			echo "<th class='mobile-hide'>Location</th>";
 			echo "</tr>";
 			echo "</thead>";
 			echo "<tbody>";
@@ -122,22 +122,22 @@ $result_search = $conn->query($sql_search);
 				echo "<tr>" .
 				"<td><a href='course-information.php?id=" . $row_search['crn'] . "'</a>" . $row_search['crn'] . "</td>" .
 				"<td>" . $row_search['subject_abbreviation'] . " " . $row_search['course_number'] . "</td>" .
-				"<td>" . $row_search['section_number'] . "</td>" .
+				"<td class='mobile-hide'>" . $row_search['section_number'] . "</td>" .
 				"<td>" . $row_search['course_title'] . "</td>" .
 				"<td>" . $row_search['credit_hours'] . "</td>" .
-				"<td>" . $row_search['first_name'] . " " . $row_search['last_name'] .  "</td>" .
-				"<td>" . $row_search['type_name']. "</td>" ;
+				"<td class='mobile-hide'>" . $row_search['first_name'] . " " . $row_search['last_name'] .  "</td>" .
+				"<td class='mobile-hide'>" . $row_search['type_name']. "</td>" ;
 
 				if ($row_search['meeting_days'] === "")
 				{
-					echo "<td>N/A</td>";
-					echo "<td>N/A</td>";
+					echo "<td class='mobile-hide'>N/A</td>";
+					echo "<td class='mobile-hide'>N/A</td>";
 				} else {
-					echo "<td>" . $row_search['meeting_days'] . "</td>" .
-					"<td>" . date('g:i A', strtotime($row_search['start_time'])) . " - " . date('g:i A', strtotime($row_search['end_time'])) .  "</td>";
+					echo "<td class='mobile-hide'>" . $row_search['meeting_days'] . "</td>" .
+					"<td class='mobile-hide'>" . date('g:i A', strtotime($row_search['start_time'])) . " - " . date('g:i A', strtotime($row_search['end_time'])) .  "</td>";
 				}
 
-				echo "<td>" . $row_search['meeting_location']. "</td>" .
+				echo "<td class='mobile-hide'>" . $row_search['meeting_location']. "</td>" .
 				"</tr>";
 			}
 
