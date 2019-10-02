@@ -96,162 +96,554 @@ $total_credits=$row_class_1['credit_hours']+$row_class_2['credit_hours']+$row_cl
       if ($result_class_1->num_rows > 0) {
         $register_class_1 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_1')");
 
-        echo "<p style='margin-bottom:20px;'>You have been successfully registered for the upcoming semester.</p>";
-        echo "<div class='row' style='margin-bottom:15px;'>";
-        echo "<div class='col-sm-3'>";
-        echo "<h3>" . $semester_title . "</h3>";
-        echo "</div>";
-        echo "<div class='col-sm-6'>";
-        echo "<h3 style='text-align:center;'>" . $start_date . " - " . $finish_date . "</h3>";
-        echo "</div>";
-        echo "<div class='col-sm-3'>";
+        echo "<p style='margin-bottom:30px;'>You have been successfully registered for ";
+
         if ($total_credits===1) {
-          echo "<h3 style='text-align:right;'>" . $total_credits . " Credit</h3>";
+          echo "<strong>" . $total_credits . " credit</strong>";
         } else {
-          echo "<h3 style='text-align:right;'>" . $total_credits . " Credits</h3>";
+          echo "<strong>" . $total_credits . " credits</strong>";
         }
-        echo "</div>";
-        echo "</div>";
-        echo "<table class='table table-striped'>";
-        echo "<thead>";
-        echo "<tr>";
-        echo "<th>CRN</th>";
-        echo "<th>Course</th>";
-        echo "<th>Section</th>";
-        echo "<th style='width:200px;'>Title</th>";
-        echo "<th>Credits</th>";
-        echo "<th>Instructor</th>";
-        echo "<th>Type</th>";
-        echo "<th>Days</th>";
-        echo "<th>Times</th>";
-        echo "<th>Location</th>";
-        echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
-        echo "<tr>";
-        echo "<td><a href='information.php?id=" . $row_class_1['crn'] . "'>" . $row_class_1['crn'] . "</a></td>";
-        echo "<td>" . $row_class_1['subject_abbreviation'] . " " . $row_class_1['course_number'] . "</td>";
-        echo "<td>" . $row_class_1['section_number'] . "</td>";
-        echo "<td>" . $row_class_1['course_title'] . "</td>";
-        echo "<td>" . $row_class_1['credit_hours'] . "</td>";
-        echo "<td>" . $row_class_1['first_name'] . " " . $row_class_1['last_name'] . "</td>";
-        echo "<td>" . $row_class_1['type_name'] . "</td>";
+
+        echo " during the <strong>" . $semester_title . "</strong> semester.</p>";
+
+        echo "<div class='course-registration-container'>
+        <div class='course-registration-grid'>
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>CRN</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['crn'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Course</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['subject_abbreviation'] . " " . $row_class_1['course_number'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Section</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['section_number'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Title</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['course_title'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Credits</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['credit_hours'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Instructor</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['first_name'] . " " . $row_class_1['last_name'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Type</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['type_name'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Meeting Days</strong>
+        </div>
+        <div class='col-sm-9'>";
+
         if ($row_class_1['meeting_days'] === "") {
-          echo "<td>N/A</td>";
-          echo "<td>N/A</td>";
+          echo "N/A";
         } else {
-          echo "<td>" . $row_class_1['meeting_days'] . "</td>" .
-          "<td>" . date('g:i A', strtotime($row_class_1['start_time'])) . " - " . date('g:i A', strtotime($row_class_1['end_time'])) .  "</td>";
+          echo $row_class_1['meeting_days'];
         }
-        echo "<td>" . $row_class_1['meeting_location'] . "</td>";
-        echo "</tr>";
+
+        echo "</div>
+        </div>
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Meeting Times</strong>
+        </div>
+        <div class='col-sm-9'>";
+
+        if ($row_class_1['meeting_days'] === "") {
+          echo "N/A";
+        } else {
+          echo date('g:i A', strtotime($row_class_1['start_time'])) . " - " . date('g:i A', strtotime($row_class_1['end_time']));
+        }
+
+        echo "</div>
+        </div>
+        <div class='row row-no-gutters course-registration-row'>
+        <div class='col-sm-3'>
+        <strong>Meeting Location</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_class_1['meeting_location'] . "</div>
+        </div>
+        </div>";
+
         if ($result_class_2->num_rows > 0) {
           $register_class_2 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_2')");
 
-          echo "<tr>";
-          echo "<td><a href='information.php?id=" . $row_class_2['crn'] . "'>" . $row_class_2['crn'] . "</a></td>";
-          echo "<td>" . $row_class_2['subject_abbreviation'] . " " . $row_class_2['course_number'] . "</td>";
-          echo "<td>" . $row_class_2['section_number'] . "</td>";
-          echo "<td>" . $row_class_2['course_title'] . "</td>";
-          echo "<td>" . $row_class_2['credit_hours'] . "</td>";
-          echo "<td>" . $row_class_2['first_name'] . " " . $row_class_2['last_name'] . "</td>";
-          echo "<td>" . $row_class_2['type_name'] . "</td>";
+          echo "<div class='course-registration-grid'>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>CRN</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['crn'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Course</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['subject_abbreviation'] . " " . $row_class_2['course_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Section</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['section_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Title</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['course_title'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Credits</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['credit_hours'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Instructor</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['first_name'] . " " . $row_class_2['last_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Type</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['type_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Days</strong>
+          </div>
+          <div class='col-sm-9'>";
+
           if ($row_class_2['meeting_days'] === "") {
-            echo "<td>N/A</td>";
-            echo "<td>N/A</td>";
+            echo "N/A";
           } else {
-            echo "<td>" . $row_class_2['meeting_days'] . "</td>" .
-            "<td>" . date('g:i A', strtotime($row_class_2['start_time'])) . " - " . date('g:i A', strtotime($row_class_2['end_time'])) .  "</td>";
+            echo $row_class_2['meeting_days'];
           }
-          echo "<td>" . $row_class_2['meeting_location'] . "</td>";
-          echo "</tr>";
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Times</strong>
+          </div>
+          <div class='col-sm-9'>";
+
+          if ($row_class_2['meeting_days'] === "") {
+            echo "N/A";
+          } else {
+            echo date('g:i A', strtotime($row_class_2['start_time'])) . " - " . date('g:i A', strtotime($row_class_2['end_time']));
+          }
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Location</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_2['meeting_location'] . "</div>
+          </div>
+          </div>";
         }
+
         if ($result_class_3->num_rows > 0) {
           $register_class_3 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_3')");
 
-          echo "<tr>";
-          echo "<td><a href='information.php?id=" . $row_class_3['crn'] . "'>" . $row_class_3['crn'] . "</a></td>";
-          echo "<td>" . $row_class_3['subject_abbreviation'] . " " . $row_class_3['course_number'] . "</td>";
-          echo "<td>" . $row_class_3['section_number'] . "</td>";
-          echo "<td>" . $row_class_3['course_title'] . "</td>";
-          echo "<td>" . $row_class_3['credit_hours'] . "</td>";
-          echo "<td>" . $row_class_3['first_name'] . " " . $row_class_3['last_name'] . "</td>";
-          echo "<td>" . $row_class_3['type_name'] . "</td>";
+          echo "<div class='course-registration-grid'>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>CRN</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['crn'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Course</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['subject_abbreviation'] . " " . $row_class_3['course_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Section</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['section_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Title</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['course_title'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Credits</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['credit_hours'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Instructor</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['first_name'] . " " . $row_class_3['last_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Type</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['type_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Days</strong>
+          </div>
+          <div class='col-sm-9'>";
+
           if ($row_class_3['meeting_days'] === "") {
-            echo "<td>N/A</td>";
-            echo "<td>N/A</td>";
+            echo "N/A";
           } else {
-            echo "<td>" . $row_class_3['meeting_days'] . "</td>" .
-            "<td>" . date('g:i A', strtotime($row_class_3['start_time'])) . " - " . date('g:i A', strtotime($row_class_3['end_time'])) .  "</td>";
+            echo $row_class_3['meeting_days'];
           }
-          echo "<td>" . $row_class_3['meeting_location'] . "</td>";
-          echo "</tr>";
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Times</strong>
+          </div>
+          <div class='col-sm-9'>";
+
+          if ($row_class_3['meeting_days'] === "") {
+            echo "N/A";
+          } else {
+            echo date('g:i A', strtotime($row_class_3['start_time'])) . " - " . date('g:i A', strtotime($row_class_3['end_time']));
+          }
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Location</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_3['meeting_location'] . "</div>
+          </div>
+          </div>";
+
         }
         if ($result_class_4->num_rows > 0) {
           $register_class_4 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_4')");
 
-          echo "<tr>";
-          echo "<td><a href='information.php?id=" . $row_class_4['crn'] . "'>" . $row_class_4['crn'] . "</a></td>";
-          echo "<td>" . $row_class_4['subject_abbreviation'] . " " . $row_class_4['course_number'] . "</td>";
-          echo "<td>" . $row_class_4['section_number'] . "</td>";
-          echo "<td>" . $row_class_4['course_title'] . "</td>";
-          echo "<td>" . $row_class_4['credit_hours'] . "</td>";
-          echo "<td>" . $row_class_4['first_name'] . " " . $row_class_4['last_name'] . "</td>";
-          echo "<td>" . $row_class_4['type_name'] . "</td>";
+          echo "<div class='course-registration-grid'>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>CRN</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['crn'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Course</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['subject_abbreviation'] . " " . $row_class_4['course_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Section</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['section_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Title</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['course_title'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Credits</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['credit_hours'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Instructor</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['first_name'] . " " . $row_class_4['last_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Type</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['type_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Days</strong>
+          </div>
+          <div class='col-sm-9'>";
+
           if ($row_class_4['meeting_days'] === "") {
-            echo "<td>N/A</td>";
-            echo "<td>N/A</td>";
+            echo "N/A";
           } else {
-            echo "<td>" . $row_class_4['meeting_days'] . "</td>" .
-            "<td>" . date('g:i A', strtotime($row_class_4['start_time'])) . " - " . date('g:i A', strtotime($row_class_4['end_time'])) .  "</td>";
+            echo $row_class_4['meeting_days'];
           }
-          echo "<td>" . $row_class_4['meeting_location'] . "</td>";
-          echo "</tr>";
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Times</strong>
+          </div>
+          <div class='col-sm-9'>";
+
+          if ($row_class_4['meeting_days'] === "") {
+            echo "N/A";
+          } else {
+            echo date('g:i A', strtotime($row_class_4['start_time'])) . " - " . date('g:i A', strtotime($row_class_4['end_time']));
+          }
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Location</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_4['meeting_location'] . "</div>
+          </div>
+          </div>";
+
         }
         if ($result_class_5->num_rows > 0) {
           $register_class_5 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_5')");
 
-          echo "<tr>";
-          echo "<td><a href='information.php?id=" . $row_class_5['crn'] . "'>" . $row_class_5['crn'] . "</a></td>";
-          echo "<td>" . $row_class_5['subject_abbreviation'] . " " . $row_class_5['course_number'] . "</td>";
-          echo "<td>" . $row_class_5['section_number'] . "</td>";
-          echo "<td>" . $row_class_5['course_title'] . "</td>";
-          echo "<td>" . $row_class_5['credit_hours'] . "</td>";
-          echo "<td>" . $row_class_5['first_name'] . " " . $row_class_5['last_name'] . "</td>";
-          echo "<td>" . $row_class_5['type_name'] . "</td>";
+          echo "<div class='course-registration-grid'>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>CRN</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['crn'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Course</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['subject_abbreviation'] . " " . $row_class_5['course_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Section</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['section_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Title</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['course_title'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Credits</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['credit_hours'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Instructor</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['first_name'] . " " . $row_class_5['last_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Type</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['type_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Days</strong>
+          </div>
+          <div class='col-sm-9'>";
+
           if ($row_class_5['meeting_days'] === "") {
-            echo "<td>N/A</td>";
-            echo "<td>N/A</td>";
+            echo "N/A";
           } else {
-            echo "<td>" . $row_class_5['meeting_days'] . "</td>" .
-            "<td>" . date('g:i A', strtotime($row_class_5['start_time'])) . " - " . date('g:i A', strtotime($row_class_5['end_time'])) .  "</td>";
+            echo $row_class_5['meeting_days'];
           }
-          echo "<td>" . $row_class_5['meeting_location'] . "</td>";
-          echo "</tr>";
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Times</strong>
+          </div>
+          <div class='col-sm-9'>";
+
+          if ($row_class_5['meeting_days'] === "") {
+            echo "N/A";
+          } else {
+            echo date('g:i A', strtotime($row_class_5['start_time'])) . " - " . date('g:i A', strtotime($row_class_5['end_time']));
+          }
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Location</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_5['meeting_location'] . "</div>
+          </div>
+          </div>";
+
         }
         if ($result_class_6->num_rows > 0) {
           $register_class_6 = mysqli_query($conn, "INSERT INTO registration(banner_id, semester_id, crn) VALUES('$banner_id', '$semester_id', '$crn_6')");
 
-          echo "<tr>";
-          echo "<td><a href='information.php?id=" . $row_class_6['crn'] . "'>" . $row_class_6['crn'] . "</a></td>";
-          echo "<td>" . $row_class_6['subject_abbreviation'] . " " . $row_class_6['course_number'] . "</td>";
-          echo "<td>" . $row_class_6['section_number'] . "</td>";
-          echo "<td>" . $row_class_6['course_title'] . "</td>";
-          echo "<td>" . $row_class_6['credit_hours'] . "</td>";
-          echo "<td>" . $row_class_6['first_name'] . " " . $row_class_6['last_name'] . "</td>";
-          echo "<td>" . $row_class_6['type_name'] . "</td>";
+          echo "<div class='course-registration-grid'>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>CRN</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['crn'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Course</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['subject_abbreviation'] . " " . $row_class_6['course_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Section</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['section_number'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Title</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['course_title'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Credits</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['credit_hours'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Instructor</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['first_name'] . " " . $row_class_6['last_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Type</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['type_name'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Days</strong>
+          </div>
+          <div class='col-sm-9'>";
+
           if ($row_class_6['meeting_days'] === "") {
-            echo "<td>N/A</td>";
-            echo "<td>N/A</td>";
+            echo "N/A";
           } else {
-            echo "<td>" . $row_class_6['meeting_days'] . "</td>" .
-            "<td>" . date('g:i A', strtotime($row_class_6['start_time'])) . " - " . date('g:i A', strtotime($row_class_6['end_time'])) .  "</td>";
+            echo $row_class_6['meeting_days'];
           }
-          echo "<td>" . $row_class_6['meeting_location'] . "</td>";
-          echo "</tr>";
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Times</strong>
+          </div>
+          <div class='col-sm-9'>";
+
+          if ($row_class_6['meeting_days'] === "") {
+            echo "N/A";
+          } else {
+            echo date('g:i A', strtotime($row_class_6['start_time'])) . " - " . date('g:i A', strtotime($row_class_6['end_time']));
+          }
+
+          echo "</div>
+          </div>
+          <div class='row row-no-gutters course-registration-row'>
+          <div class='col-sm-3'>
+          <strong>Meeting Location</strong>
+          </div>
+          <div class='col-sm-9'>" . $row_class_6['meeting_location'] . "</div>
+          </div>
+          </div>";
+
         }
-        echo "</tbody>";
-        echo "</table>";
+        echo "</div>";
       } else {
         echo "<p style='margin-top:20px;'>You have not been registered for the upcoming semester. The course reference number(s) that you provided do not match any of the courses being offered during the <strong>" . $semester_title . "</strong> semester.</p>";
       }

@@ -34,6 +34,8 @@ CREATE TABLE award (
   fund_id INT(5) NOT NULL,
   fall_amount DECIMAL(7,2) NOT NULL,
   spring_amount DECIMAL(7,2) NOT NULL,
+  fall_amount_accepted DECIMAL(7,2),
+  spring_amount_accepted DECIMAL(7,2),
   PRIMARY KEY (award_id),
   FOREIGN KEY (banner_id) REFERENCES users(banner_id),
   FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id),
@@ -464,8 +466,8 @@ CREATE TABLE registration_pin (
 INSERT INTO registration_pin
   (registration_pin, banner_id, semester_id)
 VALUES
-  (123456,123456789,5),
-  (654321,987654321,5);
+  (123456,123456789,6),
+  (654321,987654321,6);
 
 CREATE TABLE school_year (
   school_year_id INT(5) NOT NULL,
@@ -529,7 +531,9 @@ VALUES
   (21406,8,'002',8,2,1,'MWF','16:00:00','16:50:00','Smith 4016',30),
   (21944,10,'002',8,2,1,'W','08:30:00','10:50:00','Smith 4016',30),
   (21906,12,'05A',8,2,2,'',NULL,NULL,'Blackboard',35),
-  (21054,13,'001',6,2,1,'TR','18:00:00','19:15:00','GCB A211',50);
+  (21054,13,'001',6,2,1,'TR','18:00:00','19:15:00','GCB A211',50),
+  (12345,13,'001',6,6,1,'TR','18:00:00','19:15:00','GCB A211',50),
+  (54321,5,'001',6,6,1,'TR','18:00:00','19:15:00','GCB A211',50);
 
 CREATE TABLE semester (
   semester_id INT(5) NOT NULL,
@@ -565,7 +569,10 @@ CREATE TABLE student (
   major_id INT(5) NOT NULL,
   graduation_year YEAR(4) NOT NULL,
   holds TINYINT(1) NOT NULL DEFAULT '0',
-  address VARCHAR(255) NOT NULL,
+  street VARCHAR(255) NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  state CHAR(2) NOT NULL,
+  zip INT(5) NOT NULL,
   phone_number CHAR(10) NOT NULL,
   PRIMARY KEY (banner_id,last_name),
   FOREIGN KEY (level_id) REFERENCES course_level(level_id),
@@ -576,10 +583,10 @@ CREATE TABLE student (
 );
 
 INSERT INTO student
-  (banner_id, first_name, middle_initial, last_name, birth_date, student_email, level_id, classification_id, college_id, degree_id, major_id, graduation_year, holds, address, phone_number)
+  (banner_id, first_name, middle_initial, last_name, birth_date, student_email, level_id, classification_id, college_id, degree_id, major_id, graduation_year, holds, street, city, state, zip, phone_number)
 VALUES
-  (123456789,'Aggie','T','Bulldog','2019-03-09','aggie@aggies.ncat.edu',1,4,7,2,50,2020,0,'1601 East Market Street, Greensboro, NC 27401','3363347500'),
-  (987654321,'John','J','Doe','2018-08-01','john@aggies.ncat.edu',1,3,5,2,28,2019,0,'345 Main Street, Greensboro, NC 27401','3363453455');
+  (123456789,'Aggie','T','Bulldog','2019-03-09','aggie@aggies.ncat.edu',1,4,7,2,50,2020,0,'1601 East Market Street', 'Greensboro', 'NC', '27401','3363347500'),
+  (987654321,'John','J','Doe','2018-08-01','john@aggies.ncat.edu',1,3,5,2,28,2019,0,'345 Main Street', 'Greensboro', 'NC', '27401','3363453455');
 
 CREATE TABLE subject (
   subject_id INT(5) NOT NULL,

@@ -94,16 +94,110 @@ label {
 .navbar-right {
   margin-top:19px;
 }
+.navbar-logo {
+  width:325px;
+}
+.navbar-top {
+  height:80px;
+}
 .row a {
   color:#004684;
 }
-.mobile_device_600px{
-	display: none;
+.navbar-toggle {
+  margin-top:14px;
 }
-@media only screen and (max-width: 600px) {
-  .dashboard-even, .dashboard-odd { width:100%;}
-  .mobile_device_600px{display: block;}
-	
+.navbar-inverse .navbar-toggle .icon-bar {
+  background:#004684;
+}
+.navbar-inverse .navbar-toggle {
+  border-color:#004684;
+}
+.navbar-inverse .navbar-toggle:focus, .navbar-inverse .navbar-toggle:hover {
+  background-color:transparent;
+}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+  border-color:#fff;
+}
+.nav>li.logout-collapse {
+  display:none;
+}
+.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
+  background:#e5e5e5;
+  color:#004684;
+}
+.mobile_device_600px{
+  display: none;
+}
+@media (max-width: 1000px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
+    .dashboard-even, .dashboard-odd {
+      width:100%;
+    }
+    .mobile_device_600px{
+      display: block;
+    }
+    .navbar-logo {
+      width:225px;
+    }
+    .navbar-top {
+      height:63px;
+    }
+    .navbar-right {
+      margin-top:0;
+    }
+    .logout {
+      display:none!important;
+    }
+    .navbar-nav {
+      float:none;
+    }
+    body {
+      margin-top:110px;
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+      color:#fff;
+    }
+    .mobile-hide {
+      display:none;
+    }
+}
+@media only screen and (max-width: 800px) {
+  .nav>li.logout-collapse {
+    display:block;
+  }
 }
 .dashboard-even, .dashboard-odd {
   text-align:center;
@@ -143,4 +237,27 @@ select {
 .login-error {
   color:#F44336;
   margin-top:10px;
+}
+.profile-grid, .transcript-grid, .transcript-totals-grid, .class-schedule-grid, .financial-aid-grid, .course-registration-grid {
+  border-bottom:1px solid #aaa;
+}
+.profile-grid, .transcript-totals-grid {
+  padding:20px 0;
+}
+.transcript-grid, .class-schedule-grid, .financial-aid-grid, .course-registration-grid {
+  padding:15px 0;
+}
+.class-schedule-row, .financial-aid-row, .course-registration-row {
+  padding:5px 0;
+}
+.class-schedule-container, .financial-aid-container, .course-registration-container {
+  border-top:1px solid #aaa;
+  margin-bottom:30px;
+  margin-top:20px;
+}
+.profile-grid.first-row, .transcript-grid.first-row, .transcript-totals-grid.first-row {
+  border-top:1px solid #aaa;
+}
+.profile-grid.last-row, .transcript-totals-grid.last-row {
+  margin-bottom:50px;
 }

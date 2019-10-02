@@ -68,45 +68,80 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <?php
     if ($result_schedule->num_rows > 0) {
-      echo "<div style='margin-bottom:35px;'>";
-      echo "<table class='table table-striped'>";
-      echo "<thead>";
-      echo "<tr>";
-      echo "<th>Course</th>";
-      echo "<th style='width:300px;'>Title</th>";
-      echo "<th>Credits</th>";
-      echo "<th>Instructor</th>";
-      echo "<th>Type</th>";
-      echo "<th>Days</th>";
-      echo "<th>Times</th>";
-      echo "<th>Location</th>";
-      echo "</tr>";
-      echo "</thead>";
-      echo "<tbody>";
-
+      echo "<div class='class-schedule-container'>";
       while($row_schedule = $result_schedule->fetch_assoc()) {
-        echo "<tr>" .
-        "<td>" . $row_schedule['subject_abbreviation'] . " " . $row_schedule['course_number'] . " | " . $row_schedule['section_number'] .  "</td>" .
-        "<td>" . $row_schedule['course_title'] . "</td>" .
-        "<td>" . $row_schedule['credit_hours'] . "</td>" .
-        "<td>" . $row_schedule['first_name'] . " " . $row_schedule['last_name'] .  "</td>" .
-        "<td>" . $row_schedule['type_name']. "</td>" ;
+        echo "<div class='class-schedule-grid'>
+        <div class='row row-no-gutters class-schedule-row'>
+        <div class='col-sm-3'>
+        <strong>Course</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_schedule['subject_abbreviation'] . " " . $row_schedule['course_number'] . "</div>
+        </div>
 
-        if ($row_schedule['meeting_days'] === "")
-        {
-          echo "<td>N/A</td>";
-          echo "<td>N/A</td>";
+        <div class='row row-no-gutters class-schedule-row'>
+        <div class='col-sm-3'>
+        <strong>Title</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_schedule['course_title'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters class-schedule-row'>
+        <div class='col-sm-3'>
+        <strong>Credits</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_schedule['credit_hours'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters class-schedule-row'>
+        <div class='col-sm-3'>
+        <strong>Instructor</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_schedule['first_name'] . " " . $row_schedule['last_name'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters class-schedule-row'>
+        <div class='col-sm-3'>
+        <strong>Type</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_schedule['type_name'] . "</div>
+        </div>
+
+        <div class='row row-no-gutters class-schedule-row'>
+        <div class='col-sm-3'>
+        <strong>Days</strong>
+        </div>
+        <div class='col-sm-9'>";
+
+        if ($row_schedule['meeting_days'] === ""){
+          echo "N/A</div>
+          </div>
+          <div class='row row-no-gutters class-schedule-row'>
+          <div class='col-sm-3'>
+          <strong>Times</strong>
+          </div>
+          <div class='col-sm-9'>N/A</div>
+          </div>";
         } else {
-          echo "<td>" . $row_schedule['meeting_days'] . "</td>" .
-          "<td>" . date('g:i A', strtotime($row_schedule['start_time'])) . " - " . date('g:i A', strtotime($row_schedule['end_time'])) .  "</td>";
+          $days_initial = ["M", "T", "W", "R", "F"];
+          $days = ["Monday,", " Tuesday,", " Wednesday,", " Thursday,", " Friday,"];
+          echo rtrim(str_replace($days_initial,$days,$meeting_days=$row_schedule['meeting_days']), ',') . "</div>
+          </div>
+          <div class='row row-no-gutters class-schedule-row'>
+          <div class='col-sm-3'>
+          <strong>Times</strong>
+          </div>
+          <div class='col-sm-9'>" . date('g:i A', strtotime($row_schedule['start_time'])) . " - " . date('g:i A', strtotime($row_schedule['end_time'])) . "</div>
+          </div>";
         }
 
-        echo "<td>" . $row_schedule['meeting_location']. "</td>" .
-        "</tr>";
+        echo "<div class='row row-no-gutters class-schedule-row'>
+        <div class='col-sm-3'>
+        <strong>Location</strong>
+        </div>
+        <div class='col-sm-9'>" . $row_schedule['meeting_location'] . "</div>
+        </div>
+        </div>";
       }
-
-      echo "</tbody>";
-      echo "</table>";
       echo "</div>";
     }
     ?>

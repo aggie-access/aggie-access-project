@@ -30,7 +30,7 @@ if ($stmt = $conn->prepare('SELECT banner_id, password FROM users WHERE banner_i
 
 			$_SESSION['name'] = $row['first_name'];
 
-			header('Location: ../dashboard.php');
+			header('Location: ../student-dashboard.php');
 		} else {
 			header('Location: ../index.php?error=1');
 		}
