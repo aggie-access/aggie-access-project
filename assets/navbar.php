@@ -31,6 +31,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="financial-aid-award.php">Award</a></li>
 							<li><a href="financial-aid-eligibility-status.php">Eligibility Status</a></li>
+							<li><a href="financial-aid-requirements.php">Loan requirements</a></li>
 						</ul>
 					</li>
 					<li class="logout-collapse"><a href="assets/logout.php">Logout</a></li>
