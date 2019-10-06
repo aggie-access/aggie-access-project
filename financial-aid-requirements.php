@@ -108,9 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
           if ($row_requirements['completion_status']==='n') {
             echo "<div class='row row-no-gutters financial-aid-row'>
-            <div class='col-sm-3'>
-            <strong>Link</strong>
-            </div>
+            <div class='col-sm-3'></div>
             <div class='col-sm-9'><a href='" . $row_requirements['requirement_url'] . "' target='_blank'><button type='button' class='btn btn-primary'>Complete this Requirement on FAFSA.gov</button></a></div>
             </div></div>";
           } elseif ($row_requirements['completion_status']==='y') {
