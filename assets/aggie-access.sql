@@ -312,9 +312,9 @@ VALUES
   (2,2,'B-'),
   (3,3,'A'),
   (4,4,'C'),
-  (5,5,'A'),
+  (5,5,'W'),
   (6,6,'A'),
-  (7,7,'A-'),
+  (7,7,'W'),
   (8,8,'D'),
   (9,9,'A');
 
@@ -344,13 +344,8 @@ INSERT INTO grading_scale
   (letter_grade)
 VALUES
   ('I'),
-  ('IP'),
-  ('CE'),
-  ('AP'),
-  ('S'),
   ('AU'),
-  ('W'),
-  ('P');
+  ('W');
 
 CREATE TABLE instructor (
   instructor_id INT(9) NOT NULL AUTO_INCREMENT,
