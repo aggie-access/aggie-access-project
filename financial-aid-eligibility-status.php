@@ -23,7 +23,7 @@ $attempted_hours=$row_attempted['attempted_hours'];
 
 $sql_earned="SELECT SUM(credit_hours) AS earned_hours
 FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL";
+WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL AND grading_scale.quality_points IS NOT NULL";
 $result_earned = $conn->query($sql_earned);
 $row_earned = $result_earned->fetch_assoc();
 
@@ -99,15 +99,15 @@ $gpa=$quality_points/$earned_hours;
     <?php
     if ($row_level['level_id']==='1') {
       if ($gpa>=2.0 AND $degree_rate>=67 AND $attempted_hours<=186) {
-        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . $gpa . "</strong>. Keep up the good work!</p>";
+        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>. Keep up the good work!</p>";
       } else {
-        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . $gpa . "</strong>.</p>";
+        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>.</p>";
       }
     } elseif ($row_level['level_id']==='2') {
       if ($gpa>=3.0 AND $degree_rate>=67 AND $attempted_hours<=54) {
-        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . $gpa . "</strong>. Keep up the good work!</p>";
+        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>. Keep up the good work!</p>";
       } else {
-        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . $gpa . "</strong>.</p>";
+        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>.</p>";
       }
     }
     ?>

@@ -7,7 +7,7 @@ USE aggie_access;
 SET FOREIGN_KEY_CHECKS=0;
 
 CREATE TABLE author (
-  author_id INT(5) NOT NULL,
+  author_id INT(5) NOT NULL AUTO_INCREMENT,
   author_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (author_id)
 );
@@ -28,7 +28,7 @@ VALUES
   (11,'Carl Chatfield');
 
 CREATE TABLE award (
-  award_id INT(10) NOT NULL,
+  award_id INT(10) NOT NULL AUTO_INCREMENT,
   banner_id INT(9) NOT NULL,
   school_year_id INT(5) NOT NULL,
   fund_id INT(5) NOT NULL,
@@ -52,10 +52,35 @@ VALUES
   (5,123456789,2,3,500.00,500.00),
   (6,987654321,1,2,1500.00,1500.00),
   (7,987654321,1,3,700.00,700.00),
-  (8,987654321,2,2,800.00,800.00);
+  (8,987654321,2,2,800.00,800.00),
+  (9,987654321,2,4,250.00,250.00),
+  (10,987654321,2,5,500.00,500.00),
+  (11,123456789,2,4,500.00,500.00),
+  (12,123456789,2,5,750.00,750.00);
+
+CREATE TABLE award_requirement_status (
+  award_id INT(10) NOT NULL,
+  requirement_id INT(5) NOT NULL,
+  completion_status ENUM('y','n') NOT NULL DEFAULT 'n',
+  PRIMARY KEY (award_id, requirement_id),
+  FOREIGN KEY (award_id) REFERENCES award(award_id),
+  FOREIGN KEY (requirement_id) REFERENCES fund_requirements(requirement_id)
+);
+
+INSERT INTO award_requirement_status
+  (award_id, requirement_id, completion_status)
+VALUES
+  (9, 1, 'n'),
+  (9, 3, 'y'),
+  (10, 2, 'n'),
+  (10, 4, 'n'),
+  (11, 1, 'n'),
+  (11, 3, 'n'),
+  (12, 2, 'n'),
+  (12, 4, 'y');
 
 CREATE TABLE classification (
-  classification_id INT(1) NOT NULL,
+  classification_id INT(1) NOT NULL AUTO_INCREMENT,
   classification_title VARCHAR(255) NOT NULL,
   level_id INT(1) NOT NULL,
   PRIMARY KEY (classification_id),
@@ -72,7 +97,7 @@ VALUES
   (5,'Graduate',2);
 
 CREATE TABLE college (
-  college_id INT(3) NOT NULL,
+  college_id INT(3) NOT NULL AUTO_INCREMENT,
   college_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (college_id)
 );
@@ -90,7 +115,7 @@ VALUES
   (8,'Joint School of Nanoscience and Nanoengineering');
 
 CREATE TABLE course (
-  course_id INT(5) NOT NULL,
+  course_id INT(5) NOT NULL AUTO_INCREMENT,
   course_number INT(3) NOT NULL,
   course_title VARCHAR(255) NOT NULL,
   course_description TEXT NOT NULL,
@@ -140,7 +165,7 @@ VALUES
   (25,499,'Senior Project II: A Capstone Experience','Students are required to complete projects that demonstrate a comprehensive understanding of basic concepts taught throughout the curriculum. Each project will be accompanied by a formal report on the project. Students will also make regular presentations of project status. Proficiency in effective technical writing, technical presentation and project management skills are emphasized.',35,'26',3.0,1,24,NULL,'9780735669116');
 
 CREATE TABLE course_level (
-  level_id INT(1) NOT NULL,
+  level_id INT(1) NOT NULL AUTO_INCREMENT,
   level_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (level_id)
 );
@@ -152,7 +177,7 @@ VALUES
   (2,'Graduate');
 
 CREATE TABLE course_type (
-  type_id INT(1) NOT NULL,
+  type_id INT(1) NOT NULL AUTO_INCREMENT,
   type_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (type_id)
 );
@@ -164,7 +189,7 @@ VALUES
   (2,'Online');
 
 CREATE TABLE degree (
-  degree_id INT(5) NOT NULL,
+  degree_id INT(5) NOT NULL AUTO_INCREMENT,
   degree_title VARCHAR(255) NOT NULL,
   level_id INT(1) NOT NULL,
   PRIMARY KEY (degree_id),
@@ -187,7 +212,7 @@ VALUES
   (11,'Master of Social Work',2);
 
 CREATE TABLE department (
-  department_id INT(5) NOT NULL,
+  department_id INT(5) NOT NULL AUTO_INCREMENT,
   department_name VARCHAR(255) NOT NULL,
   college_id INT(3) NOT NULL,
   PRIMARY KEY (department_id),
@@ -239,7 +264,7 @@ VALUES
   (40,'Nanoengineering',8);
 
 CREATE TABLE fund (
-  fund_id INT(5) NOT NULL,
+  fund_id INT(5) NOT NULL AUTO_INCREMENT,
   fund_title VARCHAR(255) NOT NULL,
   PRIMARY KEY (fund_id)
 );
@@ -249,10 +274,30 @@ INSERT INTO fund
 VALUES
   (1,'Federal Pell Grant'),
   (2,'UNC Need Based Grant'),
-  (3,'Campus Based Tuition Fund');
+  (3,'Campus Based Tuition Fund'),
+  (4,'Direct Subsidized Loan'),
+  (5,'Direct Unsubsidized Loan');
+
+CREATE TABLE fund_requirements (
+  requirement_id INT(5) NOT NULL AUTO_INCREMENT,
+  requirement_title VARCHAR(255) NOT NULL,
+  requirement_description TEXT NOT NULL,
+  requirement_url VARCHAR(255) NOT NULL,
+  fund_id INT(5) NOT NULL,
+  PRIMARY KEY (requirement_id),
+  FOREIGN KEY (fund_id) REFERENCES fund(fund_id)
+);
+
+INSERT INTO fund_requirements
+  (requirement_id, requirement_title, requirement_description, requirement_url, fund_id)
+VALUES
+  (1, 'Loan Entrance Counseling', 'The federal government requires that all students who have accepted a Direct Subsidized Loan must complete loan entrance counseling to ensure that you understand the responsibilities and obligations of the loan.', 'https://studentloans.gov/myDirectLoan/counselingInstructions.action?counselingType=entrance', 4),
+  (2, 'Loan Entrance Counseling', 'The federal government requires that all students who have accepted a Direct Unsubsidized Loan must complete loan entrance counseling to ensure that you understand the responsibilities and obligations of the loan.', 'https://studentloans.gov/myDirectLoan/counselingInstructions.action?counselingType=entrance', 5),
+  (3, 'Master Promissory Note', 'The federal government requires that all students who have accepted a Direct Subsidized Loan must sign the Master Promissory Note, which is a legal document indicating that you will re-pay your loan amount in addition to any fees or accumulated interest to the U.S. Department of Education.', 'https://studentloans.gov/myDirectLoan/launchMpn.action', 4),
+  (4, 'Master Promissory Note', 'The federal government requires that all students who have accepted a Direct Unsubsidized Loan must sign the Master Promissory Note, which is a legal document indicating that you will re-pay your loan amount in addition to any fees or accumulated interest to the U.S. Department of Education.', 'https://studentloans.gov/myDirectLoan/launchMpn.action', 5);
 
 CREATE TABLE grades (
-  grade_id INT(10) NOT NULL,
+  grade_id INT(10) NOT NULL AUTO_INCREMENT,
   registration_id INT(10) NOT NULL,
   letter_grade VARCHAR(2) DEFAULT NULL,
   PRIMARY KEY (grade_id),
@@ -267,15 +312,15 @@ VALUES
   (2,2,'B-'),
   (3,3,'A'),
   (4,4,'C'),
-  (5,5,'A'),
+  (5,5,'W'),
   (6,6,'A'),
-  (7,7,'A-'),
+  (7,7,'W'),
   (8,8,'D'),
   (9,9,'A');
 
 CREATE TABLE grading_scale (
   letter_grade VARCHAR(2) NOT NULL,
-  quality_points DECIMAL(2,1) NOT NULL,
+  quality_points DECIMAL(2,1),
   PRIMARY KEY (letter_grade)
 );
 
@@ -292,10 +337,18 @@ VALUES
   ('C-',1.7),
   ('D+',1.3),
   ('D',1.0),
-  ('F',0.0);
+  ('F',0.0),
+  ('U',0.0);
+
+INSERT INTO grading_scale
+  (letter_grade)
+VALUES
+  ('I'),
+  ('AU'),
+  ('W');
 
 CREATE TABLE instructor (
-  instructor_id INT(9) NOT NULL,
+  instructor_id INT(9) NOT NULL AUTO_INCREMENT,
   first_name VARCHAR(255) NOT NULL,
   middle_initial CHAR(1) DEFAULT NULL,
   last_name VARCHAR(255) NOT NULL,
@@ -324,7 +377,7 @@ VALUES
   (12,'Qingan','','Zeng','qzeng@ncat.edu','Price Hall 203','3362853093',35);
 
 CREATE TABLE major (
-  major_id INT(5) NOT NULL,
+  major_id INT(5) NOT NULL AUTO_INCREMENT,
   major_title VARCHAR(255) NOT NULL,
   degree_id INT(5) NOT NULL,
   department_id INT(5) NOT NULL,
@@ -416,7 +469,7 @@ VALUES
   (78,'Visual Arts, Design',1,10);
 
 CREATE TABLE publisher (
-  publisher_id INT(5) NOT NULL,
+  publisher_id INT(5) NOT NULL AUTO_INCREMENT,
   publisher_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (publisher_id)
 );
@@ -470,7 +523,7 @@ VALUES
   (654321,987654321,6);
 
 CREATE TABLE school_year (
-  school_year_id INT(5) NOT NULL,
+  school_year_id INT(5) NOT NULL AUTO_INCREMENT,
   school_year_name VARCHAR(255) NOT NULL,
   fall_id INT(5) NOT NULL,
   spring_id INT(5) NOT NULL,
@@ -536,7 +589,7 @@ VALUES
   (54321,5,'001',6,6,1,'TR','18:00:00','19:15:00','GCB A211',50);
 
 CREATE TABLE semester (
-  semester_id INT(5) NOT NULL,
+  semester_id INT(5) NOT NULL AUTO_INCREMENT,
   semester_title VARCHAR(255) NOT NULL,
   start_date DATE NOT NULL,
   finish_date DATE NOT NULL,
@@ -589,7 +642,7 @@ VALUES
   (987654321,'John','J','Doe','2018-08-01','john@aggies.ncat.edu',1,3,5,2,28,2019,0,'345 Main Street', 'Greensboro', 'NC', '27401','3363453455');
 
 CREATE TABLE subject (
-  subject_id INT(5) NOT NULL,
+  subject_id INT(5) NOT NULL AUTO_INCREMENT,
   subject_title VARCHAR(255) NOT NULL,
   subject_abbreviation VARCHAR(4) NOT NULL,
   PRIMARY KEY (subject_id)

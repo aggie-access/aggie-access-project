@@ -19,7 +19,7 @@ $attempted_hours=$row_attempted['attempted_hours'];
 
 $sql_earned="SELECT SUM(credit_hours) AS earned_hours
 FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL";
+WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL AND grading_scale.quality_points IS NOT NULL";
 $result_earned = $conn->query($sql_earned);
 $row_earned = $result_earned->fetch_assoc();
 
@@ -122,7 +122,7 @@ $gpa=$quality_points/$earned_hours;
         <strong>Overall Grade Point Average</strong>
       </div>
       <div class="col-sm-8">
-        <?php echo $gpa; ?>
+        <?php echo number_format($gpa, 3); ?>
       </div>
     </div>
 
