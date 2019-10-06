@@ -11,10 +11,10 @@ $result_aid='';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $year_id=$_POST['award-year'];
-  $sql_aid = "SELECT award_id, fund_title, fall_amount, spring_amount, (fall_amount+spring_amount) AS total_amount, fall_amount_accepted, spring_amount_accepted
-  FROM award JOIN fund ON (award.fund_id=fund.fund_id)
-  WHERE banner_id='$banner_id' AND school_year_id='$year_id' and fund_title like '%Loan%'";
-  $result_aid = $conn->query($sql_aid);
+  $sql_requirements = "SELECT fund_title, requirement_title, requirement_description, requirement_url, completion_status
+  FROM award, fund, fund_requirements, award_requirement_status
+  WHERE award.fund_id=fund.fund_id AND fund.fund_id=fund_requirements.fund_id AND award.award_id=award_requirement_status.award_id AND fund_requirements.requirement_id=award_requirement_status.requirement_id AND banner_id='$banner_id' AND school_year_id='$year_id' AND (fall_amount_accepted<>0 OR fall_amount_accepted IS NULL) AND (spring_amount_accepted<>0 OR spring_amount_accepted IS NULL);";
+  $result_requirements = $conn->query($sql_requirements);
 }
 ?>
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 
 <head>
-  <title>Financial Aid Award</title>
+  <title>Financial Aid Requirements</title>
   <?php include 'assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <div class="container">
 
-    <h1>Loan Requirements</h1>
-    <p style="margin-bottom:35px;">Select an award year below to view your Loan Requirements. This only includes Loans you may have accepted.</p>
+    <h1>Financial Aid Requirements</h1>
+    <p style="margin-bottom:35px;">Select an award year below to view your financial aid requirements. This only includes financial aid awards that you have accepted.</p>
 
     <form method="post">
       <div class="row">
@@ -64,57 +64,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
 
     <?php
-    if ($result_aid->num_rows > 0) {
-      echo "<p style='margin:10px 0 30px;'>Your financial aid loan(s) for the selected school year are displayed below. Complete the below requirements to accept loan offer.</p>
-      <div class='financial-aid-container'>";
-      while($row_aid = $result_aid->fetch_assoc()) {
-        if ($row_aid['fall_amount_accepted']!='0' AND $row_aid['spring_amount_accepted']!='0') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      if ($result_requirements->num_rows > 0) {
+        echo "<p style='margin:10px 0 30px;'>Your financial aid requirements for the selected school year are displayed below. You must complete these requirements in order to receive your financial aid award.</p>
+        <div class='financial-aid-container'>";
+        while($row_requirements = $result_requirements->fetch_assoc()) {
           echo "<div class='financial-aid-grid'>
           <div class='row row-no-gutters financial-aid-row'>
           <div class='col-sm-3'>
           <strong>Fund</strong>
           </div>
-          <div class='col-sm-9'>" . $row_aid['fund_title'] . "</div>
-          <div class='row row-no-gutters financial-aid-row'>
-          <div class='col-sm-3'>
-          <strong>Sign Promissory Note</strong>
-          </div>
-            <div class='col-sm-9'>
-            <div class='checkbox1'>
-            <input class type='checkbox' value=''</div>";
-
-          echo "</div>
+          <div class='col-sm-9'>" . $row_requirements['fund_title'] . "</div>
           </div>
 
           <div class='row row-no-gutters financial-aid-row'>
           <div class='col-sm-3'>
-          <strong>Complete Loan Responsibility Video</strong>
+          <strong>Requirement</strong>
           </div>
-          <div class='col-sm-9'>
-          <div class='checkbox2'>
-          <input class type='checkbox' value=''</div>";
-
-          echo "</div>
+          <div class='col-sm-9'>" . $row_requirements['requirement_title'] . "</div>
           </div>
 
           <div class='row row-no-gutters financial-aid-row'>
           <div class='col-sm-3'>
-          <strong>place holder for another requirement</strong>
+          <strong>Description</strong>
           </div>
-          <div class='col-sm-9'>
-          <div class='checkbox3'>
-          <input class type='checkbox' value=''</div>";
+          <div class='col-sm-9'>" . $row_requirements['requirement_description'] . "</div>
+          </div>
+
+          <div class='row row-no-gutters financial-aid-row'>
+          <div class='col-sm-3'>
+          <strong>Completion Status</strong>
+          </div>
+          <div class='col-sm-9'>";
+
+          if ($row_requirements['completion_status']==='y') {
+            echo "Completed";
+          } elseif ($row_requirements['completion_status']==='n') {
+            echo "Not completed";
+          }
 
           echo "</div>
-          </div>
           </div>";
+
+          if ($row_requirements['completion_status']==='n') {
+            echo "<div class='row row-no-gutters financial-aid-row'>
+            <div class='col-sm-3'>
+            <strong>Link</strong>
+            </div>
+            <div class='col-sm-9'><a href='" . $row_requirements['requirement_url'] . "' target='_blank'><button type='button' class='btn btn-primary'>Complete this Requirement on FAFSA.gov</button></a></div>
+            </div></div>";
+          } elseif ($row_requirements['completion_status']==='y') {
+            echo "</div>";
+          }
         }
+      } else {
+        echo "<p style='margin:10px 0 30px;'>You do not have any financial aid requirements to complete for the selected school year.</p>";
       }
-      echo "</div>";
-    }
-    else {
-      echo "<p style='margin:10px 0 30px;'> No Loans were either offered or accepted.</p>
-      <div class='financial-aid-container'>";
     }
     ?>
 
