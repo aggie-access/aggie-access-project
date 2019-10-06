@@ -122,7 +122,7 @@ $gpa=$quality_points/$earned_hours;
         <strong>Overall Grade Point Average</strong>
       </div>
       <div class="col-sm-8">
-        <?php echo $gpa; ?>
+        <?php echo number_format($gpa, 3); ?>
       </div>
     </div>
 

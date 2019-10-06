@@ -99,15 +99,15 @@ $gpa=$quality_points/$earned_hours;
     <?php
     if ($row_level['level_id']==='1') {
       if ($gpa>=2.0 AND $degree_rate>=67 AND $attempted_hours<=186) {
-        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . number_format($gpa, 2) . "</strong>. Keep up the good work!</p>";
+        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>. Keep up the good work!</p>";
       } else {
-        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . number_format($gpa, 2) . "</strong>.</p>";
+        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>.</p>";
       }
     } elseif ($row_level['level_id']==='2') {
       if ($gpa>=3.0 AND $degree_rate>=67 AND $attempted_hours<=54) {
-        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . number_format($gpa, 2) . "</strong>. Keep up the good work!</p>";
+        echo "<p style='margin-bottom:35px;'>Congratulations, your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>. Keep up the good work!</p>";
       } else {
-        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . number_format($gpa, 2) . "</strong>.</p>";
+        echo "<p style='margin-bottom:35px;'>Your current cumulative GPA is <strong>" . number_format($gpa, 3) . "</strong>.</p>";
       }
     }
     ?>
