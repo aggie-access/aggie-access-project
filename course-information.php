@@ -3,14 +3,20 @@ include 'assets/connect.php';
 
 $crn=$_GET['id'];
 
-$sql_info="SELECT crn, section_number, meeting_days, start_time, end_time, meeting_location, seat_capacity, first_name, middle_initial, last_name, email, office_location, office_phone, course_number, course_title, course_description, credit_hours, subject_abbreviation, type_name, start_date, finish_date, textbook.isbn, textbook_title, textbook_release_year, textbook_edition, author_name, publisher_name
-FROM section, instructor, course, subject, course_type, semester, textbook, author, publisher
-WHERE crn='$crn' AND section.instructor_id=instructor.instructor_id AND section.course_id=course.course_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND section.semester_id=semester.semester_id AND course.isbn=textbook.isbn AND author.author_id=textbook.author_id AND publisher.publisher_id=textbook.publisher_id";
+$sql_info="SELECT crn, section_number, meeting_days, start_time, end_time, meeting_location, seat_capacity, first_name, 
+middle_initial, last_name, email, office_location, office_phone, course_number, course_title, 
+course_description, credit_hours, subject_abbreviation, type_name, start_date, finish_date, textbook.isbn, 
+textbook_title, textbook_release_year, textbook_edition, author_name, publisher_name
+
+  FROM section, instructor, course, subject, course_type, semester, textbook, author, publisher
+  WHERE crn='$crn' AND section.instructor_id=instructor.instructor_id AND section.course_id=course.course_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND section.semester_id=semester.semester_id AND course.isbn=textbook.isbn AND author.author_id=textbook.author_id AND publisher.publisher_id=textbook.publisher_id";
+
 $result_info = $conn->query($sql_info);
 
 $sql_alt="SELECT crn, section_number, meeting_days, start_time, end_time, meeting_location, seat_capacity, first_name, middle_initial, last_name, email, office_location, office_phone, course_number, course_title, course_description, credit_hours, subject_abbreviation, type_name, start_date, finish_date
-FROM section, instructor, course, subject, course_type, semester
-WHERE crn='$crn' AND section.instructor_id=instructor.instructor_id AND section.course_id=course.course_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND section.semester_id=semester.semester_id";
+  FROM section, instructor, course, subject, course_type, semester
+  WHERE crn='$crn' AND section.instructor_id=instructor.instructor_id AND section.course_id=course.course_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND section.semester_id=semester.semester_id";
+
 $result_alt = $conn->query($sql_alt);
 
 if ($result_info->num_rows > 0) {
@@ -106,11 +112,12 @@ $corequisite_number=$row_corequisite['course_number'];
 
 <style>
 h4 {
-  margin-bottom:5px;
+  margin-bottom:5.5px;
+
 }
 </style>
 
-<body style="margin-bottom:35px;">
+<body style="margin-bottom:30px;">
 
   <?php include 'assets/navbar.php'; ?>
 
@@ -118,7 +125,7 @@ h4 {
 
     <div class="row">
       <div class="col-sm-12">
-        <h1><?php echo $subject_abbreviation . " " . $course_number . " | " . $section; ?></h1>
+        <h1><?php echo $subject_abbreviation . "=" . $course_number . " | " . $section; ?></h1>
       </div>
       <div class="col-sm-11">
         <h2 style="margin-top:0;"><?php echo $course_title; ?></h2>
