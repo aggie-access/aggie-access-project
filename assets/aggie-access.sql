@@ -540,7 +540,11 @@ INSERT INTO registration_pin
   (registration_pin, banner_id, semester_id)
 VALUES
   (123456,123456789,6),
-  (654321,987654321,6);
+  (654321,987654321,6),
+  (123456,123456789,7),
+  (654321,987654321,7),
+  (123456,123456789,8),
+  (654321,987654321,8);
 
 CREATE TABLE school_year (
   school_year_id INT(5) NOT NULL AUTO_INCREMENT,
