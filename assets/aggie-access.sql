@@ -531,7 +531,7 @@ CREATE TABLE registration_pin (
   registration_pin INT(6) NOT NULL,
   banner_id INT(9) NOT NULL,
   semester_id INT(5) NOT NULL,
-  PRIMARY KEY (registration_pin),
+  PRIMARY KEY (registration_pin, banner_id, semester_id),
   FOREIGN KEY (banner_id) REFERENCES users(banner_id),
   FOREIGN KEY (semester_id) REFERENCES semester(semester_id)
 );
