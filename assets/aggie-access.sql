@@ -507,6 +507,26 @@ VALUES
   (8,987654321,2,21906),
   (9,987654321,2,21054);
 
+CREATE TABLE registration_period (
+  registration_period_id INT(5) NOT NULL AUTO_INCREMENT,
+  semester_id INT(5) NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  senior_start_date DATE NOT NULL,
+  junior_start_date DATE NOT NULL,
+  sophomore_start_date DATE NOT NULL,
+  freshman_start_date DATE NOT NULL,
+  PRIMARY KEY (registration_period_id),
+  FOREIGN KEY (semester_id) REFERENCES semester(semester_id)
+);
+
+INSERT INTO registration_period
+  (registration_period_id, semester_id, start_date, end_date, senior_start_date, junior_start_date, sophomore_start_date, freshman_start_date)
+VALUES
+  (1, 6, '2019-11-04', '2019-12-02', '2019-11-04', '2019-11-05', '2019-11-06', '2019-11-07'),
+  (2, 7, '2019-11-04', '2019-12-02', '2019-11-04', '2019-11-05', '2019-11-06', '2019-11-07'),
+  (3, 8, '2019-11-04', '2019-12-02', '2019-11-04', '2019-11-05', '2019-11-06', '2019-11-07');
+
 CREATE TABLE registration_pin (
   registration_pin INT(6) NOT NULL,
   banner_id INT(9) NOT NULL,
