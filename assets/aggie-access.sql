@@ -29,7 +29,7 @@ VALUES
 
 CREATE TABLE award (
   award_id INT(10) NOT NULL AUTO_INCREMENT,
-  banner_id INT(9) NOT NULL,
+  banner_id CHAR(9) NOT NULL,
   school_year_id INT(5) NOT NULL,
   fund_id INT(5) NOT NULL,
   fall_amount DECIMAL(7,2) NOT NULL,
@@ -485,7 +485,7 @@ VALUES
 
 CREATE TABLE registration (
   registration_id INT(10) NOT NULL AUTO_INCREMENT,
-  banner_id INT(9) NOT NULL,
+  banner_id CHAR(9) NOT NULL,
   semester_id INT(5) NOT NULL,
   crn INT(5) NOT NULL,
   PRIMARY KEY (registration_id),
@@ -535,7 +535,7 @@ VALUES
 
 CREATE TABLE registration_pin (
   registration_pin INT(6) NOT NULL,
-  banner_id INT(9) NOT NULL,
+  banner_id CHAR(9) NOT NULL,
   semester_id INT(5) NOT NULL,
   PRIMARY KEY (registration_pin, banner_id, semester_id),
   FOREIGN KEY (banner_id) REFERENCES users(banner_id),
@@ -639,7 +639,7 @@ VALUES
   (8,'Summer II 2020','2020-06-25','2020-07-31');
 
 CREATE TABLE staff (
-  banner_id INT(9) NOT NULL,
+  banner_id CHAR(9) NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   middle_initial CHAR(1) DEFAULT NULL,
   last_name VARCHAR(255) NOT NULL,
@@ -650,11 +650,11 @@ CREATE TABLE staff (
 INSERT INTO staff
   (banner_id, first_name, middle_initial, last_name)
 VALUES
-  (000000000, 'Admin', 'R', 'Aggie'),
-  (333333333, 'Finance', 'A', 'Officer');
+  ('000000000', 'Admin', 'R', 'Aggie'),
+  ('333333333', 'Finance', 'A', 'Officer');
 
 CREATE TABLE student (
-  banner_id INT(9) NOT NULL,
+  banner_id CHAR(9) NOT NULL,
   first_name VARCHAR(255) NOT NULL,
   middle_initial CHAR(1) DEFAULT NULL,
   last_name VARCHAR(255) NOT NULL,
@@ -821,9 +821,9 @@ VALUES
   ('9780735669116','Microsoft Project 2013: Step By Step',11,13,2013,1);
 
 CREATE TABLE users (
-  banner_id INT(9) NOT NULL,
+  banner_id CHAR(9) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  user_type_id INT(1) NOT NULL DEFAULT '1'
+  user_type_id INT(1) NOT NULL DEFAULT '1',
   status ENUM('y','n') NOT NULL DEFAULT 'y',
   PRIMARY KEY (banner_id),
   FOREIGN KEY (user_type_id) REFERENCES user_type(user_type_id)
@@ -832,10 +832,10 @@ CREATE TABLE users (
 INSERT INTO users
   (banner_id, password, user_type_id, status)
 VALUES
-  (123456789, 'aggie', 1, 'y'),
-  (987654321, 'ncat', 1, 'y'),
-  (000000000, 'admin', 2, 'y'),
-  (333333333, 'fafsa', 3, 'y');
+  ('123456789', 'aggie', 1, 'y'),
+  ('987654321', 'ncat', 1, 'y'),
+  ('000000000', 'admin', 2, 'y'),
+  ('333333333', 'fafsa', 3, 'y');
 
 CREATE TABLE user_type (
   user_type_id INT(1) NOT NULL AUTO_INCREMENT,
