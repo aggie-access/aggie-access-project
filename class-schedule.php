@@ -3,7 +3,7 @@ include 'assets/connect.php';
 
 $banner_id=$_SESSION['username'];
 
-$sql_semester = "SELECT DISTINCT semester.semester_id, semester_title, start_date FROM semester JOIN registration ON (semester.semester_id=registration.semester_id) WHERE banner_id='$banner_id' ORDER BY start_date DESC";
+$sql_semester = "SELECT DISTINCT s.semester_id, semester_title, start_date FROM semester s JOIN registration r ON (s.semester_id=r.semester_id) WHERE banner_id='$banner_id' ORDER BY start_date DESC";
 $result_semester = $conn->query($sql_semester);
 
 $semester_id='';
@@ -12,8 +12,8 @@ $result_schedule='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $semester_id=$_POST['semester-id'];
   $sql_schedule = "SELECT subject_abbreviation, course_number, section_number, course_title, credit_hours, first_name, last_name, type_name, meeting_days, start_time, end_time, meeting_location
-  FROM registration, section, instructor, course, subject, course_type
-  WHERE banner_id='$banner_id' AND section.crn=registration.crn AND section.instructor_id=instructor.instructor_id AND registration.semester_id='$semester_id' AND section.course_id=course.course_id AND course.subject_id=subject.subject_id AND section.type_id=course_type.type_id
+  FROM registration r JOIN section s ON (s.crn=r.crn) JOIN instructor i ON (s.instructor_id=i.instructor_id) JOIN course c ON (s.course_id=c.course_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN course_type t ON (s.type_id=t.type_id)
+  WHERE banner_id='$banner_id' AND r.semester_id='$semester_id'
   ORDER BY subject_abbreviation ASC, course_number ASC";
   $result_schedule = $conn->query($sql_schedule);
 }

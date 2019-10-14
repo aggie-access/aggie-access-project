@@ -3,31 +3,31 @@ include 'assets/connect.php';
 
 $banner_id=$_SESSION['username'];
 
-$sql_transcript = "SELECT subject_abbreviation, course_number, course_title, credit_hours, level_name, grades.letter_grade, quality_points*credit_hours AS quality_points
-FROM grades, registration, section, course, course_level, subject, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND course.level_id=course_level.level_id AND course.subject_id=subject.subject_id AND grades.letter_grade=grading_scale.letter_grade
+$sql_transcript = "SELECT subject_abbreviation, course_number, course_title, credit_hours, level_name, g.letter_grade, quality_points*credit_hours AS quality_points
+FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN course_level l ON (c.level_id=l.level_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
+WHERE banner_id='$banner_id'
 ORDER BY subject_abbreviation ASC, course_number ASC";
 $result_transcript = $conn->query($sql_transcript);
 
 $sql_attempted="SELECT SUM(credit_hours) AS attempted_hours
-FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL";
+FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
+WHERE banner_id='$banner_id' AND g.letter_grade IS NOT NULL";
 $result_attempted = $conn->query($sql_attempted);
 $row_attempted = $result_attempted->fetch_assoc();
 
 $attempted_hours=$row_attempted['attempted_hours'];
 
 $sql_earned="SELECT SUM(credit_hours) AS earned_hours
-FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL AND grading_scale.quality_points IS NOT NULL";
+FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
+WHERE banner_id='$banner_id' AND g.letter_grade IS NOT NULL AND gs.quality_points IS NOT NULL";
 $result_earned = $conn->query($sql_earned);
 $row_earned = $result_earned->fetch_assoc();
 
 $earned_hours=$row_earned['earned_hours'];
 
 $sql_points="SELECT SUM(quality_points*credit_hours) AS quality_points
-FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL";
+FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
+WHERE banner_id='$banner_id' AND g.letter_grade IS NOT NULL";
 $result_points = $conn->query($sql_points);
 $row_points = $result_points->fetch_assoc();
 
@@ -79,11 +79,11 @@ $gpa=$quality_points/$earned_hours;
     <?php
     while($row_transcript = $result_transcript->fetch_assoc()) {
       echo "<div class='row row-no-gutters transcript-grid'>
-        <div class='col-xs-3'>" . $row_transcript['subject_abbreviation'] . " " . $row_transcript['course_number'] . "</div>
-        <div class='col-xs-4'>" . $row_transcript['course_title'] . "</div>
-        <div class='col-xs-2'>" . $row_transcript['credit_hours'] . "</div>
-        <div class='col-xs-2 mobile-hide'>" . $row_transcript['level_name'] . "</div>
-        <div class='col-xs-1'>" . $row_transcript['letter_grade'] . "</div>
+      <div class='col-xs-3'>" . $row_transcript['subject_abbreviation'] . " " . $row_transcript['course_number'] . "</div>
+      <div class='col-xs-4'>" . $row_transcript['course_title'] . "</div>
+      <div class='col-xs-2'>" . $row_transcript['credit_hours'] . "</div>
+      <div class='col-xs-2 mobile-hide'>" . $row_transcript['level_name'] . "</div>
+      <div class='col-xs-1'>" . $row_transcript['letter_grade'] . "</div>
       </div>";
     }
     ?>

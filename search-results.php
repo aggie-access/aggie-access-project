@@ -43,7 +43,7 @@ $meeting_days_cond='';
 $meeting_times_cond='';
 
 if (!empty($department_id)) {
-	$department_cond="AND department.department_id='$department_id'";
+	$department_cond="AND d.department_id='$department_id'";
 }
 if (!empty($course_number)) {
 	$course_number_cond="AND course_number='$course_number'";
@@ -52,16 +52,16 @@ if (!empty($course_title)) {
 	$course_title_cond="AND course_title LIKE '%$course_title%'";
 }
 if (!empty($course_type)) {
-	$course_type_cond="AND section.type_id='$course_type'";
+	$course_type_cond="AND s.type_id='$course_type'";
 }
 if (!empty($credit_hours)) {
 	$credit_hours_cond="AND credit_hours='$credit_hours'";
 }
 if (!empty($instructor_id)) {
-	$instructor_cond="AND instructor.instructor_id='$instructor_id'";
+	$instructor_cond="AND i.instructor_id='$instructor_id'";
 }
 if (!empty($level_id)) {
-	$level_cond="AND course_level.level_id='$level_id'";
+	$level_cond="AND l.level_id='$level_id'";
 }
 if (!empty($meeting_days)) {
 	$meeting_days_cond="AND meeting_days LIKE '%$meeting_days%'";
@@ -70,9 +70,9 @@ if (!empty($meeting_times)) {
 	$meeting_times_cond="AND HOUR(start_time)='$meeting_times'";
 }
 
-$sql_search = "SELECT crn, subject_abbreviation, course_number, section_number, course_title, credit_hours, first_name, last_name, type_name, meeting_days, start_time, end_time, meeting_location, section.type_id, HOUR(start_time)
-FROM course, section, subject, instructor, course_type, semester, department, course_level
-WHERE section.semester_id=semester.semester_id AND section.instructor_id=instructor.instructor_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND course.course_id=section.course_id AND course.department_id=department.department_id AND course.level_id=course_level.level_id AND semester.semester_id='$semester_id' $department_cond $course_number_cond $course_title_cond $course_type_cond $credit_hours_cond $instructor_cond $level_cond $meeting_days_cond $meeting_times_cond
+$sql_search = "SELECT crn, subject_abbreviation, course_number, section_number, course_title, credit_hours, first_name, last_name, type_name, meeting_days, start_time, end_time, meeting_location, s.type_id, HOUR(start_time)
+FROM course c JOIN section s ON (c.course_id=s.course_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN instructor i ON (s.instructor_id=i.instructor_id) JOIN course_type t ON (s.type_id=t.type_id) JOIN semester e ON (s.semester_id=e.semester_id) JOIN department d ON (c.department_id=d.department_id) JOIN course_level l ON (c.level_id=l.level_id)
+WHERE e.semester_id='6' $department_cond $course_number_cond $course_title_cond $course_type_cond $credit_hours_cond $instructor_cond $level_cond $meeting_days_cond $meeting_times_cond
 ORDER BY subject_abbreviation ASC, course_number ASC, section_number ASC";
 $result_search = $conn->query($sql_search);
 ?>

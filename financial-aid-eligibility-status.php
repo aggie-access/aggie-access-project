@@ -7,23 +7,23 @@ $sql_holds = "SELECT holds FROM student WHERE banner_id='$banner_id';";
 $result_holds = $conn->query($sql_holds);
 $row_holds = $result_holds->fetch_assoc();
 
-$sql_level = "SELECT student.level_id
-FROM student JOIN course_level ON (student.level_id=course_level.level_id)
+$sql_level = "SELECT s.level_id
+FROM student s JOIN course_level l ON (s.level_id=l.level_id)
 WHERE banner_id='$banner_id';";
 $result_level = $conn->query($sql_level);
 $row_level = $result_level->fetch_assoc();
 
 $sql_attempted="SELECT SUM(credit_hours) AS attempted_hours
-FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL";
+FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
+WHERE banner_id='$banner_id' AND g.letter_grade IS NOT NULL";
 $result_attempted = $conn->query($sql_attempted);
 $row_attempted = $result_attempted->fetch_assoc();
 
 $attempted_hours=$row_attempted['attempted_hours'];
 
 $sql_earned="SELECT SUM(credit_hours) AS earned_hours
-FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL AND grading_scale.quality_points IS NOT NULL";
+FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
+WHERE banner_id='$banner_id' AND g.letter_grade IS NOT NULL AND gs.quality_points IS NOT NULL";
 $result_earned = $conn->query($sql_earned);
 $row_earned = $result_earned->fetch_assoc();
 
@@ -32,8 +32,8 @@ $earned_hours=$row_earned['earned_hours'];
 $degree_rate=($earned_hours/$attempted_hours)*100;
 
 $sql_points="SELECT SUM(quality_points*credit_hours) AS quality_points
-FROM grades, registration, section, course, grading_scale
-WHERE banner_id='$banner_id' AND registration.registration_id=grades.registration_id AND section.course_id=course.course_id AND registration.crn=section.crn AND grades.letter_grade=grading_scale.letter_grade AND grades.letter_grade IS NOT NULL";
+FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
+WHERE banner_id='$banner_id' AND g.letter_grade IS NOT NULL";
 $result_points = $conn->query($sql_points);
 $row_points = $result_points->fetch_assoc();
 

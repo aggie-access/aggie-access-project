@@ -20,8 +20,8 @@ $student_email=$row_personal['student_email'];
 $graduation_year=$row_personal['graduation_year'];
 
 $sql_student="SELECT level_name, classification_title, college_name, degree_title, major_title
-FROM student, course_level, classification, college, degree, major
-WHERE banner_id='$banner_id' AND student.level_id=course_level.level_id AND student.classification_id=classification.classification_id AND student.college_id=college.college_id AND student.degree_id=degree.degree_id AND student.major_id=major.major_id";
+FROM student s JOIN course_level l ON (s.level_id=l.level_id) JOIN classification f ON (s.classification_id=f.classification_id) JOIN college g ON (s.college_id=g.college_id) JOIN degree d ON (s.degree_id=d.degree_id) JOIN major m ON (s.major_id=m.major_id)
+WHERE banner_id='$banner_id'";
 $result_student = $conn->query($sql_student);
 $row_student = $result_student->fetch_assoc();
 $level_name=$row_student['level_name'];

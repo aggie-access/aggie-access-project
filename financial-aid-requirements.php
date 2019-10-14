@@ -12,8 +12,8 @@ $result_aid='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $year_id=$_POST['award-year'];
   $sql_requirements = "SELECT fund_title, requirement_title, requirement_description, requirement_url, completion_status
-  FROM award, fund, fund_requirements, award_requirement_status
-  WHERE award.fund_id=fund.fund_id AND fund.fund_id=fund_requirements.fund_id AND award.award_id=award_requirement_status.award_id AND fund_requirements.requirement_id=award_requirement_status.requirement_id AND banner_id='$banner_id' AND school_year_id='$year_id' AND (fall_amount_accepted<>0 OR fall_amount_accepted IS NULL) AND (spring_amount_accepted<>0 OR spring_amount_accepted IS NULL);";
+  FROM award a JOIN fund f ON (a.fund_id=f.fund_id) JOIN fund_requirements r ON (f.fund_id=r.fund_id) JOIN award_requirement_status s ON (a.award_id=s.award_id AND r.requirement_id=s.requirement_id)
+  WHERE banner_id='$banner_id' AND school_year_id='$year_id' AND (fall_amount_accepted!=0 OR fall_amount_accepted IS NULL) AND (spring_amount_accepted!=0 OR spring_amount_accepted IS NULL);";
   $result_requirements = $conn->query($sql_requirements);
 }
 ?>

@@ -11,7 +11,7 @@ $sql_accepted = "UPDATE award SET fall_amount_accepted='$fall_amount', spring_am
 $conn->query($sql_accepted);
 
 $sql_aid = "SELECT award_id, fund_title, fall_amount_accepted, spring_amount_accepted, (fall_amount_accepted+spring_amount_accepted) AS total_amount
-FROM award JOIN fund ON (award.fund_id=fund.fund_id)
+FROM award a JOIN fund f ON (a.fund_id=f.fund_id)
 WHERE banner_id='$banner_id' AND award_id='$award_id'";
 $result_aid = $conn->query($sql_aid);
 $row_aid = $result_aid->fetch_assoc();

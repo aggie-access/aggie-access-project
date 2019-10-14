@@ -12,7 +12,7 @@ $result_aid='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $year_id=$_POST['award-year'];
   $sql_aid = "SELECT award_id, fund_title, fall_amount, spring_amount, (fall_amount+spring_amount) AS total_amount, fall_amount_accepted, spring_amount_accepted
-  FROM award JOIN fund ON (award.fund_id=fund.fund_id)
+  FROM award a JOIN fund f ON (a.fund_id=f.fund_id)
   WHERE banner_id='$banner_id' AND school_year_id='$year_id'";
   $result_aid = $conn->query($sql_aid);
 }

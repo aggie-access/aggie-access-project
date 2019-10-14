@@ -3,14 +3,14 @@ include 'assets/connect.php';
 
 $crn=$_GET['id'];
 
-$sql_info="SELECT crn, section_number, meeting_days, start_time, end_time, meeting_location, seat_capacity, first_name, middle_initial, last_name, email, office_location, office_phone, course_number, course_title, course_description, credit_hours, subject_abbreviation, type_name, start_date, finish_date, textbook.isbn, textbook_title, textbook_release_year, textbook_edition, author_name, publisher_name
-FROM section, instructor, course, subject, course_type, semester, textbook, author, publisher
-WHERE crn='$crn' AND section.instructor_id=instructor.instructor_id AND section.course_id=course.course_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND section.semester_id=semester.semester_id AND course.isbn=textbook.isbn AND author.author_id=textbook.author_id AND publisher.publisher_id=textbook.publisher_id";
+$sql_info="SELECT crn, section_number, meeting_days, start_time, end_time, meeting_location, seat_capacity, first_name, middle_initial, last_name, email, office_location, office_phone, course_number, course_title, course_description, credit_hours, subject_abbreviation, type_name, start_date, finish_date, b.isbn, textbook_title, textbook_release_year, textbook_edition, author_name, publisher_name
+FROM section s JOIN instructor i ON (s.instructor_id=i.instructor_id) JOIN course c ON (s.course_id=c.course_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN course_type t ON (s.type_id=t.type_id) JOIN semester e ON (s.semester_id=e.semester_id) JOIN textbook b ON (c.isbn=b.isbn) JOIN author a ON (a.author_id=b.author_id) JOIN publisher p ON (p.publisher_id=b.publisher_id)
+WHERE crn='$crn'";
 $result_info = $conn->query($sql_info);
 
 $sql_alt="SELECT crn, section_number, meeting_days, start_time, end_time, meeting_location, seat_capacity, first_name, middle_initial, last_name, email, office_location, office_phone, course_number, course_title, course_description, credit_hours, subject_abbreviation, type_name, start_date, finish_date
-FROM section, instructor, course, subject, course_type, semester
-WHERE crn='$crn' AND section.instructor_id=instructor.instructor_id AND section.course_id=course.course_id AND section.type_id=course_type.type_id AND course.subject_id=subject.subject_id AND section.semester_id=semester.semester_id";
+FROM section s JOIN instructor i ON (s.instructor_id=i.instructor_id) JOIN course c ON (s.course_id=c.course_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN course_type t ON (s.type_id=t.type_id) JOIN semester e ON (s.semester_id=e.semester_id)
+WHERE crn='$crn'";
 $result_alt = $conn->query($sql_alt);
 
 if ($result_info->num_rows > 0) {
@@ -72,19 +72,23 @@ else {
   $publisher_name="";
 }
 
-$sql_seats="SELECT COUNT(*) AS seats_taken FROM registration WHERE registration.crn='$crn'";
+$sql_seats="SELECT COUNT(*) AS seats_taken FROM registration r WHERE r.crn='$crn'";
 $result_seats = $conn->query($sql_seats);
 $row_seats = $result_seats->fetch_assoc();
 $seats_taken=$row_seats['seats_taken'];
 $seats_available=$seat_capacity-$seats_taken;
 
-$sql_prerequisite="SELECT subject_abbreviation, p.course_number FROM course AS s, course AS p, section, subject WHERE crn='$crn' AND s.prerequisite_id=p.course_id AND s.course_id=section.course_id AND p.subject_id=subject.subject_id";
+$sql_prerequisite="SELECT subject_abbreviation, p.course_number
+FROM course c JOIN course p ON (c.prerequisite_id=p.course_id) JOIN section s ON (c.course_id=s.course_id) JOIN subject u ON (p.subject_id=u.subject_id)
+WHERE crn='$crn'";
 $result_prerequisite = $conn->query($sql_prerequisite);
 $row_prerequisite = $result_prerequisite->fetch_assoc();
 $prerequisite_abbreviation=$row_prerequisite['subject_abbreviation'];
 $prerequisite_number=$row_prerequisite['course_number'];
 
-$sql_corequisite="SELECT subject_abbreviation, c.course_number FROM course AS s, course AS c, section, subject WHERE crn='$crn' AND s.corequisite_id=c.course_id AND s.course_id=section.course_id AND c.subject_id=subject.subject_id";
+$sql_corequisite="SELECT subject_abbreviation, o.course_number
+FROM course c JOIN course o ON (c.corequisite_id=o.course_id) JOIN section s ON (c.course_id=s.course_id) JOIN subject u ON (o.subject_id=u.subject_id)
+WHERE crn='$crn'";
 $result_corequisite = $conn->query($sql_corequisite);
 $row_corequisite = $result_corequisite->fetch_assoc();
 $corequisite_abbreviation=$row_corequisite['subject_abbreviation'];
