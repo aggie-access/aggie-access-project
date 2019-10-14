@@ -638,6 +638,21 @@ VALUES
   (7,'Summer I 2020','2020-05-18','2020-06-23'),
   (8,'Summer II 2020','2020-06-25','2020-07-31');
 
+CREATE TABLE staff (
+  banner_id INT(9) NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  middle_initial CHAR(1) DEFAULT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (banner_id),
+  FOREIGN KEY (banner_id) REFERENCES users(banner_id)
+);
+
+INSERT INTO staff
+  (banner_id, first_name, middle_initial, last_name)
+VALUES
+  (000000000, 'Admin', 'R', 'Aggie'),
+  (333333333, 'Finance', 'A', 'Officer');
+
 CREATE TABLE student (
   banner_id INT(9) NOT NULL,
   first_name VARCHAR(255) NOT NULL,
@@ -657,7 +672,8 @@ CREATE TABLE student (
   state CHAR(2) NOT NULL,
   zip INT(5) NOT NULL,
   phone_number CHAR(10) NOT NULL,
-  PRIMARY KEY (banner_id,last_name),
+  PRIMARY KEY (banner_id),
+  FOREIGN KEY (banner_id) REFERENCES users(banner_id),
   FOREIGN KEY (level_id) REFERENCES course_level(level_id),
   FOREIGN KEY (classification_id) REFERENCES classification(classification_id),
   FOREIGN KEY (college_id) REFERENCES college(college_id),
@@ -807,15 +823,31 @@ VALUES
 CREATE TABLE users (
   banner_id INT(9) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  role VARCHAR(100) NOT NULL DEFAULT 'student',
+  user_type_id INT(1) NOT NULL DEFAULT '1'
   status ENUM('y','n') NOT NULL DEFAULT 'y',
-  PRIMARY KEY (banner_id)
+  PRIMARY KEY (banner_id),
+  FOREIGN KEY (user_type_id) REFERENCES user_type(user_type_id)
 );
 
 INSERT INTO users
-  (banner_id, password, role, status)
+  (banner_id, password, user_type_id, status)
 VALUES
-  (123456789, 'aggie', 'administrator', 'y'),
-  (987654321, 'ncat', 'student', 'y');
+  (123456789, 'aggie', 1, 'y'),
+  (987654321, 'ncat', 1, 'y'),
+  (000000000, 'admin', 2, 'y'),
+  (333333333, 'fafsa', 3, 'y');
+
+CREATE TABLE user_type (
+  user_type_id INT(1) NOT NULL AUTO_INCREMENT,
+  user_type_title VARCHAR(255) NOT NULL,
+  PRIMARY KEY (user_type_id)
+);
+
+INSERT INTO user_type
+  (user_type_id, user_type_title)
+VALUES
+  (1, 'Student'),
+  (2, 'Administrator'),
+  (3, 'Financial Aid Officer');
 
 SET FOREIGN_KEY_CHECKS=1;
