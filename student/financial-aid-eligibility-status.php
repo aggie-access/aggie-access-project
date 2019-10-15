@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $banner_id=$_SESSION['username'];
 
@@ -47,7 +47,7 @@ $gpa=$quality_points/$earned_hours;
 
 <head>
   <title>Financial Aid Eligibility Status</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#financial-aid").addClass("active");
@@ -58,7 +58,7 @@ $gpa=$quality_points/$earned_hours;
 
 <body>
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 

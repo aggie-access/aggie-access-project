@@ -6,10 +6,10 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="student-dashboard.php"><img src="images/logo.png" class="navbar-logo"></a>
+			<a class="navbar-brand" href="dashboard.php"><img src="../images/logo.png" class="navbar-logo"></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="assets/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			<li><a href="../assets/logout.php" class="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 		</ul>
 	</div>
 
@@ -34,7 +34,7 @@
 							<li><a href="financial-aid-requirements.php">Award Requirements</a></li>
 						</ul>
 					</li>
-					<li class="logout-collapse"><a href="assets/logout.php">Logout</a></li>
+					<li class="logout-collapse"><a href="../assets/logout.php">Logout</a></li>
 				</ul>
 			</div>
 

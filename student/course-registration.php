@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $sql_semester = "SELECT semester_id, semester_title FROM semester WHERE start_date>=CURDATE() ORDER BY start_date DESC";
 $result_semester = $conn->query($sql_semester);
@@ -10,7 +10,7 @@ $result_semester = $conn->query($sql_semester);
 
 <head>
   <title>Registration</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#course-registration").addClass("active");
@@ -20,7 +20,7 @@ $result_semester = $conn->query($sql_semester);
 
 <body>
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 

@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $sql_semester = "SELECT semester_id, semester_title, start_date FROM semester ORDER BY start_date DESC";
 $result_semester = $conn->query($sql_semester);
@@ -22,7 +22,7 @@ $result_level = $conn->query($sql_level);
 
 <head>
   <title>Course Search</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#course-search").addClass("active");
@@ -32,7 +32,7 @@ $result_level = $conn->query($sql_level);
 
 <body style="margin-bottom:35px;">
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 

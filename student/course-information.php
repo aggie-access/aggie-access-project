@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $crn=$_GET['id'];
 
@@ -100,7 +100,7 @@ $corequisite_number=$row_corequisite['course_number'];
 
 <head>
   <title>Course Information</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#course-search").addClass("active");
@@ -116,7 +116,7 @@ h4 {
 
 <body style="margin-bottom:35px;">
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 

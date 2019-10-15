@@ -1,14 +1,16 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $banner_id=$_SESSION['username'];
 
 $award_id=$_POST['id'];
+$fall_amount=$_POST['fall'];
+$spring_amount=$_POST['spring'];
 
-$sql_declined = "UPDATE award SET fall_amount_accepted='0.00', spring_amount_accepted='0.00' WHERE award_id='$award_id'";
-$conn->query($sql_declined);
+$sql_accepted = "UPDATE award SET fall_amount_accepted='$fall_amount', spring_amount_accepted='$spring_amount' WHERE award_id='$award_id'";
+$conn->query($sql_accepted);
 
-$sql_aid = "SELECT award_id, fund_title, fall_amount, spring_amount, (fall_amount+spring_amount) AS total_amount
+$sql_aid = "SELECT award_id, fund_title, fall_amount_accepted, spring_amount_accepted, (fall_amount_accepted+spring_amount_accepted) AS total_amount
 FROM award a JOIN fund f ON (a.fund_id=f.fund_id)
 WHERE banner_id='$banner_id' AND award_id='$award_id'";
 $result_aid = $conn->query($sql_aid);
@@ -19,8 +21,8 @@ $row_aid = $result_aid->fetch_assoc();
 <html lang="en">
 
 <head>
-  <title>Award Offer Declined</title>
-  <?php include 'assets/header.php'; ?>
+  <title>Award Offer Accepted</title>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#financial-aid").addClass("active");
@@ -31,12 +33,12 @@ $row_aid = $result_aid->fetch_assoc();
 
 <body>
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 
-    <h1>Award Offer Declined</h1>
-    <p style="margin-bottom:35px;">You have declined the following financial aid award offer:</p>
+    <h1>Award Offer Accepted</h1>
+    <p style="margin-bottom:35px;">You have accepted the following financial aid award offer:</p>
 
     <?php
     echo "<div class='financial-aid-container'>
@@ -52,14 +54,14 @@ $row_aid = $result_aid->fetch_assoc();
     <div class='col-sm-3'>
     <strong>Fall Award Package</strong>
     </div>
-    <div class='col-sm-9'>$" . number_format($row_aid['fall_amount'], 2) . "</div>
+    <div class='col-sm-9'>$" . number_format($row_aid['fall_amount_accepted'], 2) . "</div>
     </div>
 
     <div class='row row-no-gutters financial-aid-row'>
     <div class='col-sm-3'>
     <strong>Spring Award Package</strong>
     </div>
-    <div class='col-sm-9'>$" . number_format($row_aid['spring_amount'], 2) . "</div>
+    <div class='col-sm-9'>$" . number_format($row_aid['spring_amount_accepted'], 2) . "</div>
     </div>
 
     <div class='row row-no-gutters financial-aid-row'>

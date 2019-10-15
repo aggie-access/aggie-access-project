@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $semester_id=$_POST['semester'];
 
@@ -217,7 +217,7 @@ if ($result_registration->num_rows > 0) {
 
 <head>
   <title>Registration Confirmation</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#course-registration").addClass("active");
@@ -227,7 +227,7 @@ if ($result_registration->num_rows > 0) {
 
 <body style="margin-bottom:35px;">
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 

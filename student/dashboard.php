@@ -1,11 +1,11 @@
-<?php include 'assets/connect.php'; ?>
+<?php include '../assets/student/connect.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <title>Dashboard</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#dashboard").addClass("active");
@@ -24,7 +24,7 @@
 
 <body style="margin-top:120px;">
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container-fluid">
     <div class="row">

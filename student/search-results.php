@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 if (!empty($_GET['semester'])) {
 	$semester_id=$_GET['semester'];
@@ -82,7 +82,7 @@ $result_search = $conn->query($sql_search);
 
 <head>
 	<title>Course Results</title>
-	<?php include 'assets/header.php'; ?>
+	<?php include '../assets/header.php'; ?>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#course-search").addClass("active");
@@ -92,7 +92,7 @@ $result_search = $conn->query($sql_search);
 
 <body>
 
-	<?php include 'assets/navbar.php'; ?>
+	<?php include '../assets/student/navbar.php'; ?>
 
 	<div class="container">
 

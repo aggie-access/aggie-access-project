@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $banner_id=$_SESSION['username'];
 
@@ -16,8 +16,8 @@ $row_aid = $result_aid->fetch_assoc();
 <html lang="en">
 
 <head>
-  <title>Decline Award Offer</title>
-  <?php include 'assets/header.php'; ?>
+  <title>Accept Award Offer</title>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#financial-aid").addClass("active");
@@ -28,12 +28,12 @@ $row_aid = $result_aid->fetch_assoc();
 
 <body>
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 
-    <h1>Decline Award Offer</h1>
-    <p style="margin-bottom:35px;">Please make sure that you would like to decline the following financial aid award offer:</p>
+    <h1>Accept Award Offer</h1>
+    <p style="margin-bottom:35px;">You have chosen to accept the following financial aid award offer:</p>
 
     <?php
     if ($result_aid->num_rows > 0) {
@@ -71,9 +71,26 @@ $row_aid = $result_aid->fetch_assoc();
     }
     ?>
 
-    <form action="decline-award-offer-confirmation.php" method="post">
+    <p style='margin-bottom:35px;'>You may choose to accept the full amount of this financial aid offer, or you may choose to accept a partial amount. Please enter the amount of the financial aid offer that you have chosen to accept for the fall and spring semester in the text boxes below:</p>
+
+    <form action="accept-award-offer-confirmation.php" method="post" style="margin-bottom:30px;">
       <input type="hidden" name="id" value="<?php echo $award_id; ?>">
-      <button type="submit" class="btn btn-danger">Decline</button>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Fall Award Amount</label>
+            <input type="number" class="form-control" name="fall" min="0.01" step="0.01" max="<?php echo $row_aid['fall_amount']; ?>" required>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label>Spring Award Amount</label>
+            <input type="number" class="form-control" name="spring" min="0.01" step="0.01" max="<?php echo $row_aid['spring_amount']; ?>" required>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="reset" class="btn btn-default">Reset</button>
     </form>
 
   </div>

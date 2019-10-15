@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $banner_id=$_SESSION['username'];
 
@@ -36,7 +36,7 @@ $major_title=$row_student['major_title'];
 
 <head>
   <title>Student Profile</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#student-profile").addClass("active");
@@ -46,7 +46,7 @@ $major_title=$row_student['major_title'];
 
 <body>
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 

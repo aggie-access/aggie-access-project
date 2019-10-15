@@ -10,6 +10,7 @@ if (!empty($_GET['error'])) {
 <head>
   <title>Home</title>
   <?php include 'assets/header.php'; ?>
+  <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css?v=<?php echo date('U'); ?>">
 </head>
 
 <body style="margin-top:0px; width:100%; height:100%;">
@@ -34,7 +35,7 @@ if (!empty($_GET['error'])) {
           <label>Password</label>
           <input type="password" class="form-control" name="password" required>
         </div>
-        <button type="submit" class="btn btn-default">Login</button>
+        <button type="submit" class="btn btn-default" name="login">Login</button>
       </form>
       <div class="login-error">
         <?php

@@ -1,5 +1,5 @@
 <?php
-include 'assets/connect.php';
+include '../assets/student/connect.php';
 
 $banner_id=$_SESSION['username'];
 
@@ -41,7 +41,7 @@ $gpa=$quality_points/$earned_hours;
 
 <head>
   <title>Academic Transcript</title>
-  <?php include 'assets/header.php'; ?>
+  <?php include '../assets/header.php'; ?>
   <script type="text/javascript">
   $(document).ready(function(){
     $("#academic-transcript").addClass("active");
@@ -51,7 +51,7 @@ $gpa=$quality_points/$earned_hours;
 
 <body>
 
-  <?php include 'assets/navbar.php'; ?>
+  <?php include '../assets/student/navbar.php'; ?>
 
   <div class="container">
 
