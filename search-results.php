@@ -72,7 +72,7 @@ if (!empty($meeting_times)) {
 
 $sql_search = "SELECT crn, subject_abbreviation, course_number, section_number, course_title, credit_hours, first_name, last_name, type_name, meeting_days, start_time, end_time, meeting_location, s.type_id, HOUR(start_time)
 FROM course c JOIN section s ON (c.course_id=s.course_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN instructor i ON (s.instructor_id=i.instructor_id) JOIN course_type t ON (s.type_id=t.type_id) JOIN semester e ON (s.semester_id=e.semester_id) JOIN department d ON (c.department_id=d.department_id) JOIN course_level l ON (c.level_id=l.level_id)
-WHERE e.semester_id='6' $department_cond $course_number_cond $course_title_cond $course_type_cond $credit_hours_cond $instructor_cond $level_cond $meeting_days_cond $meeting_times_cond
+WHERE e.semester_id='$semester_id' $department_cond $course_number_cond $course_title_cond $course_type_cond $credit_hours_cond $instructor_cond $level_cond $meeting_days_cond $meeting_times_cond
 ORDER BY subject_abbreviation ASC, course_number ASC, section_number ASC";
 $result_search = $conn->query($sql_search);
 ?>
