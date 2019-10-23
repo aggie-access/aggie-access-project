@@ -6,7 +6,7 @@ include '../assets/admin/connect.php';
 <html lang='en'>
 
 <head>
-  <title>Registration Management</title>
+  <title>Course Registration Management Dashboard</title>
   <?php include '../assets/header.php'; ?>
   <script type='text/javascript'>
   $(document).ready(function(){
