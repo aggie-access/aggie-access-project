@@ -266,3 +266,12 @@ select {
 .profile-grid.last-row, .transcript-totals-grid.last-row {
   margin-bottom:50px;
 }
+.modal {
+  top:15%;
+}
+.modal-content {
+  background:#FAFAFA;
+}
+.modal-data {
+  line-height:2;
+}
