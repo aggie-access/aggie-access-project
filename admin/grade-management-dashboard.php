@@ -78,7 +78,7 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>Final Grade</strong></div>
                       <div class='col-sm-8'>
-                        <select class="form-control" name="grade" required>
+                        <select class='form-control' name='grade' required>
                           <option disabled>Select Final Grade</option>
                           <option selected value='A'>A</option>
                           <option value='A-'>A-</option>
@@ -142,7 +142,7 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>Final Grade</strong></div>
                       <div class='col-sm-8'>
-                        <select class="form-control" name="grade" required>
+                        <select class='form-control' name='grade' required>
                           <option disabled>Select Final Grade</option>
                           <option value='A'>A</option>
                           <option value='A-'>A-</option>
@@ -206,7 +206,7 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>Final Grade</strong></div>
                       <div class='col-sm-8'>
-                        <select class="form-control" name="grade" required>
+                        <select class='form-control' name='grade' required>
                           <option disabled>Select Final Grade</option>
                           <option value='A'>A</option>
                           <option value='A-'>A-</option>

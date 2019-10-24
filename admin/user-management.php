@@ -3,14 +3,14 @@ include '../assets/admin/connect.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
   <title>User Management</title>
   <?php include '../assets/header.php'; ?>
-  <script type="text/javascript">
+  <script type='text/javascript'>
   $(document).ready(function(){
-    $("#user-management").addClass("active");
+    $('#user-management').addClass('active');
   });
   </script>
 
@@ -25,17 +25,17 @@ include '../assets/admin/connect.php';
 
   <?php include '../assets/admin/navbar.php'; ?>
 
-  <div class="container">
+  <div class='container'>
 
-    <div class="dropdown pull-right" style='position:relative; top:20px;'>
-      <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Add <span class='mobile-hide'>New User</span>
-        <span class="caret"></span>
+    <div class='dropdown pull-right' style='position:relative; top:20px;'>
+      <button class='btn btn-success dropdown-toggle' type='button' data-toggle='dropdown'>Add <span class='mobile-hide'>New User</span>
+        <span class='caret'></span>
       </button>
-      <ul class="dropdown-menu">
-        <li><a href="" data-toggle='modal' data-target='#addNewStudent'>Add New Student</a></li>
-        <li><a href="" data-toggle='modal' data-target='#addNewAdmin'>Add New Administrator</a></li>
-        <li><a href="" data-toggle='modal' data-target='#addNewFinAid'>Add New Financial Aid Officer</a></li>
-        <li><a href="" data-toggle='modal' data-target='#addNewInstructor'>Add New Instructor</a></li>
+      <ul class='dropdown-menu'>
+        <li><a href='' data-toggle='modal' data-target='#addNewStudent'>Add New Student</a></li>
+        <li><a href='' data-toggle='modal' data-target='#addNewAdmin'>Add New Administrator</a></li>
+        <li><a href='' data-toggle='modal' data-target='#addNewFinAid'>Add New Financial Aid Officer</a></li>
+        <li><a href='' data-toggle='modal' data-target='#addNewInstructor'>Add New Instructor</a></li>
       </ul>
     </div>
 
@@ -81,7 +81,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>Student Level</label>
-                <select class="form-control" name="level" required>
+                <select class='form-control' name='level' required>
                   <option disabled selected>Select Student Level</option>
                   <option value='1'>Undergraduate</option>
                   <option value='2'>Graduate</option>
@@ -89,7 +89,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>College Affiliation</label>
-                <select class="form-control" name="college" required>
+                <select class='form-control' name='college' required>
                   <option disabled selected>Select College Affiliation</option>
                   <option value='1'>College of Science and Technology</option>
                   <option value='2'>College of Engineering</option>
@@ -97,7 +97,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>Degree Type</label>
-                <select class="form-control" name="degree" required>
+                <select class='form-control' name='degree' required>
                   <option disabled selected>Select Degree Type</option>
                   <option value='1'>Bachelor of Arts</option>
                   <option value='2'>Bachelor of Science</option>
@@ -105,7 +105,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>Major</label>
-                <select class="form-control" name="status" required>
+                <select class='form-control' name='status' required>
                   <option disabled selected>Select Major</option>
                   <option value='1'>Computer Science</option>
                   <option value='2'>Information Technology</option>
@@ -137,7 +137,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>User Status</label>
-                <select class="form-control" name="status" required>
+                <select class='form-control' name='status' required>
                   <option disabled>Select User Status</option>
                   <option value='y' selected>Active</option>
                   <option value='n'>Inactive</option>
@@ -184,7 +184,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>User Status</label>
-                <select class="form-control" name="status" required>
+                <select class='form-control' name='status' required>
                   <option disabled>Select User Status</option>
                   <option value='y' selected>Active</option>
                   <option value='n'>Inactive</option>
@@ -231,7 +231,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>User Status</label>
-                <select class="form-control" name="status" required>
+                <select class='form-control' name='status' required>
                   <option disabled>Select User Status</option>
                   <option value='y' selected>Active</option>
                   <option value='n'>Inactive</option>
@@ -282,7 +282,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>Department</label>
-                <select class="form-control" name="department" required>
+                <select class='form-control' name='department' required>
                   <option disabled selected value>Select Department</option>
                   <option value='11'>Accounting and Finance</option>
                   <option value='16'>Administration and Instructional Services</option>
@@ -336,7 +336,7 @@ include '../assets/admin/connect.php';
               </div>
               <div class='form-group'>
                 <label>User Status</label>
-                <select class="form-control" name="status" required>
+                <select class='form-control' name='status' required>
                   <option disabled>Select User Status</option>
                   <option value='y' selected>Active</option>
                   <option value='n'>Inactive</option>
@@ -399,7 +399,7 @@ include '../assets/admin/connect.php';
                   </div>
                   <div class='form-group'>
                     <label>User Role</label>
-                    <select class="form-control" name="role" required>
+                    <select class='form-control' name='role' required>
                       <option disabled>Select User Role</option>
                       <option value='1' selected>Student</option>
                       <option value='2'>Administrator</option>
@@ -408,7 +408,7 @@ include '../assets/admin/connect.php';
                   </div>
                   <div class='form-group'>
                     <label>User Status</label>
-                    <select class="form-control" name="status" required>
+                    <select class='form-control' name='status' required>
                       <option disabled>Select User Status</option>
                       <option value='y' selected>Active</option>
                       <option value='n'>Inactive</option>
@@ -500,7 +500,7 @@ include '../assets/admin/connect.php';
                   </div>
                   <div class='form-group'>
                     <label>User Role</label>
-                    <select class="form-control" name="role" required>
+                    <select class='form-control' name='role' required>
                       <option disabled>Select User Role</option>
                       <option value='1'>Student</option>
                       <option value='2' selected>Administrator</option>
@@ -509,7 +509,7 @@ include '../assets/admin/connect.php';
                   </div>
                   <div class='form-group'>
                     <label>User Status</label>
-                    <select class="form-control" name="status" required>
+                    <select class='form-control' name='status' required>
                       <option disabled>Select User Status</option>
                       <option value='y' selected>Active</option>
                       <option value='n'>Inactive</option>
@@ -601,7 +601,7 @@ include '../assets/admin/connect.php';
                   </div>
                   <div class='form-group'>
                     <label>User Role</label>
-                    <select class="form-control" name="role" required>
+                    <select class='form-control' name='role' required>
                       <option disabled>Select User Role</option>
                       <option value='1'>Student</option>
                       <option value='2'>Administrator</option>
@@ -610,7 +610,7 @@ include '../assets/admin/connect.php';
                   </div>
                   <div class='form-group'>
                     <label>User Status</label>
-                    <select class="form-control" name="status" required>
+                    <select class='form-control' name='status' required>
                       <option disabled>Select User Status</option>
                       <option value='y'>Active</option>
                       <option value='n' selected>Inactive</option>

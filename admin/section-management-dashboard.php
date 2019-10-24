@@ -3,14 +3,14 @@ include '../assets/admin/connect.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
   <title>Section Management Dashboard</title>
   <?php include '../assets/header.php'; ?>
-  <script type="text/javascript">
+  <script type='text/javascript'>
   $(document).ready(function(){
-    $("#section-management").addClass("active");
+    $('#section-management').addClass('active');
   });
   </script>
 
@@ -31,7 +31,7 @@ include '../assets/admin/connect.php';
 
   <?php include '../assets/admin/navbar.php'; ?>
 
-  <div class="container">
+  <div class='container'>
 
     <h1>Section Management Dashboard</h1>
     <p style='margin-bottom:35px;'>You may add, edit, or remove course sections by clicking the appropriate buttons.</p>
@@ -53,7 +53,7 @@ include '../assets/admin/connect.php';
                 <label>CRN</label>
                 <input type='text' class='form-control' name='crn' minlength='5' maxlength='5' size='5' required>
                 <label>Course</label>
-                <select class="form-control" name="course" required>
+                <select class='form-control' name='course' required>
                   <option selected disabled>Select Course</option>
                   <option value='tbd'>CST 101 - Microcomputer Applications</option>
                   <option value='tbd'>CST 120 - Fundamentals of Technology</option>
@@ -68,7 +68,7 @@ include '../assets/admin/connect.php';
                 <label>Section</label>
                 <input type='text' class='form-control' name='section' minlength='3' maxlength='3' size='3' required>
                 <label>Instructor</label>
-                <select class="form-control" name="instructor" required>
+                <select class='form-control' name='instructor' required>
                   <option selected disabled>Select Instructor</option>
                   <option value='1'>Dewayne Brown</option>
                   <option value='2'>Gina Bullock</option>
@@ -84,11 +84,11 @@ include '../assets/admin/connect.php';
                   <option value='12'>Qingan Zeng</option>
                 </select>
                 <label>Meeting Days</label><br>
-                <input type="checkbox" name="days" value="M"> Monday<br>
-                <input type="checkbox" name="days" value="T"> Tuesday<br>
-                <input type="checkbox" name="days" value="W"> Wednesday<br>
-                <input type="checkbox" name="days" value="R"> Thursday<br>
-                <input type="checkbox" name="days" value="F" style='margin-bottom:15px;'> Friday<br>
+                <input type='checkbox' name='days' value='M'> Monday<br>
+                <input type='checkbox' name='days' value='T'> Tuesday<br>
+                <input type='checkbox' name='days' value='W'> Wednesday<br>
+                <input type='checkbox' name='days' value='R'> Thursday<br>
+                <input type='checkbox' name='days' value='F' style='margin-bottom:15px;'> Friday<br>
                 <label>Start Time</label>
                 <input type='time' class='form-control' name='start'>
                 <label>End Time</label>
@@ -155,31 +155,31 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>CRN</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="crn" value="20928" disabled>
+                        <input type='text' class='form-control' name='crn' value='20928' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Course Number</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="course" value="CST 101" disabled>
+                        <input type='text' class='form-control' name='course' value='CST 101' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Section</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="section" value="001" disabled>
+                        <input type='text' class='form-control' name='section' value='001' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Course Title</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="title" value="Microcomputer Applications" disabled>
+                        <input type='text' class='form-control' name='title' value='Microcomputer Applications' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Instructor</strong></div>
                       <div class='col-sm-8'>
-                        <select class="form-control" name="instructor" required>
+                        <select class='form-control' name='instructor' required>
                           <option disabled>Select Instructor</option>
                           <option value='1'>Dewayne Brown</option>
                           <option value='2'>Gina Bullock</option>
@@ -199,7 +199,7 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>Course Type</strong></div>
                       <div class='col-sm-8'>
-                        <select class="form-control" name="type" required>
+                        <select class='form-control' name='type' required>
                           <option disabled>Select Course Type</option>
                           <option value='1' selected>On-Campus</option>
                           <option value='2'>Online</option>
@@ -209,35 +209,35 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>Meeting Days</strong></div>
                       <div class='col-sm-8' style='margin-bottom:10px;'>
-                        <input type="checkbox" name="days" value="M" checked> Monday<br>
-                        <input type="checkbox" name="days" value="T"> Tuesday<br>
-                        <input type="checkbox" name="days" value="W" checked> Wednesday<br>
-                        <input type="checkbox" name="days" value="R"> Thursday<br>
-                        <input type="checkbox" name="days" value="F" checked> Friday
+                        <input type='checkbox' name='days' value='M' checked> Monday<br>
+                        <input type='checkbox' name='days' value='T'> Tuesday<br>
+                        <input type='checkbox' name='days' value='W' checked> Wednesday<br>
+                        <input type='checkbox' name='days' value='R'> Thursday<br>
+                        <input type='checkbox' name='days' value='F' checked> Friday
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Start Time</strong></div>
                       <div class='col-sm-8'>
-                        <input type="time" class="form-control" name="start" value="10:00">
+                        <input type='time' class='form-control' name='start' value='10:00'>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>End Time</strong></div>
                       <div class='col-sm-8'>
-                        <input type="time" class="form-control" name="end" value="10:50">
+                        <input type='time' class='form-control' name='end' value='10:50'>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Meeting Location</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="location" value="Smith 4001" required>
+                        <input type='text' class='form-control' name='location' value='Smith 4001' required>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Seat Capacity</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="seats" value="40" required>
+                        <input type='text' class='form-control' name='seats' value='40' required>
                       </div>
                     </div>
                   </div>
@@ -341,31 +341,31 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>CRN</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="crn" value="21672" disabled>
+                        <input type='text' class='form-control' name='crn' value='21672' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Course Number</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="course" value="CST 101" disabled>
+                        <input type='text' class='form-control' name='course' value='CST 101' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Section</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="section" value="05A" disabled>
+                        <input type='text' class='form-control' name='section' value='05A' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Course Title</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="title" value="Microcomputer Applications" disabled>
+                        <input type='text' class='form-control' name='title' value='Microcomputer Applications' disabled>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Instructor</strong></div>
                       <div class='col-sm-8'>
-                        <select class="form-control" name="instructor" required>
+                        <select class='form-control' name='instructor' required>
                           <option disabled>Select Instructor</option>
                           <option value='1'>Dewayne Brown</option>
                           <option value='2'>Gina Bullock</option>
@@ -385,7 +385,7 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>Course Type</strong></div>
                       <div class='col-sm-8'>
-                        <select class="form-control" name="type" required>
+                        <select class='form-control' name='type' required>
                           <option disabled>Select Course Type</option>
                           <option value='1'>On-Campus</option>
                           <option value='2' selected>Online</option>
@@ -395,35 +395,35 @@ include '../assets/admin/connect.php';
                     <div class='row'>
                       <div class='col-sm-4'><strong>Meeting Days</strong></div>
                       <div class='col-sm-8' style='margin-bottom:10px;'>
-                        <input type="checkbox" name="days" value="M"> Monday<br>
-                        <input type="checkbox" name="days" value="T"> Tuesday<br>
-                        <input type="checkbox" name="days" value="W"> Wednesday<br>
-                        <input type="checkbox" name="days" value="R"> Thursday<br>
-                        <input type="checkbox" name="days" value="F"> Friday
+                        <input type='checkbox' name='days' value='M'> Monday<br>
+                        <input type='checkbox' name='days' value='T'> Tuesday<br>
+                        <input type='checkbox' name='days' value='W'> Wednesday<br>
+                        <input type='checkbox' name='days' value='R'> Thursday<br>
+                        <input type='checkbox' name='days' value='F'> Friday
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Start Time</strong></div>
                       <div class='col-sm-8'>
-                        <input type="time" class="form-control" name="start">
+                        <input type='time' class='form-control' name='start'>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>End Time</strong></div>
                       <div class='col-sm-8'>
-                        <input type="time" class="form-control" name="end">
+                        <input type='time' class='form-control' name='end'>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Meeting Location</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="location" value="Blackboard" required>
+                        <input type='text' class='form-control' name='location' value='Blackboard' required>
                       </div>
                     </div>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Seat Capacity</strong></div>
                       <div class='col-sm-8'>
-                        <input type="text" class="form-control" name="seats" value="35" required>
+                        <input type='text' class='form-control' name='seats' value='35' required>
                       </div>
                     </div>
                   </div>

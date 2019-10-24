@@ -3,14 +3,14 @@ include '../assets/admin/connect.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
   <title>Section Management</title>
   <?php include '../assets/header.php'; ?>
-  <script type="text/javascript">
+  <script type='text/javascript'>
   $(document).ready(function(){
-    $("#section-management").addClass("active");
+    $('#section-management').addClass('active');
   });
   </script>
 </head>
@@ -19,18 +19,18 @@ include '../assets/admin/connect.php';
 
   <?php include '../assets/admin/navbar.php'; ?>
 
-  <div class="container">
+  <div class='container'>
 
     <h1>Section Management</h1>
-    <p style="margin-bottom:35px;">Select a semester and a department to see the class sections being offered during a particular semester.</p>
+    <p style='margin-bottom:35px;'>Select a semester and a department to see the class sections being offered during a particular semester.</p>
 
-    <form action="section-management-dashboard.php" method="post" style="margin-bottom:30px;" id="form">
+    <form action='section-management-dashboard.php' method='post' style='margin-bottom:30px;' id='form'>
 
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group">
+      <div class='row'>
+        <div class='col-sm-6'>
+          <div class='form-group'>
             <label>Semester</label>
-            <select class="form-control" name="semester" required>
+            <select class='form-control' name='semester' required>
               <option disabled selected value>Select Semester</option>
               <option value='8'>Summer II 2020</option>
               <option value='7'>Summer I 2020</option>
@@ -38,10 +38,10 @@ include '../assets/admin/connect.php';
             </select>
           </div>
         </div>
-        <div class="col-sm-6">
-          <div class="form-group">
+        <div class='col-sm-6'>
+          <div class='form-group'>
             <label>Department</label>
-            <select class="form-control" name="department" required>
+            <select class='form-control' name='department' required>
               <option disabled selected value>Select Department</option>
               <option value='11'>Accounting and Finance</option>
               <option value='16'>Administration and Instructional Services</option>
@@ -88,7 +88,7 @@ include '../assets/admin/connect.php';
         </div>
       </div>
 
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type='submit' class='btn btn-default'>Submit</button>
 
     </form>
 

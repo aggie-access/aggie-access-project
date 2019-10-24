@@ -3,14 +3,14 @@ include '../assets/admin/connect.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
   <title>Transcript Management</title>
   <?php include '../assets/header.php'; ?>
-  <script type="text/javascript">
+  <script type='text/javascript'>
   $(document).ready(function(){
-    $("#transcript-management").addClass("active");
+    $('#transcript-management').addClass('active');
   });
   </script>
 </head>
@@ -19,7 +19,7 @@ include '../assets/admin/connect.php';
 
   <?php include '../assets/admin/navbar.php'; ?>
 
-  <div class="container">
+  <div class='container'>
 
     <h1>Transcript Management</h1>
 
