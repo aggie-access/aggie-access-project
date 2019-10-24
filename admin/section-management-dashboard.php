@@ -21,6 +21,9 @@ include '../assets/admin/connect.php';
   .form-control {
     margin-bottom:10px;
   }
+  label {
+    margin-top:10px;
+  }
   </style>
 </head>
 
@@ -45,26 +48,55 @@ include '../assets/admin/connect.php';
               <h4 class='modal-title'>Add New Section</h4>
             </div>
             <div class='modal-body'>
-              <p style='margin-bottom:25px;'>Enter the CRN of the course you are adding a section for <strong>Spring 2020</strong> in the text box below.</p>
+              <p style='margin-bottom:25px;'>Enter the details for the class section you are adding in the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester below:</p>
               <div class='form-group'>
                 <label>CRN</label>
-                <input type='text' class='form-control' minlength='5' maxlength='5' size='5' required>
-                <label>Course No.</label>
-                <input type='text' class='form-control' minlength='3' maxlength='3' size='3' required>
-                <label>Course Title</label>
-                <input type='text' class='form-control' minlength='5' maxlength='150' size='150' required>
-                <label>Course Section</label>
-                <input type='text' class='form-control' minlength='3' maxlength='3' size='3' required>
-                <label>Meeting Days</label>
-                <input type='text' class='form-control' minlength='' maxlength='5' size='5' required>
-                <label>Start Times</label>
-                <input type='text' class='form-control' minlength='' maxlength='6' size='6' required>
-                <label>End Times</label>
-                <input type='text' class='form-control' minlength='' maxlength='6' size='6' required>
+                <input type='text' class='form-control' name='crn' minlength='5' maxlength='5' size='5' required>
+                <label>Course</label>
+                <select class="form-control" name="course" required>
+                  <option selected disabled>Select Course</option>
+                  <option value='tbd'>CST 101 - Microcomputer Applications</option>
+                  <option value='tbd'>CST 120 - Fundamentals of Technology</option>
+                  <option value='tbd'>CST 130 - Introduction to Unix/Linux</option>
+                  <option value='tbd'>CST 231 - Web Systems</option>
+                  <option value='tbd'>CST 240 - Applied Java Programming</option>
+                  <option value='tbd'>CST 325 - Computer Database Management II</option>
+                  <option value='tbd'>CST 460 - System Integration and Architecture</option>
+                  <option value='tbd'>CST 498 - Senior Project I: A Capstone Experience</option>
+                  <option value='tbd'>CST 499 - Senior Project II: A Capstone Experience</option>
+                </select>
+                <label>Section</label>
+                <input type='text' class='form-control' name='section' minlength='3' maxlength='3' size='3' required>
+                <label>Instructor</label>
+                <select class="form-control" name="instructor" required>
+                  <option selected disabled>Select Instructor</option>
+                  <option value='1'>Dewayne Brown</option>
+                  <option value='2'>Gina Bullock</option>
+                  <option value='3'>Karreem Hogan</option>
+                  <option value='4'>Anthony Joyner</option>
+                  <option value='5'>Catina Lynch</option>
+                  <option value='6'>Kathryn Moland</option>
+                  <option value='7'>Rahmira Rufus</option>
+                  <option value='8'>Mariama Sidibe</option>
+                  <option value='9'>Evelyn Sowells</option>
+                  <option value='10'>Li-Shiang Tsay</option>
+                  <option value='11'>Peter Udo</option>
+                  <option value='12'>Qingan Zeng</option>
+                </select>
+                <label>Meeting Days</label><br>
+                <input type="checkbox" name="days" value="M"> Monday<br>
+                <input type="checkbox" name="days" value="T"> Tuesday<br>
+                <input type="checkbox" name="days" value="W"> Wednesday<br>
+                <input type="checkbox" name="days" value="R"> Thursday<br>
+                <input type="checkbox" name="days" value="F" style='margin-bottom:15px;'> Friday<br>
+                <label>Start Time</label>
+                <input type='time' class='form-control' name='start'>
+                <label>End Time</label>
+                <input type='time' class='form-control' name='end'>
                 <label>Location</label>
-                <input type='text' class='form-control' minlength='2' maxlength='20' size='20' required>
+                <input type='text' class='form-control' name='location' required>
                 <label>Seats</label>
-                <input type='text' class='form-control' minlength='1' maxlength='5' size='5' required>
+                <input type='text' class='form-control' name='seats' minlength='1' maxlength='5' required>
               </div>
             </div>
             <div class='modal-footer'>
