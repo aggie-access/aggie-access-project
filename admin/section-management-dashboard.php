@@ -39,7 +39,23 @@ include '../assets/admin/connect.php';
               <p style='margin-bottom:25px;'>Enter the CRN of the course you are adding a section for <strong>Spring 2020</strong> in the text box below.</p>
               <div class='form-group'>
                 <label>CRN</label>
-                <input type='text' class='form-control' minlength='9' maxlength='9' size='9' required>
+                <input type='text' class='form-control' minlength='5' maxlength='5' size='5' required>
+                <label>Course No.</label>
+                <input type='text' class='form-control' minlength='3' maxlength='3' size='3' required>
+                <label>Course Title</label>
+                <input type='text' class='form-control' minlength='5' maxlength='150' size='150' required>
+                <label>Course Section</label>
+                <input type='text' class='form-control' minlength='3' maxlength='3' size='3' required>
+                <label>Meeting Days</label>
+                <input type='text' class='form-control' minlength='' maxlength='5' size='5' required>
+                <label>Start Times</label>
+                <input type='text' class='form-control' minlength='' maxlength='6' size='6' required>
+                <label>End Times</label>
+                <input type='text' class='form-control' minlength='' maxlength='6' size='6' required>
+                <label>Location</label>
+                <input type='text' class='form-control' minlength='2' maxlength='20' size='20' required>
+                <label>Seats</label>
+                <input type='text' class='form-control' minlength='1' maxlength='5' size='5' required>
               </div>
             </div>
             <div class='modal-footer'>
