@@ -13,18 +13,6 @@ include '../assets/admin/connect.php';
     $('#transcript-management').addClass('active');
   });
   </script>
-
-  <style>
-  th, td {
-    vertical-align:middle!important;
-  }
-  .form-control {
-    margin-bottom:10px;
-  }
-  label {
-    margin-top:10px;
-  }
-  </style>
 </head>
 
 <body>

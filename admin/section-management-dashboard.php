@@ -21,9 +21,6 @@ include '../assets/admin/connect.php';
   .form-control {
     margin-bottom:10px;
   }
-  label {
-    margin-top:10px;
-  }
   </style>
 </head>
 
@@ -52,6 +49,8 @@ include '../assets/admin/connect.php';
               <div class='form-group'>
                 <label>CRN</label>
                 <input type='text' class='form-control' name='crn' minlength='5' maxlength='5' size='5' required>
+              </div>
+              <div class='form-group'>
                 <label>Course</label>
                 <select class='form-control' name='course' required>
                   <option selected disabled>Select Course</option>
@@ -65,8 +64,12 @@ include '../assets/admin/connect.php';
                   <option value='tbd'>CST 498 - Senior Project I: A Capstone Experience</option>
                   <option value='tbd'>CST 499 - Senior Project II: A Capstone Experience</option>
                 </select>
+              </div>
+              <div class='form-group'>
                 <label>Section</label>
                 <input type='text' class='form-control' name='section' minlength='3' maxlength='3' size='3' required>
+              </div>
+              <div class='form-group'>
                 <label>Instructor</label>
                 <select class='form-control' name='instructor' required>
                   <option selected disabled>Select Instructor</option>
@@ -83,18 +86,28 @@ include '../assets/admin/connect.php';
                   <option value='11'>Peter Udo</option>
                   <option value='12'>Qingan Zeng</option>
                 </select>
+              </div>
+              <div class='form-group'>
                 <label>Meeting Days</label><br>
                 <input type='checkbox' name='days' value='M'> Monday<br>
                 <input type='checkbox' name='days' value='T'> Tuesday<br>
                 <input type='checkbox' name='days' value='W'> Wednesday<br>
                 <input type='checkbox' name='days' value='R'> Thursday<br>
-                <input type='checkbox' name='days' value='F' style='margin-bottom:15px;'> Friday<br>
+                <input type='checkbox' name='days' value='F' style='margin-bottom:15px;'> Friday
+              </div>
+              <div class='form-group'>
                 <label>Start Time</label>
                 <input type='time' class='form-control' name='start'>
+              </div>
+              <div class='form-group'>
                 <label>End Time</label>
                 <input type='time' class='form-control' name='end'>
+              </div>
+              <div class='form-group'>
                 <label>Location</label>
                 <input type='text' class='form-control' name='location' required>
+              </div>
+              <div class='form-group'>
                 <label>Seats</label>
                 <input type='text' class='form-control' name='seats' minlength='1' maxlength='5' required>
               </div>
