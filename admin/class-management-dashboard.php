@@ -128,11 +128,11 @@ include '../assets/admin/connect.php';
       <thead>
         <tr>
           <th>Course</th>
-          <th style='width:200px;'>Title</th>
+          <th class='mobile-hide' style='width:200px;'>Title</th>
           <th>Credits</th>
-          <th>Level</th>
-          <th>Prerequisites</th>
-          <th>Corequisites</th>
+          <th class='mobile-hide'>Level</th>
+          <th class='mobile-hide'>Prerequisites</th>
+          <th class='mobile-hide'>Corequisites</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -141,9 +141,9 @@ include '../assets/admin/connect.php';
           <td>CST 101</td>
           <td class='mobile-hide'>Microcomputer Applications</td>
           <td>3.0</td>
-          <td>Undergraduate</td>
-          <td>N/A</td>
-          <td>N/A</td>
+          <td class='mobile-hide'>Undergraduate</td>
+          <td class='mobile-hide'>N/A</td>
+          <td class='mobile-hide'>N/A</td>
           <td>
             <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editCourse1'>Edit</button>
             <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeCourse1'>Remove</button>
@@ -278,9 +278,9 @@ include '../assets/admin/connect.php';
           <td>CST 140</td>
           <td class='mobile-hide'>Introduction to Computer Programming</td>
           <td>3.0</td>
-          <td>Undergraduate</td>
-          <td>N/A</td>
-          <td>CST 150</td>
+          <td class='mobile-hide'>Undergraduate</td>
+          <td class='mobile-hide'>N/A</td>
+          <td class='mobile-hide'>CST 150</td>
           <td>
             <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editCourse6'>Edit</button>
             <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeCourse6'>Remove</button>
@@ -415,9 +415,9 @@ include '../assets/admin/connect.php';
           <td>CST 150</td>
           <td class='mobile-hide'>Introduction to Computer Programming Laboratory</td>
           <td>1.0</td>
-          <td>Undergraduate</td>
-          <td>N/A</td>
-          <td>CST 140</td>
+          <td class='mobile-hide'>Undergraduate</td>
+          <td class='mobile-hide'>N/A</td>
+          <td class='mobile-hide'>CST 140</td>
           <td>
             <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editCourse7'>Edit</button>
             <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeCourse7'>Remove</button>
@@ -552,9 +552,9 @@ include '../assets/admin/connect.php';
           <td>CST 240</td>
           <td class='mobile-hide'>Applied Java Programming</td>
           <td>3.0</td>
-          <td>Undergraduate</td>
-          <td>CST 140</td>
-          <td>N/A</td>
+          <td class='mobile-hide'>Undergraduate</td>
+          <td class='mobile-hide'>CST 140</td>
+          <td class='mobile-hide'>N/A</td>
           <td>
             <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editCourse11'>Edit</button>
             <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeCourse11'>Remove</button>
