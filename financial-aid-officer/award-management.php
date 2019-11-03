@@ -13,6 +13,12 @@ include '../assets/financial-aid-officer/connect.php';
     $('#manage-awards').addClass('active');
   });
   </script>
+
+  <style>
+  th, td {
+    vertical-align:middle!important;
+  }
+  </style>
 </head>
 
 <body>

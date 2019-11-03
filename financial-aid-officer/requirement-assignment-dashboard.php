@@ -29,6 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $("#manage-requirements").addClass("active");
   });
   </script>
+
+  <style>
+  th, td {
+    vertical-align:middle!important;
+  }
+  .btn {
+    margin-bottom:5px;
+  }
+  </style>
 </head>
 
 <body>
@@ -37,22 +46,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <div class="container">
 
-  <button class='btn btn-success pull-right' type='button' style='position:relative; top:20px;' data-toggle='modal' data-target='#newAward'>Add <span class='mobile-hide'>New Award Requirement</span></button>
+    <button class='btn btn-success pull-right' type='button' style='position:relative; top:20px;' data-toggle='modal' data-target='#newAward'>Add <span class='mobile-hide'>New Award Requirement</span></button>
 
     <h1>Requirement Assignment Dashboard</h1>
     <p style='margin-bottom:35px;'>Assign award requirements for <strong>Aggie</strong> for the selected Award Year.</p>
 
     <form action='' method='post'>
       <div class='modal fade' id='newAward' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-       <div class='modal-dialog'>
-         <div class='modal-content'>
-           <div class='modal-header'>
-             <h4 class='modal-title'>Assign New Financial Aid Award Requirement</h4>
+        <div class='modal-dialog'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <h4 class='modal-title'>Assign New Financial Aid Award Requirement</h4>
             </div>
             <div class='modal-body'>
-             <p style='margin-bottom:25px;'>Fill in the form below to add a new financial aid award requirement to the <strong>Aggie</strong>:</p>
-             <div class='form-group'>
-             <label>Fund Title</label>
+              <p style='margin-bottom:25px;'>Fill in the form below to add a new financial aid award requirement to  <strong>Aggie</strong>:</p>
+              <div class='form-group'>
+                <label>Fund Title</label>
                 <select class='form-control' name='fund title' required>
                   <option selected disabled>Select Fund</option>
                   <option value='1'>Federal Pell Grant</option>
@@ -71,75 +80,79 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </select>
               </div>
             </div>
-           </div>
-           <div class='modal-footer'>
-             <button type='submit' class='btn btn-success'>Assign Award Requirement</button>
-             <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-           </div>
-          </div>
-       </div>
-    </form>
-
-
-    <table class='table table-striped'>
-  <thead>
-    <tr>
-     <th>Fund Title</th>
-      <th>Requirement Type</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Direct Subsidized Loan</td>
-      <td>Loan Entrance Counseling</td>
-      <td>Complete</td>
-     <td>
-        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editRequirement'>Edit</button>
-        <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeRequirement'>Remove</button>
-      </td>
-    </tr>
-
-    <form action='' method='post'>
-      <div class='modal fade' id='editRequirement' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'>
-          <div class='modal-content'>
-            <div class='modal-header'>
-              <h4 class='modal-title'>Edit Assigned Requirements</h4>
-            </div>
-            <div class='modal-body'>
-              <p style='margin-bottom:25px;'>Edit the Required Award Assignments for this student:</p>
-              <div class='modal-data'>
-                <div class='row'>
-                  <div class='col-sm-4'><strong>Fund Title</strong></div>
-                  <div class='col-sm-8'>
-                  <input type='text' class='form-control' name='Fund Title' value='Direct Subsidized Loan' disabled>
-                  </div>
-                </div>
-                <div class='row'>
-                  <div class='col-sm-4'><strong>Requirement Type</strong></div>
-                  <div class='col-sm-8'>
-                  <input type='text' class='form-control' name='requirement type' value='Loan Entrance Counseling' minlength='1' maxlength='255' required>
-                  </div>
-                </div>
-                <div class='row'>
-                  <div class='col-sm-4'><strong>Status</strong></div>
-                  <div class='col-sm-8'>
-                  <input type='checkbox' name='days' value='C' checked> Completed<br>
-                  <input type='checkbox' name='days' value='N'> Not Completed<br>
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class='modal-footer'>
-              <button type='submit' class='btn btn-primary'>Submit</button>
+              <button type='submit' class='btn btn-success'>Assign Award Requirement</button>
               <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
             </div>
           </div>
         </div>
       </div>
     </form>
-    <form action='' method='post'>
+
+
+    <table class='table table-striped'>
+      <thead>
+        <tr>
+          <th>Fund Title</th>
+          <th>Requirement Type</th>
+          <th class='mobile-hide'>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Direct Subsidized Loan</td>
+          <td>Loan Entrance Counseling</td>
+          <td class='mobile-hide'>Complete</td>
+          <td>
+            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editRequirement'>Edit</button>
+            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeRequirement'>Remove</button>
+          </td>
+        </tr>
+
+        <form action='' method='post'>
+          <div class='modal fade' id='editRequirement' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+            <div class='modal-dialog'>
+              <div class='modal-content'>
+                <div class='modal-header'>
+                  <h4 class='modal-title'>Edit Assigned Requirements</h4>
+                </div>
+                <div class='modal-body'>
+                  <p style='margin-bottom:25px;'>Edit the Required Award Assignments for this student:</p>
+                  <div class='modal-data'>
+                    <div class='form-group row'>
+                      <div class='col-sm-4'><strong>Fund Title</strong></div>
+                      <div class='col-sm-8'>
+                        <input type='text' class='form-control' name='Fund Title' value='Direct Subsidized Loan' disabled>
+                      </div>
+                    </div>
+                    <div class='form-group row'>
+                      <div class='col-sm-4'><strong>Requirement Type</strong></div>
+                      <div class='col-sm-8'>
+                        <input type='text' class='form-control' name='requirement type' value='Loan Entrance Counseling' minlength='1' maxlength='255' required>
+                      </div>
+                    </div>
+                    <div class='form-group row'>
+                      <div class='col-sm-4'><strong>Status</strong></div>
+                      <div class='col-sm-8'>
+                        <select class='form-control' name='status' required>
+                          <option disabled>Select Requirement Status</option>
+                          <option value='C' selected>Completed</option>
+                          <option value='N'>Not Completed</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class='modal-footer'>
+                  <button type='submit' class='btn btn-primary'>Submit</button>
+                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form action='' method='post'>
           <div class='modal fade' id='removeRequirement' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
             <div class='modal-dialog'>
               <div class='modal-content'>
@@ -147,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   <h4 class='modal-title'>Remove Requirement</h4>
                 </div>
                 <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following requirement from this student</p>
+                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following requirement from this student?</p>
                   <div class='modal-data'>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Fund Title</strong></div>
@@ -169,55 +182,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
 
         <tr>
-      <td>Direct UnSubsidized Loan</td>
-      <td>Master Promissory Note</td>
-      <td>Not Completed</td>
-     <td>
-        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editRequirementUnsubsidized'>Edit</button>
-        <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeRequirementUnsubsidized'>Remove</button>
-      </td>
-    </tr>
+          <td>Direct UnSubsidized Loan</td>
+          <td>Master Promissory Note</td>
+          <td class='mobile-hide'>Not Completed</td>
+          <td>
+            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editRequirementUnsubsidized'>Edit</button>
+            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeRequirementUnsubsidized'>Remove</button>
+          </td>
+        </tr>
 
-    <form action='' method='post'>
-      <div class='modal fade' id='editRequirementUnsubsidized' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-        <div class='modal-dialog'>
-          <div class='modal-content'>
-            <div class='modal-header'>
-              <h4 class='modal-title'>Edit Assigned Requirements</h4>
-            </div>
-            <div class='modal-body'>
-              <p style='margin-bottom:25px;'>Edit the Required Award Assignments for this student:</p>
-              <div class='modal-data'>
-                <div class='row'>
-                  <div class='col-sm-4'><strong>Fund Title</strong></div>
-                  <div class='col-sm-8'>
-                  <input type='text' class='form-control' name='Fund Title' value='Direct UnSubsidized Loan' disabled>
+        <form action='' method='post'>
+          <div class='modal fade' id='editRequirementUnsubsidized' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+            <div class='modal-dialog'>
+              <div class='modal-content'>
+                <div class='modal-header'>
+                  <h4 class='modal-title'>Edit Assigned Requirements</h4>
+                </div>
+                <div class='modal-body'>
+                  <p style='margin-bottom:25px;'>Edit the Required Award Assignments for this student:</p>
+                  <div class='modal-data'>
+                    <div class='form-group row'>
+                      <div class='col-sm-4'><strong>Fund Title</strong></div>
+                      <div class='col-sm-8'>
+                        <input type='text' class='form-control' name='Fund Title' value='Direct UnSubsidized Loan' disabled>
+                      </div>
+                    </div>
+                    <div class='form-group row'>
+                      <div class='col-sm-4'><strong>Requirement Type</strong></div>
+                      <div class='col-sm-8'>
+                        <input type='text' class='form-control' name='requirement type' value='Master Promissory Note' minlength='1' maxlength='255' required>
+                      </div>
+                    </div>
+                    <div class='form-group row'>
+                      <div class='col-sm-4'><strong>Status</strong></div>
+                      <div class='col-sm-8'>
+                        <select class='form-control' name='status' required>
+                          <option disabled>Select Requirement Status</option>
+                          <option value='C'>Completed</option>
+                          <option value='N' selected>Not Completed</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class='row'>
-                  <div class='col-sm-4'><strong>Requirement Type</strong></div>
-                  <div class='col-sm-8'>
-                  <input type='text' class='form-control' name='requirement type' value='Master Promissory Note' minlength='1' maxlength='255' required>
-                  </div>
-                </div>
-                <div class='row'>
-                  <div class='col-sm-4'><strong>Status</strong></div>
-                  <div class='col-sm-8'>
-                  <input type='checkbox' name='days' value='C'> Completed<br>
-                  <input type='checkbox' name='days' value='N' checked> Not Completed<br>
-                  </div>
+                <div class='modal-footer'>
+                  <button type='submit' class='btn btn-primary'>Submit</button>
+                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
                 </div>
               </div>
             </div>
-            <div class='modal-footer'>
-              <button type='submit' class='btn btn-primary'>Submit</button>
-              <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-            </div>
           </div>
-        </div>
-      </div>
-    </form>
-    <form action='' method='post'>
+        </form>
+        <form action='' method='post'>
           <div class='modal fade' id='removeRequirementUnsubsidized' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
             <div class='modal-dialog'>
               <div class='modal-content'>
@@ -225,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   <h4 class='modal-title'>Remove Requirement</h4>
                 </div>
                 <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following requirement from this student</p>
+                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following requirement from this student?</p>
                   <div class='modal-data'>
                     <div class='row'>
                       <div class='col-sm-4'><strong>Fund Title</strong></div>
@@ -245,9 +261,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
           </div>
         </form>
-</tbody>
-</thead>
-</table>
-  </div>
+      </tbody>
+    </thead>
+  </table>
+</div>
 </body>
 </html>
