@@ -24,7 +24,7 @@ include '../assets/admin/connect.php';
     <h1>Section Management</h1>
     <p style='margin-bottom:35px;'>Select a semester and a department to see the class sections being offered during a particular semester.</p>
 
-    <form action='section-management-dashboard.php' method='post' style='margin-bottom:30px;' id='form'>
+    <form action='section-management-dashboard.php' method='get' style='margin-bottom:30px;' id='form'>
 
       <div class='row'>
         <div class='col-sm-6'>
