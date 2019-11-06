@@ -24,7 +24,7 @@ include '../assets/admin/connect.php';
     <h1>Class Management</h1>
     <p style='margin-bottom:35px;'>Select a department in the drop-down menu below to see all of the classes offered by a particular department.</p>
 
-    <form action='class-management-dashboard.php' method='post' style='margin-bottom:30px;'>
+    <form action='class-management-dashboard.php' method='get' style='margin-bottom:30px;'>
 
       <div class='row'>
         <div class='col-sm-6'>

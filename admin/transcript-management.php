@@ -25,7 +25,7 @@ include '../assets/admin/connect.php';
 
     <p style='margin-bottom:35px;'>Enter the banner ID for a student to review their transcript.</p>
 
-    <form action='transcript-management-dashboard.php' method='post' style='margin-bottom:30px;' id='form'>
+    <form action='transcript-management-dashboard.php' method='get' style='margin-bottom:30px;' id='form'>
       <div class='row'>
         <div class='col-sm-6'>
           <div class='form-group'>
