@@ -120,7 +120,7 @@ CREATE TABLE course (
   course_title VARCHAR(255) NOT NULL,
   course_description TEXT NOT NULL,
   department_id INT(5) NOT NULL,
-  subject_id VARCHAR(4) NOT NULL,
+  subject_id INT(5) NOT NULL,
   credit_hours DECIMAL(2,1) NOT NULL,
   level_id INT(1) NOT NULL,
   prerequisite_id INT(9) DEFAULT NULL,
