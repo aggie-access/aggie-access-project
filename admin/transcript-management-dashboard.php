@@ -1,9 +1,6 @@
 <?php
 include '../assets/admin/connect.php';
 
-<<<<<<< HEAD
-$sql_student="SELECT banner_id, concat(first_name, ' ', middle_initial, ' ', last_name) as Name, level_name, classification_title, college_name, degree_title, major_title, graduation_year
-=======
 $banner_id=$_GET['bannerID'];
 
 $sql_user="SELECT user_type_title
@@ -13,21 +10,10 @@ $result_user = $conn->query($sql_user);
 $row_user = $result_user->fetch_assoc();
 
 $sql_student="SELECT banner_id, first_name, middle_initial, last_name, level_name, classification_title, college_name, degree_title, major_title, graduation_year
->>>>>>> 2955d9f294b9bc5386573f2197f3280bfe1ed1fe
 FROM student s JOIN course_level l ON (s.level_id=l.level_id) JOIN classification f ON (s.classification_id=f.classification_id) JOIN college g ON (s.college_id=g.college_id) JOIN degree d ON (s.degree_id=d.degree_id) JOIN major m ON (s.major_id=m.major_id)
 WHERE banner_id='$banner_id'";
 $result_student = $conn->query($sql_student);
 $row_student = $result_student->fetch_assoc();
-<<<<<<< HEAD
-$name=$row_student['Name'];
-$level_name=$row_student['level_name'];
-$classification_title=$row_student['classification_title'];
-$college_name=$row_student['college_name'];
-$degree_title=$row_student['degree_title'];
-$major_title=$row_student['major_title'];
-$graduation_year=$row_student['graduation_year'];
-=======
->>>>>>> 2955d9f294b9bc5386573f2197f3280bfe1ed1fe
 
 $sql_transcript = "SELECT subject_abbreviation, course_number, course_title, credit_hours, level_name, g.letter_grade, quality_points*credit_hours AS quality_points
 FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN course_level l ON (c.level_id=l.level_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
@@ -83,37 +69,6 @@ $gpa=$quality_points/$earned_hours;
 
     <h1>Transcript Management Dashboard</h1>
 
-<<<<<<< HEAD
-    <div class="row row-no-gutters profile-grid first-row">
-      <div class="col-sm-3">
-        <strong>Student Name</strong>
-      </div>
-      <div class="col-sm-9">
-        <?php echo $name; ?>
-      </div>
-    </div>
-
-    <div class="row row-no-gutters profile-grid first-row">
-      <div class="col-sm-3">
-        <strong>Level</strong>
-      </div>
-      <div class="col-sm-9">
-        <?php echo $level_name; ?>
-      </div>
-    </div>
-
-    <div class="row row-no-gutters profile-grid">
-      <div class="col-sm-3">
-        <strong>Classification</strong>
-      </div>
-      <div class="col-sm-9">
-        <?php echo $classification_title; ?>
-      </div>
-    </div>
-
-    <div class="row row-no-gutters profile-grid">
-      <div class="col-sm-3">
-=======
     <?php
     if ($result_user->num_rows > 0) {
       if ($row_user['user_type_title']==='Student') {
@@ -150,7 +105,6 @@ $gpa=$quality_points/$earned_hours;
 
         <div class='row row-no-gutters profile-grid'>
         <div class='col-sm-3'>
->>>>>>> 2955d9f294b9bc5386573f2197f3280bfe1ed1fe
         <strong>College Affiliation</strong>
         </div>
         <div class='col-sm-9'>" . $row_student['college_name'] . "</div>
