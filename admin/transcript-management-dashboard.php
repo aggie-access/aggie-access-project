@@ -2,16 +2,18 @@
 include '../assets/admin/connect.php';
 $banner_id=$_GET['banner_id'];
 
-$sql_student="SELECT level_name, classification_title, college_name, degree_title, major_title
+$sql_student="SELECT banner_id, concat(first_name, ' ', middle_initial, ' ', last_name) as Name, level_name, classification_title, college_name, degree_title, major_title, graduation_year
 FROM student s JOIN course_level l ON (s.level_id=l.level_id) JOIN classification f ON (s.classification_id=f.classification_id) JOIN college g ON (s.college_id=g.college_id) JOIN degree d ON (s.degree_id=d.degree_id) JOIN major m ON (s.major_id=m.major_id)
 WHERE banner_id='$banner_id'";
 $result_student = $conn->query($sql_student);
 $row_student = $result_student->fetch_assoc();
+$name=$row_student['Name'];
 $level_name=$row_student['level_name'];
 $classification_title=$row_student['classification_title'];
 $college_name=$row_student['college_name'];
 $degree_title=$row_student['degree_title'];
 $major_title=$row_student['major_title'];
+$graduation_year=$row_student['graduation_year'];
 
 $sql_transcript = "SELECT subject_abbreviation, course_number, course_title, credit_hours, level_name, g.letter_grade, quality_points*credit_hours AS quality_points
 FROM grades g JOIN registration r ON (r.registration_id=g.registration_id) JOIN section s ON (r.crn=s.crn) JOIN course c ON (s.course_id=c.course_id) JOIN course_level l ON (c.level_id=l.level_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN grading_scale gs ON (g.letter_grade=gs.letter_grade)
@@ -71,6 +73,15 @@ $gpa=$quality_points/$earned_hours;
 
     <h3>Student Information</h3>
     <p style="margin-bottom:30px;">This is the student profile information that is included in the university's directory.</p>
+
+    <div class="row row-no-gutters profile-grid first-row">
+      <div class="col-sm-3">
+        <strong>Student Name</strong>
+      </div>
+      <div class="col-sm-9">
+        <?php echo $name; ?>
+      </div>
+    </div>
 
     <div class="row row-no-gutters profile-grid first-row">
       <div class="col-sm-3">
