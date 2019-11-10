@@ -322,7 +322,7 @@ $result_sections = $conn->query($sql_sections);
         <div class='row'>
         <div class='col-sm-4'><strong>CRN</strong></div>
         <div class='col-sm-8'>
-        <input type='text' class='form-control' name='crn' value='" . $row_sections['crn'] . "' disabled>
+        <input type='text' class='form-control' name='crn' value='" . $row_sections['crn'] . "' readonly>
         </div>
         </div>
         <div class='row'>
