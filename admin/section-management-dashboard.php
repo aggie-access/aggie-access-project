@@ -1,5 +1,30 @@
 <?php
 include '../assets/admin/connect.php';
+
+$semester=$_GET['semester'];
+$department=$_GET['department'];
+
+$sql_department = "SELECT department_name FROM department WHERE department_id='$department'";
+$result_department = $conn->query($sql_department);
+$row_department = $result_department->fetch_assoc();
+
+$sql_semester = "SELECT semester_title FROM semester WHERE semester_id='$semester'";
+$result_semester = $conn->query($sql_semester);
+$row_semester = $result_semester->fetch_assoc();
+
+$sql_courses = "SELECT course_id, subject_abbreviation, course_number, course_title
+FROM course c JOIN subject s ON (c.subject_id=s.subject_id)
+WHERE department_id='$department'";
+$result_courses = $conn->query($sql_courses);
+
+$sql_instructors = "SELECT instructor_id, first_name, last_name FROM instructor WHERE department_id='$department'";
+$result_instructors = $conn->query($sql_instructors);
+
+$sql_sections = "SELECT crn, subject_abbreviation, course_number, section_number, course_title, i.instructor_id, first_name, last_name, s.type_id, type_name, meeting_days, start_time, end_time, meeting_location, seat_capacity
+FROM course c JOIN section s ON (c.course_id=s.course_id) JOIN subject u ON (c.subject_id=u.subject_id) JOIN instructor i ON (s.instructor_id=i.instructor_id) JOIN course_type t ON (s.type_id=t.type_id) JOIN semester e ON (s.semester_id=e.semester_id) JOIN department d ON (c.department_id=d.department_id) JOIN course_level l ON (c.level_id=l.level_id)
+WHERE e.semester_id='$semester' AND d.department_id='$department'
+ORDER BY subject_abbreviation ASC, course_number ASC, section_number ASC";
+$result_sections = $conn->query($sql_sections);
 ?>
 
 <!DOCTYPE html>
@@ -31,13 +56,14 @@ include '../assets/admin/connect.php';
   <div class='container'>
 
     <h1>Section Management Dashboard</h1>
+
     <p style='margin-bottom:35px;'>You may add, edit, or remove course sections by clicking the appropriate buttons.</p>
 
-    <h2 style='margin-bottom:0; margin-top:35px;'>Computer Systems Technology</h2>
+    <h2 style='margin-bottom:0; margin-top:35px;'><?php echo $row_department['department_name']; ?></h2>
 
     <button type='button' class='btn btn-success pull-right' data-toggle='modal' data-target='#addNewSection' style='position:relative; bottom:5px;'>Add <span class='mobile-hide'>New Section</span></button>
 
-    <form action='' method='post'>
+    <form action='../admin/section-management-dashboard.php?semester=<?php echo $semester; ?>&department=<?php echo $department; ?>' method='post'>
       <div class='modal fade' id='addNewSection' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
         <div class='modal-dialog'>
           <div class='modal-content'>
@@ -45,7 +71,7 @@ include '../assets/admin/connect.php';
               <h4 class='modal-title'>Add New Section</h4>
             </div>
             <div class='modal-body'>
-              <p style='margin-bottom:25px;'>Enter the details for the class section you are adding in the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester below:</p>
+              <p style='margin-bottom:25px;'>Enter the details for the class section you are adding in the <strong><?php echo $row_department['department_name']; ?></strong> department during the <strong><?php echo $row_semester['semester_title']; ?></strong> semester below:</p>
               <div class='form-group'>
                 <label>CRN</label>
                 <input type='text' class='form-control' name='crn' minlength='5' maxlength='5' size='5' required>
@@ -54,15 +80,13 @@ include '../assets/admin/connect.php';
                 <label>Course</label>
                 <select class='form-control' name='course' required>
                   <option selected disabled>Select Course</option>
-                  <option value='tbd'>CST 101 - Microcomputer Applications</option>
-                  <option value='tbd'>CST 120 - Fundamentals of Technology</option>
-                  <option value='tbd'>CST 130 - Introduction to Unix/Linux</option>
-                  <option value='tbd'>CST 231 - Web Systems</option>
-                  <option value='tbd'>CST 240 - Applied Java Programming</option>
-                  <option value='tbd'>CST 325 - Computer Database Management II</option>
-                  <option value='tbd'>CST 460 - System Integration and Architecture</option>
-                  <option value='tbd'>CST 498 - Senior Project I: A Capstone Experience</option>
-                  <option value='tbd'>CST 499 - Senior Project II: A Capstone Experience</option>
+
+                  <?php
+                  while($row_courses = $result_courses->fetch_assoc()) {
+                    echo "<option value='" . $row_courses['course_id'] . "'>" . $row_courses['subject_abbreviation'] . " " . $row_courses['course_number'] . " - " . $row_courses['course_title'] . "</option>";
+                  }
+                  ?>
+
                 </select>
               </div>
               <div class='form-group'>
@@ -72,28 +96,40 @@ include '../assets/admin/connect.php';
               <div class='form-group'>
                 <label>Instructor</label>
                 <select class='form-control' name='instructor' required>
-                  <option selected disabled>Select Instructor</option>
-                  <option value='1'>Dewayne Brown</option>
-                  <option value='2'>Gina Bullock</option>
-                  <option value='3'>Karreem Hogan</option>
-                  <option value='4'>Anthony Joyner</option>
-                  <option value='5'>Catina Lynch</option>
-                  <option value='6'>Kathryn Moland</option>
-                  <option value='7'>Rahmira Rufus</option>
-                  <option value='8'>Mariama Sidibe</option>
-                  <option value='9'>Evelyn Sowells</option>
-                  <option value='10'>Li-Shiang Tsay</option>
-                  <option value='11'>Peter Udo</option>
-                  <option value='12'>Qingan Zeng</option>
+                  <option selected disabled>Select Instructor</option>";
+
+                  <?php
+                  while($row_instructors = $result_instructors->fetch_assoc()) {
+                    echo "<option value='" . $row_instructors['instructor_id'] . "'>" . $row_instructors['first_name'] . " " . $row_instructors['last_name'] . "</option>";
+                  }
+                  ?>
+
                 </select>
               </div>
+
+              <div class='form-group'>
+                <label>Course Type</label>
+                <select class='form-control' name='type' required>
+                  <option selected disabled>Select Course Type</option>";
+
+                  <?php
+                  $sql_types = "SELECT type_id, type_name FROM course_type";
+                  $result_types = $conn->query($sql_types);
+                  while($row_types = $result_types->fetch_assoc()) {
+                    echo "<option value='" . $row_types['type_id'] . "'>" . $row_types['type_name'] . "</option>";
+                  }
+                  ?>
+
+                </select>
+              </div>
+
               <div class='form-group'>
                 <label>Meeting Days</label><br>
-                <input type='checkbox' name='days' value='M'> Monday<br>
-                <input type='checkbox' name='days' value='T'> Tuesday<br>
-                <input type='checkbox' name='days' value='W'> Wednesday<br>
-                <input type='checkbox' name='days' value='R'> Thursday<br>
-                <input type='checkbox' name='days' value='F' style='margin-bottom:15px;'> Friday
+                <input type='checkbox' name='days[]' value='M'> Monday<br>
+                <input type='checkbox' name='days[]' value='T'> Tuesday<br>
+                <input type='checkbox' name='days[]' value='W'> Wednesday<br>
+                <input type='checkbox' name='days[]' value='R'> Thursday<br>
+                <input type='checkbox' name='days[]' value='F' style='margin-bottom:15px;'> Friday
               </div>
               <div class='form-group'>
                 <label>Start Time</label>
@@ -114,6 +150,7 @@ include '../assets/admin/connect.php';
             </div>
             <div class='modal-footer'>
               <button type='submit' class='btn btn-success'>Add Section</button>
+              <input type='hidden' name='addNewSection'>
               <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
             </div>
           </div>
@@ -121,1389 +158,328 @@ include '../assets/admin/connect.php';
       </div>
     </form>
 
-    <h3 style='margin-top:5px; margin-bottom:25px; border-bottom:1px solid #aaa; padding-bottom:10px;'>Spring 2020</h3>
+    <?php
+    if(isset($_POST['addNewSection'])) {
+      $crn=$_POST['crn'];
+      $course=$_POST['course'];
+      $section=$_POST['section'];
+      $instructor=$_POST['instructor'];
+      $type=$_POST['type'];
+      if (isset($_POST['days'])) {
+        $days = implode('', $_POST['days']);
+      }
+      $start=$_POST['start'];
+      $end=$_POST['end'];
+      $location=$_POST['location'];
+      $seats=$_POST['seats'];
 
-    <table class='table table-striped'>
+      $sql_create = "INSERT INTO section (crn, course_id, section_number, instructor_id, semester_id, type_id, meeting_days, start_time, end_time, meeting_location, seat_capacity) VALUES ('$crn', '$course', '$section', '$instructor', '$semester', '$type', '$days', '$start', '$end', '$location', '$seats')";
+      $conn->query($sql_create);
+      echo "<meta http-equiv='refresh' content='0'>";
+    }
+    ?>
+
+    <h3 style='margin-top:5px; margin-bottom:25px; border-bottom:1px solid #aaa; padding-bottom:10px;'><?php echo $row_semester['semester_title']; ?></h3>
+
+    <?php
+    if ($result_sections->num_rows > 0) {
+      echo "<table class='table table-striped'>
       <thead>
-        <tr>
-          <th>CRN</th>
-          <th>Course</th>
-          <th class='mobile-hide'>Section</th>
-          <th class='mobile-hide' style='width:200px;'>Title</th>
-          <th class='mobile-hide'>Instructor</th>
-          <th class='mobile-hide'>Days</th>
-          <th class='mobile-hide'>Times</th>
-          <th class='mobile-hide'>Location</th>
-          <th class='mobile-hide'>Seats</th>
-          <th>Actions</th>
-        </tr>
+      <tr>
+      <th>CRN</th>
+      <th>Course</th>
+      <th class='mobile-hide'>Section</th>
+      <th class='mobile-hide' style='width:200px;'>Title</th>
+      <th class='mobile-hide'>Instructor</th>
+      <th class='mobile-hide'>Days</th>
+      <th class='mobile-hide'>Times</th>
+      <th class='mobile-hide'>Location</th>
+      <th class='mobile-hide'>Seats</th>
+      <th>Actions</th>
+      </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>20928</td>
-          <td>CST 101</td>
-          <td class='mobile-hide'>001</td>
-          <td class='mobile-hide'>Microcomputer Applications</td>
-          <td class='mobile-hide'>Mariama Sidibe</td>
-          <td class='mobile-hide'>MWF</td>
-          <td class='mobile-hide'>10:00 AM - 10:50 AM</td>
-          <td class='mobile-hide'>Smith 4001</td>
-          <td class='mobile-hide'>40</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSection20928'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection20928'>Remove</button>
-          </td>
-        </tr>
+      <tbody>";
 
-        <form action='' method='post'>
-          <div class='modal fade' id='editSection20928' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Edit Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Enter your edits for the following class section below:</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='crn' value='20928' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='course' value='CST 101' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='section' value='001' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='title' value='Microcomputer Applications' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>
-                        <select class='form-control' name='instructor' required>
-                          <option disabled>Select Instructor</option>
-                          <option value='1'>Dewayne Brown</option>
-                          <option value='2'>Gina Bullock</option>
-                          <option value='3'>Karreem Hogan</option>
-                          <option value='4'>Anthony Joyner</option>
-                          <option value='5'>Catina Lynch</option>
-                          <option value='6'>Kathryn Moland</option>
-                          <option value='7'>Rahmira Rufus</option>
-                          <option selected value='8'>Mariama Sidibe</option>
-                          <option value='9'>Evelyn Sowells</option>
-                          <option value='10'>Li-Shiang Tsay</option>
-                          <option value='11'>Peter Udo</option>
-                          <option value='12'>Qingan Zeng</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>
-                        <select class='form-control' name='type' required>
-                          <option disabled>Select Course Type</option>
-                          <option value='1' selected>On-Campus</option>
-                          <option value='2'>Online</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8' style='margin-bottom:10px;'>
-                        <input type='checkbox' name='days' value='M' checked> Monday<br>
-                        <input type='checkbox' name='days' value='T'> Tuesday<br>
-                        <input type='checkbox' name='days' value='W' checked> Wednesday<br>
-                        <input type='checkbox' name='days' value='R'> Thursday<br>
-                        <input type='checkbox' name='days' value='F' checked> Friday
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Start Time</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='time' class='form-control' name='start' value='10:00'>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>End Time</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='time' class='form-control' name='end' value='10:50'>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='location' value='Smith 4001' required>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='seats' value='40' required>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-primary'>Submit</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
+      while($row_sections = $result_sections->fetch_assoc()) {
+        echo "<tr>
+        <td>" . $row_sections['crn'] . "</td>
+        <td>" . $row_sections['subject_abbreviation'] . " " . $row_sections['course_number'] . "</td>
+        <td class='mobile-hide'>" . $row_sections['section_number'] . "</td>
+        <td class='mobile-hide'>" . $row_sections['course_title'] . "</td>
+        <td class='mobile-hide'>" . $row_sections['first_name'] . " " . $row_sections['last_name'] . "</td>";
+
+        if ($row_sections['meeting_days'] === "")
+        {
+          echo "<td class='mobile-hide'>N/A</td>";
+          echo "<td class='mobile-hide'>N/A</td>";
+        } else {
+          echo "<td class='mobile-hide'>" . $row_sections['meeting_days'] . "</td>
+          <td class='mobile-hide'>" . date('g:i A', strtotime($row_sections['start_time'])) . " - " . date('g:i A', strtotime($row_sections['end_time'])) . "</td>";
+        }
+
+        echo "<td class='mobile-hide'>" . $row_sections['meeting_location'] . "</td>
+        <td class='mobile-hide'>" . $row_sections['seat_capacity'] . "</td>
+        <td>
+        <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSection" . $row_sections['crn'] . "'>Edit</button>
+        <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection" . $row_sections['crn'] . "'>Remove</button>
+        </td>
+        </tr>";
+
+        echo "<form action='' method='post'>
+        <div class='modal fade' id='removeSection" . $row_sections['crn'] . "' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'>
+        <div class='modal-content'>
+        <div class='modal-header'>
+        <h4 class='modal-title'>Remove Section</h4>
+        </div>
+        <div class='modal-body'>
+        <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>" . $row_department['department_name'] . "</strong> department during the <strong>" . $row_semester['semester_title'] . "</strong> semester?</p>
+        <div class='modal-data'>
+        <div class='row'>
+        <div class='col-sm-4'><strong>CRN</strong></div>
+        <div class='col-sm-8'>" . $row_sections['crn'] . "</div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Course Number</strong></div>
+        <div class='col-sm-8'>" . $row_sections['subject_abbreviation'] . " " . $row_sections['course_number'] . "</div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Section</strong></div>
+        <div class='col-sm-8'>" . $row_sections['section_number'] . "</div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Course Title</strong></div>
+        <div class='col-sm-8'>" . $row_sections['course_title'] . "</div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Instructor</strong></div>
+        <div class='col-sm-8'>" . $row_sections['first_name'] . " " . $row_sections['last_name'] . "</div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Course Type</strong></div>
+        <div class='col-sm-8'>" . $row_sections['type_name'] . "</div>
+        </div>";
+
+        if ($row_sections['meeting_days'] === "")
+        {
+          echo "<div class='row'>
+          <div class='col-sm-4'><strong>Meeting Days</strong></div>
+          <div class='col-sm-8'>N/A</div>
           </div>
-        </form>
-
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection20928' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>20928</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 101</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Microcomputer Applications</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Mariama Sidibe</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>On-Campus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>MWF</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>10:00 AM - 10:50 AM</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Smith 4001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>40</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
+          <div class='row'>
+          <div class='col-sm-4'><strong>Meeting Times</strong></div>
+          <div class='col-sm-8'>N/A</div>
+          </div>";
+        } else {
+          echo "<div class='row'>
+          <div class='col-sm-4'><strong>Meeting Days</strong></div>
+          <div class='col-sm-8'>" . $row_sections['meeting_days'] . "</div>
           </div>
-        </form>
+          <div class='row'>
+          <div class='col-sm-4'><strong>Meeting Times</strong></div>
+          <div class='col-sm-8'>" . date('g:i A', strtotime($row_sections['start_time'])) . " - " . date('g:i A', strtotime($row_sections['end_time'])) . "</div>
+          </div>";
+        }
 
-        <tr>
-          <td>21672</td>
-          <td>CST 101</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Microcomputer Applications</td>
-          <td class='mobile-hide'>Mariama Sidibe</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>35</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSection21672'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21672'>Remove</button>
-          </td>
-        </tr>
+        echo "<div class='row'>
+        <div class='col-sm-4'><strong>Meeting Location</strong></div>
+        <div class='col-sm-8'>" . $row_sections['meeting_location'] . "</div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Seat Capacity</strong></div>
+        <div class='col-sm-8'>" . $row_sections['seat_capacity'] . "</div>
+        </div>
+        </div>
+        </div>
+        <div class='modal-footer'>
+        <input type='hidden' name='crn' value='" . $row_sections['crn'] . "'>
+        <button type='submit' class='btn btn-danger'>Remove Section</button>
+        <input type='hidden' name='removeSection" . $row_sections['crn'] . "'>
+        <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        </form>";
 
-        <form action='' method='post'>
-          <div class='modal fade' id='editSection21672' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Edit Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Enter your edits for the following class section below:</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='crn' value='21672' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='course' value='CST 101' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='section' value='05A' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='title' value='Microcomputer Applications' disabled>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>
-                        <select class='form-control' name='instructor' required>
-                          <option disabled>Select Instructor</option>
-                          <option value='1'>Dewayne Brown</option>
-                          <option value='2'>Gina Bullock</option>
-                          <option value='3'>Karreem Hogan</option>
-                          <option value='4'>Anthony Joyner</option>
-                          <option value='5'>Catina Lynch</option>
-                          <option value='6'>Kathryn Moland</option>
-                          <option value='7'>Rahmira Rufus</option>
-                          <option selected value='8'>Mariama Sidibe</option>
-                          <option value='9'>Evelyn Sowells</option>
-                          <option value='10'>Li-Shiang Tsay</option>
-                          <option value='11'>Peter Udo</option>
-                          <option value='12'>Qingan Zeng</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>
-                        <select class='form-control' name='type' required>
-                          <option disabled>Select Course Type</option>
-                          <option value='1'>On-Campus</option>
-                          <option value='2' selected>Online</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8' style='margin-bottom:10px;'>
-                        <input type='checkbox' name='days' value='M'> Monday<br>
-                        <input type='checkbox' name='days' value='T'> Tuesday<br>
-                        <input type='checkbox' name='days' value='W'> Wednesday<br>
-                        <input type='checkbox' name='days' value='R'> Thursday<br>
-                        <input type='checkbox' name='days' value='F'> Friday
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Start Time</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='time' class='form-control' name='start'>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>End Time</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='time' class='form-control' name='end'>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='location' value='Blackboard' required>
-                      </div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>
-                        <input type='text' class='form-control' name='seats' value='35' required>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-primary'>Submit</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+        if(isset($_POST["removeSection" . $row_sections['crn']])) {
+          $crn=$_POST['crn'];
+          $sql_delete = "DELETE FROM section WHERE crn='$crn'";
+          $conn->query($sql_delete);
+          echo "<meta http-equiv='refresh' content='0'>";
+        }
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21672' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21672</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 101</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Microcomputer Applications</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Mariama Sidibe</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>35</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+        echo "<form action='' method='post'>
+        <div class='modal fade' id='editSection" . $row_sections['crn'] . "' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+        <div class='modal-dialog'>
+        <div class='modal-content'>
+        <div class='modal-header'>
+        <h4 class='modal-title'>Edit Section</h4>
+        </div>
+        <div class='modal-body'>
+        <p style='margin-bottom:25px;'>Enter your edits for the following class section below:</p>
+        <div class='modal-data'>
+        <div class='row'>
+        <div class='col-sm-4'><strong>CRN</strong></div>
+        <div class='col-sm-8'>
+        <input type='text' class='form-control' name='crn' value='" . $row_sections['crn'] . "' disabled>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Course Number</strong></div>
+        <div class='col-sm-8'>
+        <input type='text' class='form-control' name='course' value='" . $row_sections['course_number'] . "' disabled>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Section</strong></div>
+        <div class='col-sm-8'>
+        <input type='text' class='form-control' name='section' value='" . $row_sections['section_number'] . "' disabled>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Course Title</strong></div>
+        <div class='col-sm-8'>
+        <input type='text' class='form-control' name='title' value='" . $row_sections['course_title'] . "' disabled>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Instructor</strong></div>
+        <div class='col-sm-8'>
+        <select class='form-control' name='instructor' required>
+        <option disabled>Select Instructor</option>";
 
-        <tr>
-          <td>20929</td>
-          <td>CST 120</td>
-          <td class='mobile-hide'>001</td>
-          <td class='mobile-hide'>Fundamentals of Technology</td>
-          <td class='mobile-hide'>Dewayne Brown</td>
-          <td class='mobile-hide'>MWF</td>
-          <td class='mobile-hide'>2:00 PM - 2:50 PM</td>
-          <td class='mobile-hide'>Smith 2014</td>
-          <td class='mobile-hide'>100</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection20929'>Remove</button>
-          </td>
-        </tr>
+        $sql_instructors_2 = "SELECT instructor_id, first_name, last_name FROM instructor WHERE department_id='$department'";
+        $result_instructors_2 = $conn->query($sql_instructors_2);
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection20929' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>20929</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 120</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Fundamentals of Technology</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Dewayne Brown</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>On-Campus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>MWF</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>2:00 PM - 2:50 PM</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Smith 2014</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>100</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+        while($row_instructors_2 = $result_instructors_2->fetch_assoc()) {
+          echo "<option value='" . $row_instructors_2['instructor_id'] . "'";
+          if ($row_instructors_2['instructor_id']==$row_sections['instructor_id']) {
+            echo " selected";
+          }
+          echo ">" . $row_instructors_2['first_name'] . " " . $row_instructors_2['last_name'] . "</option>";
+        }
 
-        <tr>
-          <td>21102</td>
-          <td>CST 120</td>
-          <td class='mobile-hide'>002</td>
-          <td class='mobile-hide'>Fundamentals of Technology</td>
-          <td class='mobile-hide'>Dewayne Brown</td>
-          <td class='mobile-hide'>TR</td>
-          <td class='mobile-hide'>9:30 AM - 10:45 AM</td>
-          <td class='mobile-hide'>Smith 2014</td>
-          <td class='mobile-hide'>100</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21102'>Remove</button>
-          </td>
-        </tr>
+        echo "</select>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Course Type</strong></div>
+        <div class='col-sm-8'>
+        <select class='form-control' name='type' required>
+        <option disabled>Select Course Type</option>";
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21102' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21102</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 120</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>002</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Fundamentals of Technology</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Dewayne Brown</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>On-Campus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>TR</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>9:30 AM - 10:45 AM</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Smith 2014</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>100</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+        $sql_types = "SELECT type_id, type_name FROM course_type";
+        $result_types = $conn->query($sql_types);
 
-        <tr>
-          <td>21674</td>
-          <td>CST 130</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Introduction to Unix/Linux</td>
-          <td class='mobile-hide'>Catina Lynch</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>45</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21674'>Remove</button>
-          </td>
-        </tr>
+        while($row_types = $result_types->fetch_assoc()) {
+          echo "<option value='" . $row_types['type_id'] . "'";
+          if ($row_types['type_id']==$row_sections['type_id']) {
+            echo " selected";
+          }
+          echo ">" . $row_types['type_name'] . "</option>";
+        }
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21674' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21674</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 130</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Introduction to Unix/Linux</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Catina Lynch</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>45</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>21676</td>
-          <td>CST 231</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Web Systems</td>
-          <td class='mobile-hide'>Anthony Joyner</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>1</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21676'>Remove</button>
-          </td>
-        </tr>
+        echo "</select>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Meeting Days</strong></div>
+        <div class='col-sm-8' style='margin-bottom:10px;'>";
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21676' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21676</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 231</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Web Systems</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Anthony Joyner</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>1</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>20933</td>
-          <td>CST 240</td>
-          <td class='mobile-hide'>001</td>
-          <td class='mobile-hide'>Applied Java Programming</td>
-          <td class='mobile-hide'>Anthony Joyner</td>
-          <td class='mobile-hide'>TR</td>
-          <td class='mobile-hide'>6:00 PM - 7:15 PM</td>
-          <td class='mobile-hide'>Smith 4008</td>
-          <td class='mobile-hide'>28</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection20933'>Remove</button>
-          </td>
-        </tr>
+        echo "<input type='checkbox' name='days[]' value='M'";
+        if (strstr($row_sections['meeting_days'], "M")) {
+          echo " checked";
+        }
+        echo "> Monday<br>
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection20933' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>20933</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 240</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Applied Java Programming</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Anthony Joyner</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>On-Campus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>TR</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>6:00 PM - 7:15 PM</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Smith 4008</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>28</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>21239</td>
-          <td>CST 240</td>
-          <td class='mobile-hide'>002</td>
-          <td class='mobile-hide'>Applied Java Programming</td>
-          <td class='mobile-hide'>Peter Udo</td>
-          <td class='mobile-hide'>TR</td>
-          <td class='mobile-hide'>1:30 PM - 2:45 PM</td>
-          <td class='mobile-hide'>Smith 4001</td>
-          <td class='mobile-hide'>45</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21239'>Remove</button>
-          </td>
-        </tr>
+        <input type='checkbox' name='days[]' value='T'";
+        if (strstr($row_sections['meeting_days'], "T")) {
+          echo " checked";
+        }
+        echo "> Tuesday<br>
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21239' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21239</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 240</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>002</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Applied Java Programming</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Peter Udo</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>On-Campus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>TR</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>1:30 PM - 2:45 PM</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Smith 4001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>45</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>21675</td>
-          <td>CST 240</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Applied Java Programming</td>
-          <td class='mobile-hide'>Anthony Joyner</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>40</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21675'>Remove</button>
-          </td>
-        </tr>
+        <input type='checkbox' name='days[]' value='W'";
+        if (strstr($row_sections['meeting_days'], "W")) {
+          echo " checked";
+        }
+        echo "> Wednesday<br>
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21675' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21675</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 240</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Applied Java Programming</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Anthony Joyner</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>40</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>21186</td>
-          <td>CST 325</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Computer Database Management II</td>
-          <td class='mobile-hide'>Rahmira Rufus</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>40</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21186'>Remove</button>
-          </td>
-        </tr>
+        <input type='checkbox' name='days[]' value='R'";
+        if (strstr($row_sections['meeting_days'], "R")) {
+          echo " checked";
+        }
+        echo "> Thursday<br>
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21186' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21186</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 325</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Computer Database Management II</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Rahmira Rufus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>40</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>22088</td>
-          <td>CST 325</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Computer Database Management II</td>
-          <td class='mobile-hide'>Rahmira Rufus</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>25</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection22088'>Remove</button>
-          </td>
-        </tr>
+        <input type='checkbox' name='days[]' value='F'";
+        if (strstr($row_sections['meeting_days'], "F")) {
+          echo " checked";
+        }
+        echo "> Friday";
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection22088' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>22088</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 325</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Computer Database Management II</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Rahmira Rufus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>25</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>21654</td>
-          <td>CST 460</td>
-          <td class='mobile-hide'>001</td>
-          <td class='mobile-hide'>System Integration and Architecture</td>
-          <td class='mobile-hide'>Karreem Hogan</td>
-          <td class='mobile-hide'>TR</td>
-          <td class='mobile-hide'>9:30 AM - 10:45 AM</td>
-          <td class='mobile-hide'>Price 201-B</td>
-          <td class='mobile-hide'>35</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection21654'>Remove</button>
-          </td>
-        </tr>
+        echo "</div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Start Time</strong></div>
+        <div class='col-sm-8'>
+        <input type='time' class='form-control' name='start' value='" . $row_sections['start_time'] . "'>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>End Time</strong></div>
+        <div class='col-sm-8'>
+        <input type='time' class='form-control' name='end' value='" . $row_sections['end_time'] . "'>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Meeting Location</strong></div>
+        <div class='col-sm-8'>
+        <input type='text' class='form-control' name='location' value='" . $row_sections['meeting_location'] . "' required>
+        </div>
+        </div>
+        <div class='row'>
+        <div class='col-sm-4'><strong>Seat Capacity</strong></div>
+        <div class='col-sm-8'>
+        <input type='text' class='form-control' name='seats' value='" . $row_sections['seat_capacity'] . "' required>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class='modal-footer'>
+        <button type='submit' class='btn btn-primary'>Submit</button>
+        <input type='hidden' name='editSection" . $row_sections['crn'] . "'>
+        <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
+        </div>
+        </div>
+        </div>
+        </div>
+        </form>";
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection21654' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>21654</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 460</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>System Integration and Architecture</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Karreem Hogan</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>On-Campus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>TR</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>9:30 AM - 10:45 AM</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Price 201-B</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>35</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>20938</td>
-          <td>CST 498</td>
-          <td class='mobile-hide'>001</td>
-          <td class='mobile-hide'>Senior Project I: A Capstone Experience</td>
-          <td class='mobile-hide'>Evelyn Sowells</td>
-          <td class='mobile-hide'>TR</td>
-          <td class='mobile-hide'>11:00 AM - 12:15 PM</td>
-          <td class='mobile-hide'>Smith 4001</td>
-          <td class='mobile-hide'>40</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection20938'>Remove</button>
-          </td>
-        </tr>
+        if(isset($_POST["editSection" . $row_sections['crn']])) {
+          $crn=$_POST['crn'];
+          $instructor=$_POST['instructor'];
+          $type=$_POST['type'];
+          if (isset($_POST['days'])) {
+            $days = implode('', $_POST['days']);
+          }
+          $start=$_POST['start'];
+          $end=$_POST['end'];
+          $location=$_POST['location'];
+          $seats=$_POST['seats'];
+          $sql_update = "UPDATE section SET instructor_id='$instructor', type_id='$type',  meeting_days='$days', start_time='$start', end_time='$end', meeting_location='$location', seat_capacity='$seats' WHERE crn='$crn'";
+          $conn->query($sql_update);
+          echo "<meta http-equiv='refresh' content='0'>";
+        }
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection20938' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>20938</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 498</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Senior Project I: A Capstone Experience</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Evelyn Sowells</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>On-Campus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>TR</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>11:00 AM - 12:15 PM</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Smith 4001</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>40</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>22089</td>
-          <td>CST 498</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Senior Project I: A Capstone Experience</td>
-          <td class='mobile-hide'>Rahmira Rufus</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>25</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection22089'>Remove</button>
-          </td>
-        </tr>
+      }
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection22089' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>22089</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 498</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Senior Project I: A Capstone Experience</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Rahmira Rufus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>25</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-        <tr>
-          <td>22448</td>
-          <td>CST 499</td>
-          <td class='mobile-hide'>05A</td>
-          <td class='mobile-hide'>Senior Project II: A Capstone Experience</td>
-          <td class='mobile-hide'>Rahmira Rufus</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>N/A</td>
-          <td class='mobile-hide'>Blackboard</td>
-          <td class='mobile-hide'>30</td>
-          <td>
-            <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#editSectionTBD'>Edit</button>
-            <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#removeSection22448'>Remove</button>
-          </td>
-        </tr>
+      echo "</tbody>
+      </table>";
 
-        <form action='' method='post'>
-          <div class='modal fade' id='removeSection22448' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
-            <div class='modal-dialog'>
-              <div class='modal-content'>
-                <div class='modal-header'>
-                  <h4 class='modal-title'>Remove Section</h4>
-                </div>
-                <div class='modal-body'>
-                  <p style='margin-bottom:25px;'>Are you sure that you would like to remove the following section from the <strong>Computer Systems Technology</strong> department during the <strong>Spring 2020</strong> semester?</p>
-                  <div class='modal-data'>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>CRN</strong></div>
-                      <div class='col-sm-8'>22448</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Number</strong></div>
-                      <div class='col-sm-8'>CST 499</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Section</strong></div>
-                      <div class='col-sm-8'>05A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Title</strong></div>
-                      <div class='col-sm-8'>Senior Project II: A Capstone Experience</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Instructor</strong></div>
-                      <div class='col-sm-8'>Rahmira Rufus</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Course Type</strong></div>
-                      <div class='col-sm-8'>Online</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Days</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Times</strong></div>
-                      <div class='col-sm-8'>N/A</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Meeting Location</strong></div>
-                      <div class='col-sm-8'>Blackboard</div>
-                    </div>
-                    <div class='row'>
-                      <div class='col-sm-4'><strong>Seat Capacity</strong></div>
-                      <div class='col-sm-8'>30</div>
-                    </div>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button type='submit' class='btn btn-danger'>Remove Section</button>
-                  <button type='button' class='btn btn-default' data-dismiss='modal'>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
-
-      </tbody>
-    </table>
+    } else {
+      echo "<div class='alert alert-danger'><strong>Error: </strong>The department you have selected does not have any course sections being offered during the semester you have selected.</div>";
+    }
+    ?>
 
   </div>
 </body>
