@@ -1,8 +1,5 @@
 <?php
 include '../assets/financial-aid-officer/connect.php';
-
-$sql_semester = "SELECT semester_id, semester_title FROM semester ORDER BY start_date DESC";
-$result_semester = $conn->query($sql_semester);
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +24,7 @@ $result_semester = $conn->query($sql_semester);
     <h1>Award Assignment</h1>
     <p style='margin-bottom:35px;'>Select a semester and enter a banner ID to assign a financial aid award to a particular student.</p>
 
-    <form action='award-assignment-dashboard.php' method='get' style='margin-bottom:30px;' id='form'>
+    <form action='award-assignment-dashboard.php' method='post' style='margin-bottom:30px;' id='form'>
 
       <div class='row'>
         <div class='col-sm-6'>
@@ -35,11 +32,9 @@ $result_semester = $conn->query($sql_semester);
             <label>Semester</label>
             <select class='form-control' name='semester' required>
               <option disabled selected value>Select Semester</option>
-              <?php
-              while($row_semester = $result_semester->fetch_assoc()) {
-                echo "<option value='" . $row_semester['semester_id'] . "'>" . $row_semester['semester_title'] . "</option>";
-              }
-              ?>
+              <option value='8'>Summer II 2020</option>
+              <option value='7'>Summer I 2020</option>
+              <option value='6'>Spring 2020</option>
             </select>
           </div>
         </div>
