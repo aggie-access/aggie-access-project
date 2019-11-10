@@ -351,12 +351,33 @@ $result_corequisites = $conn->query($sql_corequisites);
         <div class='form-group'>
         <label>Credit Hours</label>
         <select class='form-control' name='credits' required>
-        <option disabled>Select Credit Hours</option>
-        <option value='1.0'>1.0</option>
-        <option value='2.0'>2.0</option>
-        <option value='3.0'>3.0</option>
-        <option value='4.0'>4.0</option>
-        </select>
+        <option disabled>Select Credit Hours</option>";
+
+        if ($row_courses['credit_hours']==='1.0') {
+          echo "<option value='1.0' selected>1.0</option>";
+        } else {
+          echo "<option value='1.0'>1.0</option>";
+        }
+
+        if ($row_courses['credit_hours']==='2.0') {
+          echo "<option value='2.0' selected>2.0</option>";
+        } else {
+          echo "<option value='2.0'>2.0</option>";
+        }
+
+        if ($row_courses['credit_hours']==='3.0') {
+          echo "<option value='3.0' selected>3.0</option>";
+        } else {
+          echo "<option value='3.0'>3.0</option>";
+        }
+
+        if ($row_courses['credit_hours']==='4.0') {
+          echo "<option value='4.0' selected>4.0</option>";
+        } else {
+          echo "<option value='4.0'>4.0</option>";
+        }
+
+        echo "</select>
         </div>
         <div class='form-group'>
         <label>Course Level</label>
