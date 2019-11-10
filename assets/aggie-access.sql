@@ -37,9 +37,9 @@ CREATE TABLE award (
   fall_amount_accepted DECIMAL(7,2),
   spring_amount_accepted DECIMAL(7,2),
   PRIMARY KEY (award_id),
-  FOREIGN KEY (banner_id) REFERENCES users(banner_id),
-  FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id),
-  FOREIGN KEY (fund_id) REFERENCES fund(fund_id)
+  FOREIGN KEY (banner_id) REFERENCES users(banner_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (fund_id) REFERENCES fund(fund_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO award
@@ -63,8 +63,8 @@ CREATE TABLE award_requirement_status (
   requirement_id INT(5) NOT NULL,
   completion_status ENUM('y','n') NOT NULL DEFAULT 'n',
   PRIMARY KEY (award_id, requirement_id),
-  FOREIGN KEY (award_id) REFERENCES award(award_id),
-  FOREIGN KEY (requirement_id) REFERENCES fund_requirements(requirement_id)
+  FOREIGN KEY (award_id) REFERENCES award(award_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (requirement_id) REFERENCES fund_requirements(requirement_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO award_requirement_status
@@ -84,7 +84,7 @@ CREATE TABLE classification (
   classification_title VARCHAR(255) NOT NULL,
   level_id INT(1) NOT NULL,
   PRIMARY KEY (classification_id),
-  FOREIGN KEY (level_id) REFERENCES course_level(level_id)
+  FOREIGN KEY (level_id) REFERENCES course_level(level_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO classification
@@ -127,12 +127,12 @@ CREATE TABLE course (
   corequisite_id INT(9) DEFAULT NULL,
   isbn VARCHAR(13) DEFAULT NULL,
   PRIMARY KEY (course_id),
-  FOREIGN KEY (department_id) REFERENCES department(department_id),
-  FOREIGN KEY (subject_id) REFERENCES subject(subject_id),
-  FOREIGN KEY (level_id) REFERENCES course_level(level_id),
-  FOREIGN KEY (prerequisite_id) REFERENCES course(course_id),
-  FOREIGN KEY (corequisite_id) REFERENCES course(course_id),
-  FOREIGN KEY (isbn) REFERENCES textbook(isbn)
+  FOREIGN KEY (department_id) REFERENCES department(department_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (subject_id) REFERENCES subject(subject_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (level_id) REFERENCES course_level(level_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (prerequisite_id) REFERENCES course(course_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (corequisite_id) REFERENCES course(course_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (isbn) REFERENCES textbook(isbn) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO course
@@ -193,7 +193,7 @@ CREATE TABLE degree (
   degree_title VARCHAR(255) NOT NULL,
   level_id INT(1) NOT NULL,
   PRIMARY KEY (degree_id),
-  FOREIGN KEY (level_id) REFERENCES course_level(level_id)
+  FOREIGN KEY (level_id) REFERENCES course_level(level_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO degree
@@ -216,7 +216,7 @@ CREATE TABLE department (
   department_name VARCHAR(255) NOT NULL,
   college_id INT(3) NOT NULL,
   PRIMARY KEY (department_id),
-  FOREIGN KEY (college_id) REFERENCES college(college_id)
+  FOREIGN KEY (college_id) REFERENCES college(college_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO department
@@ -285,7 +285,7 @@ CREATE TABLE fund_requirements (
   requirement_url VARCHAR(255) NOT NULL,
   fund_id INT(5) NOT NULL,
   PRIMARY KEY (requirement_id),
-  FOREIGN KEY (fund_id) REFERENCES fund(fund_id)
+  FOREIGN KEY (fund_id) REFERENCES fund(fund_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO fund_requirements
@@ -301,8 +301,8 @@ CREATE TABLE grades (
   registration_id INT(10) NOT NULL,
   letter_grade VARCHAR(2) DEFAULT NULL,
   PRIMARY KEY (grade_id),
-  FOREIGN KEY (registration_id) REFERENCES registration(registration_id),
-  FOREIGN KEY (letter_grade) REFERENCES grading_scale(letter_grade)
+  FOREIGN KEY (registration_id) REFERENCES registration(registration_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (letter_grade) REFERENCES grading_scale(letter_grade) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO grades
@@ -357,7 +357,7 @@ CREATE TABLE instructor (
   office_phone CHAR(10) DEFAULT NULL,
   department_id INT(5) NOT NULL,
   PRIMARY KEY (instructor_id),
-  FOREIGN KEY (department_id) REFERENCES department(department_id)
+  FOREIGN KEY (department_id) REFERENCES department(department_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO instructor
@@ -382,8 +382,8 @@ CREATE TABLE major (
   degree_id INT(5) NOT NULL,
   department_id INT(5) NOT NULL,
   PRIMARY KEY (major_id),
-  FOREIGN KEY (degree_id) REFERENCES degree(degree_id),
-  FOREIGN KEY (department_id) REFERENCES department(department_id)
+  FOREIGN KEY (degree_id) REFERENCES degree(degree_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (department_id) REFERENCES department(department_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO major
@@ -489,9 +489,9 @@ CREATE TABLE registration (
   semester_id INT(5) NOT NULL,
   crn INT(5) NOT NULL,
   PRIMARY KEY (registration_id),
-  FOREIGN KEY (banner_id) REFERENCES users(banner_id),
-  FOREIGN KEY (semester_id) REFERENCES semester(semester_id),
-  FOREIGN KEY (crn) REFERENCES section(crn)
+  FOREIGN KEY (banner_id) REFERENCES users(banner_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (semester_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (crn) REFERENCES section(crn) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO registration
@@ -513,8 +513,8 @@ CREATE TABLE registration_period (
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
   PRIMARY KEY (semester_id, classification_id),
-  FOREIGN KEY (semester_id) REFERENCES semester(semester_id),
-  FOREIGN KEY (classification_id) REFERENCES classification(classification_id)
+  FOREIGN KEY (semester_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (classification_id) REFERENCES classification(classification_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO registration_period
@@ -538,8 +538,8 @@ CREATE TABLE registration_pin (
   banner_id CHAR(9) NOT NULL,
   semester_id INT(5) NOT NULL,
   PRIMARY KEY (registration_pin, banner_id, semester_id),
-  FOREIGN KEY (banner_id) REFERENCES users(banner_id),
-  FOREIGN KEY (semester_id) REFERENCES semester(semester_id)
+  FOREIGN KEY (banner_id) REFERENCES users(banner_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (semester_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO registration_pin
@@ -560,10 +560,10 @@ CREATE TABLE school_year (
   summer_i_id INT(5) NOT NULL,
   summer_ii_id INT(5) NOT NULL,
   PRIMARY KEY (school_year_id),
-  FOREIGN KEY (fall_id) REFERENCES semester(semester_id),
-  FOREIGN KEY (spring_id) REFERENCES semester(semester_id),
-  FOREIGN KEY (summer_i_id) REFERENCES semester(semester_id),
-  FOREIGN KEY (summer_ii_id) REFERENCES semester(semester_id)
+  FOREIGN KEY (fall_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (spring_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (summer_i_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (summer_ii_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO school_year
@@ -585,10 +585,10 @@ CREATE TABLE section (
   meeting_location VARCHAR(255) NOT NULL,
   seat_capacity INT(3) NOT NULL,
   PRIMARY KEY (crn),
-  FOREIGN KEY (course_id) REFERENCES course(course_id),
-  FOREIGN KEY (instructor_id) REFERENCES instructor(instructor_id),
-  FOREIGN KEY (semester_id) REFERENCES semester(semester_id),
-  FOREIGN KEY (type_id) REFERENCES course_type(type_id)
+  FOREIGN KEY (course_id) REFERENCES course(course_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (instructor_id) REFERENCES instructor(instructor_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (semester_id) REFERENCES semester(semester_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (type_id) REFERENCES course_type(type_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO section
@@ -644,7 +644,7 @@ CREATE TABLE staff (
   middle_initial CHAR(1) DEFAULT NULL,
   last_name VARCHAR(255) NOT NULL,
   PRIMARY KEY (banner_id),
-  FOREIGN KEY (banner_id) REFERENCES users(banner_id)
+  FOREIGN KEY (banner_id) REFERENCES users(banner_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO staff
@@ -673,12 +673,12 @@ CREATE TABLE student (
   zip INT(5) NOT NULL,
   phone_number CHAR(10) NOT NULL,
   PRIMARY KEY (banner_id),
-  FOREIGN KEY (banner_id) REFERENCES users(banner_id),
-  FOREIGN KEY (level_id) REFERENCES course_level(level_id),
-  FOREIGN KEY (classification_id) REFERENCES classification(classification_id),
-  FOREIGN KEY (college_id) REFERENCES college(college_id),
-  FOREIGN KEY (degree_id) REFERENCES degree(degree_id),
-  FOREIGN KEY (major_id) REFERENCES major(major_id)
+  FOREIGN KEY (banner_id) REFERENCES users(banner_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (level_id) REFERENCES course_level(level_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (classification_id) REFERENCES classification(classification_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (college_id) REFERENCES college(college_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (degree_id) REFERENCES degree(degree_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (major_id) REFERENCES major(major_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO student
@@ -800,8 +800,8 @@ CREATE TABLE textbook (
   textbook_release_year YEAR(4) NOT NULL,
   publisher_id INT(5) NOT NULL,
   PRIMARY KEY (isbn),
-  FOREIGN KEY (author_id) REFERENCES author(author_id),
-  FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id)
+  FOREIGN KEY (author_id) REFERENCES author(author_id) ON UPDATE CASCADE ON DELETE CASCADE,
+  FOREIGN KEY (publisher_id) REFERENCES publisher(publisher_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO textbook
@@ -826,7 +826,7 @@ CREATE TABLE users (
   user_type_id INT(1) NOT NULL DEFAULT '1',
   status ENUM('y','n') NOT NULL DEFAULT 'y',
   PRIMARY KEY (banner_id),
-  FOREIGN KEY (user_type_id) REFERENCES user_type(user_type_id)
+  FOREIGN KEY (user_type_id) REFERENCES user_type(user_type_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 INSERT INTO users
