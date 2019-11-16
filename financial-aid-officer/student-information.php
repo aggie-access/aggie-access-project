@@ -24,7 +24,7 @@ include '../assets/financial-aid-officer/connect.php';
     <h1>Student Information</h1>
     <p style='margin-bottom:35px;'>Enter a student's banner ID to view their personal information and eligibility status.</p>
 
-    <form action='../financial-aid-officer/student-information.php' method='post' style='margin-bottom:30px;' id='form'>
+    <form action='' method='post' style='margin-bottom:30px;' id='form'>
 
       <div class='row'>
         <div class='col-sm-6'>
