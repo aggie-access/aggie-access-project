@@ -10,6 +10,18 @@ WHERE banner_id='$bannerID'";
 $result_user = $conn->query($sql_user);
 $row_user = $result_user->fetch_assoc();
 
+$sql_student="SELECT banner_id, first_name, middle_initial, last_name
+FROM student
+WHERE banner_id='$bannerID'";
+$result_student = $conn->query($sql_student);
+$row_student = $result_student->fetch_assoc();
+
+$sql_year="SELECT school_year_name
+FROM school_year
+WHERE school_year_id='$awardYear'";
+$result_year = $conn->query($sql_year);
+$row_year = $result_year->fetch_assoc();
+
 $sql_awards = "SELECT award_id, banner_id, a.fund_id, fund_title, fall_amount, spring_amount, fall_amount_accepted, spring_amount_accepted
 FROM award a JOIN fund f ON (a.fund_id=f.fund_id)
 WHERE banner_id='$bannerID' AND school_year_id='$awardYear'";
@@ -137,7 +149,11 @@ $result_funds = $conn->query($sql_funds);
       }
 
       if ($row_user['user_type_title']==='Student') {
-        echo "<p style='margin-bottom:35px;'>You can add, edit, and delete financial aid awards for the selected student using the appropriate buttons below.</p>";
+        echo "<p style='margin-bottom:35px;'>You can add, edit, and delete financial aid awards for the selected student using the appropriate buttons below.</p>
+
+        <h2 style='margin-bottom:0; margin-top:35px;'>" . $row_student['first_name'] . " " . $row_student['middle_initial'] . ". " . $row_student['last_name'] . " (" . $row_student['banner_id'] . ")</h2>
+        <h3 style='margin-top:5px; margin-bottom:25px; border-bottom:1px solid #aaa; padding-bottom:10px;'>" . $row_year['school_year_name'] . " Award Year</h3>";
+
         if ($result_awards->num_rows > 0) {
           echo "<table class='table table-striped'>
           <thead>
