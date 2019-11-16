@@ -24,7 +24,8 @@ $row_year = $result_year->fetch_assoc();
 
 $sql_awards = "SELECT award_id, banner_id, a.fund_id, fund_title, fall_amount, spring_amount, fall_amount_accepted, spring_amount_accepted
 FROM award a JOIN fund f ON (a.fund_id=f.fund_id)
-WHERE banner_id='$bannerID' AND school_year_id='$awardYear'";
+WHERE banner_id='$bannerID' AND school_year_id='$awardYear'
+ORDER BY fund_title ASC";
 $result_awards = $conn->query($sql_awards);
 
 $sql_funds = "SELECT * FROM fund ORDER BY fund_title ASC";
