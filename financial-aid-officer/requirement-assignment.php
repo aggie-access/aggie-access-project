@@ -39,7 +39,7 @@ include '../assets/financial-aid-officer/connect.php';
     <h1>Requirement Assignment</h1>
     <p style='margin-bottom:35px;'>Select an award year and enter the student Banner ID to update/enter Financial Aid information.</p>
 
-    <form action='requirement-assignment-dashboard.php' method='post' style='margin-bottom:30px;' id='form'>
+    <form action='requirement-assignment-dashboard.php' method='get' style='margin-bottom:30px;' id='form'>
 
       <div class='row'>
         <div class='col-sm-6'>
