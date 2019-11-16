@@ -50,7 +50,7 @@ $result_year = $conn->query($sql_year);
         <div class='col-sm-6'>
           <div class='form-group'>
             <label>Banner ID</label>
-            <input type='text' class='form-control' name='studentbannerid' minlength='9' maxlength='9' size='9' value = '' required>
+            <input type='text' class='form-control' name='banner-id' minlength='9' maxlength='9' size='9' value = '' required>
           </div>
         </div>
       </div>
