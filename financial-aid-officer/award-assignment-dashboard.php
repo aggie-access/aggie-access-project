@@ -155,21 +155,21 @@ $result_funds = $conn->query($sql_funds);
           while($row_awards = $result_awards->fetch_assoc()) {
             echo "<tr>
             <td>" . $row_awards['fund_title'] . "</td>
-            <td class='mobile-hide'>$" . $row_awards['fall_amount'] . "</td>
+            <td class='mobile-hide'>$" . number_format($row_awards['fall_amount'], 2) . "</td>
             <td class='mobile-hide'>";
 
             if (isset($row_awards['fall_amount_accepted'])) {
-              echo "$" . $row_awards['fall_amount_accepted'];
+              echo "$" . number_format($row_awards['fall_amount_accepted'], 2);
             } else {
               echo "N/A";
             }
 
             echo "</td>
-            <td class='mobile-hide'>$" . $row_awards['spring_amount'] . "</td>
+            <td class='mobile-hide'>$" . number_format($row_awards['spring_amount'], 2) . "</td>
             <td class='mobile-hide'>";
 
             if (isset($row_awards['spring_amount_accepted'])) {
-              echo "$" . $row_awards['spring_amount_accepted'];
+              echo "$" . number_format($row_awards['spring_amount_accepted'], 2);
             } else {
               echo "N/A";
             }
@@ -276,14 +276,14 @@ $result_funds = $conn->query($sql_funds);
             </div>
             <div class='row'>
             <div class='col-sm-5'><strong>Fall Amount Given</strong></div>
-            <div class='col-sm-7'>$" . $row_awards['fall_amount'] . "</div>
+            <div class='col-sm-7'>$" . number_format($row_awards['fall_amount'], 2) . "</div>
             </div>
             <div class='row'>
             <div class='col-sm-5'><strong>Fall Amount Accepted</strong></div>
             <div class='col-sm-7'>";
 
             if (isset($row_awards['fall_amount_accepted'])) {
-              echo "$" . $row_awards['fall_amount_accepted'];
+              echo "$" . number_format($row_awards['fall_amount_accepted'], 2);
             } else {
               echo "N/A";
             }
@@ -292,14 +292,14 @@ $result_funds = $conn->query($sql_funds);
             </div>
             <div class='row'>
             <div class='col-sm-5'><strong>Spring Amount Given</strong></div>
-            <div class='col-sm-7'>$" . $row_awards['spring_amount'] . "</div>
+            <div class='col-sm-7'>$" . number_format($row_awards['spring_amount'], 2) . "</div>
             </div>
             <div class='row'>
             <div class='col-sm-5'><strong>Spring Amount Accepted</strong></div>
             <div class='col-sm-7'>";
 
             if (isset($row_awards['spring_amount_accepted'])) {
-              echo "$" . $row_awards['spring_amount_accepted'];
+              echo "$" . number_format($row_awards['spring_amount_accepted'], 2);
             } else {
               echo "N/A";
             }
