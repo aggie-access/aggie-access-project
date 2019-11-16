@@ -1,5 +1,8 @@
 <?php
 include '../assets/financial-aid-officer/connect.php';
+
+$sql_year = "SELECT * FROM school_year ORDER BY school_year_name DESC";
+$result_year = $conn->query($sql_year);
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +32,18 @@ include '../assets/financial-aid-officer/connect.php';
       <div class='row'>
         <div class='col-sm-6'>
           <div class='form-group'>
-            <label>Semester</label>
-            <select class='form-control' name='semester' required>
-              <option disabled selected value>Select Semester</option>
-              <option value='8'>Summer II 2020</option>
-              <option value='7'>Summer I 2020</option>
-              <option value='6'>Spring 2020</option>
+            <label>Award Year</label>
+            <select class='form-control' name='award-year' required>
+              <option disabled selected value>Select Award Year</option>
+              <?php
+              while($row_year = $result_year->fetch_assoc()) {
+                echo "<option ";
+                if ($year_id == $row_year['school_year_id'] ) {
+                  echo 'selected ';
+                }
+                echo "value='" . $row_year['school_year_id'] . "'>" . $row_year['school_year_name'] . " Award Year</option>";
+              }
+              ?>
             </select>
           </div>
         </div>
