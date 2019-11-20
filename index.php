@@ -10,7 +10,7 @@ if (!empty($_GET['error'])) {
 <head>
   <title>Home</title>
   <?php include 'assets/header.php'; ?>
-  <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css?v=<?php echo date('U'); ?>">
+  <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css">
 </head>
 
 <body style="margin-top:0px; width:100%; height:100%;">
