@@ -212,7 +212,7 @@ label {
     border:0;
     -webkit-box-shadow:none;
     box-shadow:none;
-}
+  }
 }
 @media only screen and (max-width: 800px) {
   .nav>li.logout-collapse {
