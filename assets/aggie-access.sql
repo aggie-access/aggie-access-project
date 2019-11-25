@@ -854,10 +854,15 @@ VALUES
 CREATE UNIQUE INDEX indSectionCRN ON section(crn) USING HASH;
 CREATE UNIQUE INDEX indStudentBannerID ON student(banner_id) USING HASH;
 CREATE UNIQUE INDEX indCourseCourseID ON course(course_id) USING HASH;
-CREATE UNIQUE INDEX indSectionCourseID ON section(course_id) USING HASH;
+CREATE INDEX indSectionCourseID ON section(course_id) USING HASH;
 CREATE UNIQUE INDEX indUsersBannerID ON users(banner_id) USING HASH;
 
 -- Administrator Indexes
+CREATE INDEX indRegistrationBannerID ON registration(banner_id) USING HASH;
+CREATE INDEX indRegistrationCRN ON registration(crn) USING HASH;
+CREATE INDEX indRegistrationSemesterID ON registration(semester_id) USING HASH;
+CREATE UNIQUE INDEX indGradesRegistrationID ON grades(registration_id) USING HASH;
+CREATE UNIQUE INDEX indRegistrationRegistrationID ON registration(registration_id) USING HASH;
 
 -- Financial Aid Officer Indexes
 
