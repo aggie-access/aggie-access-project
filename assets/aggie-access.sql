@@ -865,5 +865,9 @@ CREATE UNIQUE INDEX indGradesRegistrationID ON grades(registration_id) USING HAS
 CREATE UNIQUE INDEX indRegistrationRegistrationID ON registration(registration_id) USING HASH;
 
 -- Financial Aid Officer Indexes
+CREATE UNIQUE INDEX indAwardAwardID ON award(award_id) USING HASH;
+CREATE INDEX indAwardFallAmount ON award(fall_amount) USING HASH;
+CREATE INDEX indAwardSpringAmount ON award(spring_amount) USING HASH;
+CREATE INDEX indAwardFundID ON award(fund_id) USING HASH;
 
 SET FOREIGN_KEY_CHECKS=1;
