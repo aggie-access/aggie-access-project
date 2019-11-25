@@ -850,4 +850,15 @@ VALUES
   (2, 'Administrator'),
   (3, 'Financial Aid Officer');
 
+-- Student Indexes
+CREATE UNIQUE INDEX indSectionCRN ON section(crn) USING HASH;
+CREATE UNIQUE INDEX indStudentBannerID ON student(banner_id) USING HASH;
+CREATE UNIQUE INDEX indCourseCourseID ON course(course_id) USING HASH;
+CREATE UNIQUE INDEX indSectionCourseID ON section(course_id) USING HASH;
+CREATE UNIQUE INDEX indUsersBannerID ON users(banner_id) USING HASH;
+
+-- Administrator Indexes
+
+-- Financial Aid Officer Indexes
+
 SET FOREIGN_KEY_CHECKS=1;
