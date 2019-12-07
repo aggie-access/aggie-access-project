@@ -603,7 +603,7 @@ $result_majors = $conn->query($sql_majors);
             if ($row_roles['user_type_id']==$row_students['user_type_id']) {
               echo " selected";
             }
-            echo ">" . $row_students['user_type_title'] . "</option>";
+            echo ">" . $row_roles['user_type_title'] . "</option>";
           }
 
           echo "</select>
@@ -762,7 +762,7 @@ $result_majors = $conn->query($sql_majors);
             if ($row_roles['user_type_id']==$row_staff['user_type_id']) {
               echo " selected";
             }
-            echo ">" . $row_staff['user_type_title'] . "</option>";
+            echo ">" . $row_roles['user_type_title'] . "</option>";
           }
 
           echo "</select>
